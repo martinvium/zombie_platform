@@ -16,6 +16,39 @@ public class SpriteFactory {
 
     String spritesPath = "assets/sprites/";
 
+    public Animation getPlayerShootAnimation() {
+        Animation ani = getAnimation(getPlayerShootImages());
+        ani.setLooping(false);
+        return ani;
+    }
+
+    public Animation getPlayerShootAnimationFlipped() {
+        Animation ani = getAnimation(getFlippedCopies(getPlayerShootImages()));
+        ani.setLooping(false);
+        return ani;
+    }
+
+    public Image[] getPlayerShootImages() {
+        return new Image[] {
+            loadImage("hero/attack/jared0200"),
+            loadImage("hero/attack/jared0201"),
+            loadImage("hero/attack/jared0202"),
+            loadImage("hero/attack/jared0203"),
+            loadImage("hero/attack/jared0204"),
+            loadImage("hero/attack/jared0205"),
+            loadImage("hero/attack/jared0206"),
+            loadImage("hero/attack/jared0207"),
+            loadImage("hero/attack/jared0208"),
+            loadImage("hero/attack/jared0209"),
+            loadImage("hero/attack/jared0210"),
+            loadImage("hero/attack/jared0211"),
+            loadImage("hero/attack/jared0212"),
+            loadImage("hero/attack/jared0213"),
+            loadImage("hero/attack/jared0214"),
+            loadImage("hero/attack/jared0215")
+        };
+    }
+
     public Animation getPlayerWalkAnimation() {
         return getAnimation(getPlayerImages());
     }

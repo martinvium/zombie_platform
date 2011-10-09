@@ -31,6 +31,8 @@ public class EntityFactory {
         Sprite sprite = new Sprite(
                 spriteFactory.getPlayerWalkAnimationFlipped(),
                 spriteFactory.getPlayerWalkAnimation(),
+                spriteFactory.getPlayerShootAnimationFlipped(),
+                spriteFactory.getPlayerShootAnimation(),
                 position);
         return new Player(sprite);
     }
@@ -40,6 +42,8 @@ public class EntityFactory {
             Sprite sprite = new Sprite(
                     spriteFactory.getZombieWalkAnimationFlipped(),
                     spriteFactory.getZombieWalkAnimation(),
+                    spriteFactory.getPlayerShootAnimationFlipped(),
+                    spriteFactory.getPlayerShootAnimation(),
                     position);
             return new Zombie(sprite);
         }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.codefuss.components;
 
 import org.newdawn.slick.Animation;
@@ -11,6 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.Log;
 
 /**
  *
@@ -18,18 +15,34 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class Sprite implements UpdateComponent, RenderComponent {
 
+    static final int ATTACK_TIME = 1000;
+
     Animation leftAnimation;
     Animation rightAnimation;
+    Animation attackLeftAnimation;
+    Animation attackRightAnimation;
     Animation currentAnimation;
     Vector2f position;
     float maxSpeed = 0.25f;
     float velocityX = 0f;
+    State state = State.RUNNING;
+    long stateTime;
 
-    public Sprite(Animation left, Animation right, Vector2f position) {
+    public enum State {
+        RUNNING, ATTACKING
+    }
+
+    public Sprite(Animation left, Animation right, Animation attackLeft, Animation attackRight, Vector2f position) {
         this.leftAnimation = left;
         this.rightAnimation = right;
+        this.attackLeftAnimation = attackLeft;
+        this.attackRightAnimation = attackRight;
         this.currentAnimation = right;
         this.position = position;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     public void setVelocityX(float velocity) {
@@ -42,13 +55,34 @@ public class Sprite implements UpdateComponent, RenderComponent {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
+        Animation newAnimation = currentAnimation;
         if(velocityX < 0) {
-            currentAnimation = leftAnimation;
+            newAnimation = leftAnimation;
         } else if(velocityX > 0) {
-            currentAnimation = rightAnimation;
+            newAnimation = rightAnimation;
         }
 
-        currentAnimation.update(delta);
+        if(state == State.ATTACKING) {
+            if(currentAnimation == leftAnimation) {
+                newAnimation = attackLeftAnimation;
+            } else if(currentAnimation == rightAnimation) {
+                newAnimation = attackRightAnimation;
+            }
+        }
+
+        if(currentAnimation != newAnimation) {
+            currentAnimation = newAnimation;
+            currentAnimation.restart();
+        } else {
+            currentAnimation.update(delta);
+        }
+
+        stateTime += delta;
+        if (state == State.ATTACKING && stateTime >= ATTACK_TIME) {
+            Log.debug("stop attacking");
+            setState(State.RUNNING);
+        }
+
         position.x += velocityX * delta;
     }
 

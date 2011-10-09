@@ -1,6 +1,7 @@
 package com.codefuss;
 
 
+import com.codefuss.actions.Attack;
 import com.codefuss.actions.MoveLeft;
 import com.codefuss.actions.MoveRight;
 import com.codefuss.actions.StopAction;
@@ -47,6 +48,7 @@ public class GameState extends BasicGameState {
     void initPlayer() {
         player = gameFactory.getEntityFactory().getPlayer(new Vector2f(0, 0));
         gameFactory.getInputManager().setDefaultAction(new StopAction(player.getSprite()));
+        gameFactory.getInputManager().mapToKey(new Attack(player.getSprite()), Input.KEY_SPACE);
         gameFactory.getInputManager().mapToKey(new MoveLeft(player.getSprite()), Input.KEY_LEFT);
         gameFactory.getInputManager().mapToKey(new MoveRight(player.getSprite()), Input.KEY_RIGHT);
         entities.add(player);

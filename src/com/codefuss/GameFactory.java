@@ -22,12 +22,20 @@ public class GameFactory {
     EntityFactory entityFactory;
     GameMap gameMap;
     InputManager inputManager;
+    SpriteFactory spriteFactory;
 
     Input input;
 
     public GameFactory(Properties properties, Input input) {
         this.properties = properties;
         this.input = input;
+    }
+
+    public SpriteFactory getSpriteFactory() {
+        if(spriteFactory == null) {
+            spriteFactory = new SpriteFactory();
+        }
+        return spriteFactory;
     }
 
     public InputManager getInputManager() {
@@ -39,7 +47,7 @@ public class GameFactory {
 
     public EntityFactory getEntityFactory() {
         if(entityFactory == null) {
-            entityFactory = new EntityFactory();
+            entityFactory = new EntityFactory(getSpriteFactory());
         }
         return entityFactory;
     }

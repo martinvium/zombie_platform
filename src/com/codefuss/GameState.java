@@ -3,6 +3,7 @@ package com.codefuss;
 
 import com.codefuss.actions.MoveLeft;
 import com.codefuss.actions.MoveRight;
+import com.codefuss.actions.StopAction;
 import com.codefuss.entities.Player;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -45,6 +46,7 @@ public class GameState extends BasicGameState {
 
     void initPlayer() {
         player = gameFactory.getEntityFactory().getPlayer(new Vector2f(0, 0));
+        gameFactory.getInputManager().setDefaultAction(new StopAction(player.getSprite()));
         gameFactory.getInputManager().mapToKey(new MoveLeft(player.getSprite()), Input.KEY_LEFT);
         gameFactory.getInputManager().mapToKey(new MoveRight(player.getSprite()), Input.KEY_RIGHT);
         entities.add(player);
@@ -52,7 +54,7 @@ public class GameState extends BasicGameState {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        gameFactory.getInputManager().poll();
+        gameFactory.getInputManager().getAction().invoke();
         for(Entity e : entities) {
             e.update(container, game, delta);
         }

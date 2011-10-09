@@ -15,23 +15,29 @@ import org.newdawn.slick.Input;
 public class InputManager {
 
     Input input;
-
     HashMap<Integer, Action> keyActions = new HashMap<Integer, Action>();
+    Action defaultAction;
     
     public InputManager(Input input) {
         this.input = input;
+    }
+
+    public void setDefaultAction(Action action) {
+        defaultAction = action;
     }
 
     public void mapToKey(Action action, int keyCode) {
         keyActions.put(keyCode, action);
     }
 
-    public void poll()
+    public Action getAction()
 	{
         for(int keyCode : keyActions.keySet()) {
-            if(keyActions.containsKey(keyCode)) {
-                keyActions.get(keyCode).invoke();
+            if(input.isKeyDown(keyCode)) {
+                return keyActions.get(keyCode);
             }
         }
+
+        return defaultAction;
 	}
 }

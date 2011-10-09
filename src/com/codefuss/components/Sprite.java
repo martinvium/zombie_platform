@@ -18,13 +18,17 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class Sprite implements UpdateComponent, RenderComponent {
 
-    Animation animation;
+    Animation leftAnimation;
+    Animation rightAnimation;
+    Animation currentAnimation;
     Vector2f position;
-    float maxSpeed = 0.2f;
+    float maxSpeed = 0.25f;
     float velocityX = 0f;
 
-    public Sprite(Animation animation, Vector2f position) {
-        this.animation = animation;
+    public Sprite(Animation left, Animation right, Vector2f position) {
+        this.leftAnimation = left;
+        this.rightAnimation = right;
+        this.currentAnimation = right;
         this.position = position;
     }
 
@@ -38,12 +42,18 @@ public class Sprite implements UpdateComponent, RenderComponent {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        animation.update(delta);
+        if(velocityX < 0) {
+            currentAnimation = leftAnimation;
+        } else if(velocityX > 0) {
+            currentAnimation = rightAnimation;
+        }
+
+        currentAnimation.update(delta);
         position.x += velocityX * delta;
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        g.drawAnimation(animation, position.x, position.y, Color.white);
+        g.drawAnimation(currentAnimation, position.x, position.y, Color.white);
     }
 }

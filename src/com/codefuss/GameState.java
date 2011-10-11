@@ -24,6 +24,7 @@ import org.newdawn.slick.util.Log;
 public class GameState extends BasicGameState {
 
     static public final int ID = 1;
+    static final int PLAYER_WIDTH = 128;
     
     GameFactory gameFactory;
     ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -63,7 +64,7 @@ public class GameState extends BasicGameState {
             e.update(container, game, delta);
         }
         
-        offsetX = player.getSprite().getX() - (container.getWidth() / 2) + 128;
+        offsetX = player.getSprite().getX() - (container.getWidth() / 2) + (player.getSprite().getWidth() / 2);
         if(offsetX < 0) {
             offsetX = 0;
         }

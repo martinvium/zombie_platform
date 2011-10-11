@@ -64,6 +64,14 @@ public class Sprite implements UpdateComponent, RenderComponent {
         return this.position.y;
     }
 
+    public int getWidth() {
+        return currentAnimation.getImage(0).getWidth();
+    }
+
+    public int getHeight() {
+        return currentAnimation.getImage(0).getHeight();
+    }
+
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
         Animation newAnimation = currentAnimation;

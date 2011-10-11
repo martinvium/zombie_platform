@@ -8,8 +8,8 @@ import com.codefuss.actions.MoveLeft;
 import com.codefuss.components.Sprite;
 import com.codefuss.entities.Block;
 import com.codefuss.entities.Player;
+import com.codefuss.entities.ShotgunFire;
 import com.codefuss.entities.Zombie;
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.Log;
 
@@ -37,7 +37,7 @@ public class EntityFactory {
                 spriteFactory.getPlayerShootAnimationFlipped(),
                 spriteFactory.getPlayerShootAnimation(),
                 position);
-        Player player = new Player(sprite);
+        Player player = new Player(this, sprite);
         player.init();
         return player;
     }
@@ -53,7 +53,7 @@ public class EntityFactory {
                     spriteFactory.getPlayerShootAnimationFlipped(),
                     spriteFactory.getPlayerShootAnimation(),
                     position);
-            Zombie zombie = new Zombie(sprite);
+            Zombie zombie = new Zombie(this, sprite);
             zombie.init();
             new MoveLeft(sprite).invoke();
             return zombie;
@@ -61,5 +61,9 @@ public class EntityFactory {
 
         Log.debug("invalid entity type: " + type);
         return null;
+    }
+
+    public Entity getShotgunFire() {
+        return new ShotgunFire();
     }
 }

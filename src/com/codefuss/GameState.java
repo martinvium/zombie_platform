@@ -51,7 +51,7 @@ public class GameState extends BasicGameState {
     void initPlayer() {
         player = gameFactory.getEntityFactory().getPlayer(new Vector2f(0, 0));
         gameFactory.getInputManager().setDefaultAction(new StopAction(player.getSprite()));
-        gameFactory.getInputManager().mapToKey(new Attack(player.getSprite()), Input.KEY_SPACE);
+        gameFactory.getInputManager().mapToKey(new Attack(player), Input.KEY_SPACE);
         gameFactory.getInputManager().mapToKey(new MoveLeft(player.getSprite()), Input.KEY_LEFT);
         gameFactory.getInputManager().mapToKey(new MoveRight(player.getSprite()), Input.KEY_RIGHT);
         entities.add(player);
@@ -59,11 +59,17 @@ public class GameState extends BasicGameState {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        gameFactory.getInputManager().getAction().invoke();
+        // run action and apply any resulting entities to stack
+        for(Entity e : gameFactory.getInputManager().getAction().invoke()) {
+            entities.add(e);
+        }
+
+        // update all entities
         for(Entity e : entities) {
             e.update(container, game, delta);
         }
-        
+
+        // calculate screen offset
         offsetX = player.getSprite().getX() - (container.getWidth() / 2) + (player.getSprite().getWidth() / 2);
         offsetX = getNormalizedOffset(container, offsetX);
     }

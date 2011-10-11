@@ -60,12 +60,16 @@ public class Sprite implements UpdateComponent, RenderComponent {
         return maxSpeed;
     }
 
+    public Vector2f getPosition() {
+        return position;
+    }
+
     public float getX() {
-        return this.position.x;
+        return position.x;
     }
 
     public float getY() {
-        return this.position.y;
+        return position.y;
     }
 
     public int getWidth() {

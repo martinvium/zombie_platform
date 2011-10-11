@@ -4,10 +4,13 @@
  */
 package com.codefuss.actions;
 
+import com.codefuss.Entity;
+import java.util.Collection;
+
 /**
  *
  * @author Martin Vium <martin.vium@gmail.com>
  */
 public interface Action {
-    public void invoke();
+    public Collection<Entity> invoke();
 }

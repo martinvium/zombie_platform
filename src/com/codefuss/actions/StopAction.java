@@ -4,7 +4,10 @@
  */
 package com.codefuss.actions;
 
+import com.codefuss.Entity;
 import com.codefuss.components.Sprite;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -19,7 +22,8 @@ public class StopAction implements Action {
     }
 
     @Override
-    public void invoke() {
+    public Collection<Entity> invoke() {
         sprite.setVelocityX(0);
+        return new ArrayList<Entity>();
     }
 }

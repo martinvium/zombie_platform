@@ -4,7 +4,10 @@
  */
 package com.codefuss.actions;
 
+import com.codefuss.Entity;
 import com.codefuss.components.Sprite;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -19,10 +22,11 @@ public class MoveRight implements Action {
     }
 
     @Override
-    public void invoke() {
+    public Collection<Entity> invoke() {
         float velocityX = 0;
         velocityX += sprite.getMaxSpeed();
         sprite.setVelocityX(velocityX);
         sprite.setState(Sprite.State.NORMAL);
+        return new ArrayList<Entity>();
     }
 }

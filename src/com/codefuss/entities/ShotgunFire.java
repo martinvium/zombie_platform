@@ -5,8 +5,6 @@
 package com.codefuss.entities;
 
 import com.codefuss.Entity;
-import com.codefuss.EntityFactory;
-import com.codefuss.components.Sprite;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -16,29 +14,20 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author Martin Vium <martin.vium@gmail.com>
  */
-abstract public class Creature implements Entity {
+public class ShotgunFire implements Entity {
 
-    EntityFactory entityFactory;
-    Sprite sprite;
-
-    public Creature(EntityFactory entityFactory, Sprite sprite) {
-        this.entityFactory = entityFactory;
-        this.sprite = sprite;
-    }
-
-    public Sprite getSprite() {
-        return sprite;
+    @Override
+    public void init() {
+        
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        sprite.update(container, game, delta);
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException {
-        sprite.render(container, game, g, offsetX);
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    abstract public Entity getMainAttack();
 }

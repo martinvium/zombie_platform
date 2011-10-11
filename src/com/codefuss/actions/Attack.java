@@ -1,26 +1,28 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.codefuss.actions;
 
+import com.codefuss.Entity;
 import com.codefuss.components.Sprite;
+import com.codefuss.entities.Creature;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
  * @author Martin Vium <martin.vium@gmail.com>
  */
-public class Attack implements Action {
+public class Attack extends BaseAction {
 
-    Sprite sprite;
-
-    public Attack(Sprite sprite) {
-        this.sprite = sprite;
+    public Attack(Creature creature) {
+        super(creature);
     }
 
     @Override
-    public void invoke() {
-        sprite.setState(Sprite.State.ATTACKING);
-        sprite.setVelocityX(0);
+    public Collection<Entity> invoke() {
+        creature.getSprite().setState(Sprite.State.ATTACKING);
+        creature.getSprite().setVelocityX(0);
+
+        ArrayList<Entity> ret = new ArrayList<Entity>();
+        ret.add(creature.getMainAttack());
+        return ret;
     }
 }

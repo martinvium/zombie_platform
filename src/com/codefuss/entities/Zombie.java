@@ -4,6 +4,8 @@
  */
 package com.codefuss.entities;
 
+import com.codefuss.Entity;
+import com.codefuss.EntityFactory;
 import com.codefuss.components.Sprite;
 
 /**
@@ -12,12 +14,17 @@ import com.codefuss.components.Sprite;
  */
 public class Zombie extends Creature {
 
-    public Zombie(Sprite sprite) {
-        super(sprite);
+    public Zombie(EntityFactory entityFactory, Sprite sprite) {
+        super(entityFactory, sprite);
     }
 
     @Override
     public void init() {
         this.sprite.setMaxSpeed(0.08f);
+    }
+
+    @Override
+    public Entity getMainAttack() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

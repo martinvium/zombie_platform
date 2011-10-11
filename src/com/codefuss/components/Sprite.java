@@ -25,11 +25,11 @@ public class Sprite implements UpdateComponent, RenderComponent {
     Vector2f position;
     float maxSpeed = 0.25f;
     float velocityX = 0f;
-    State state = State.RUNNING;
+    State state = State.NORMAL;
     long stateTime;
 
     public enum State {
-        RUNNING, ATTACKING
+        NORMAL, ATTACKING
     }
 
     public Sprite(Animation left, Animation right, Animation attackLeft, Animation attackRight, Vector2f position) {
@@ -99,7 +99,7 @@ public class Sprite implements UpdateComponent, RenderComponent {
         stateTime += delta;
         if (state == State.ATTACKING && stateTime >= ATTACK_TIME) {
             Log.debug("stop attacking");
-            setState(State.RUNNING);
+            setState(State.NORMAL);
             currentAnimation = rightAnimation;
         }
 

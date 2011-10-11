@@ -28,9 +28,10 @@ public class EntityFactory {
     }
 
     public Player getPlayer(Vector2f position) {
+        Log.debug("add player at: " + position.toString());
         Sprite sprite = new Sprite(
-                spriteFactory.getPlayerWalkAnimationFlipped(),
-                spriteFactory.getPlayerWalkAnimation(),
+                spriteFactory.getPlayerWalkAnimationLeft(),
+                spriteFactory.getPlayerWalkAnimationRight(),
                 spriteFactory.getPlayerShootAnimationFlipped(),
                 spriteFactory.getPlayerShootAnimation(),
                 position);
@@ -39,12 +40,13 @@ public class EntityFactory {
 
     public Entity getEntity(String type, String name, Vector2f position) {
         if (type.equals("zombie")) {
+            Log.debug("add zombie at: " + position.toString());
             Sprite sprite = new Sprite(
-                    spriteFactory.getZombieWalkAnimationFlipped(),
-                    spriteFactory.getZombieWalkAnimation(),
+                    spriteFactory.getZombieWalkAnimationLeft(),
+                    spriteFactory.getZombieWalkAnimationRight(),
                     spriteFactory.getPlayerShootAnimationFlipped(),
                     spriteFactory.getPlayerShootAnimation(),
-                    position);
+                    new Vector2f(0, 0));
             return new Zombie(sprite);
         }
 

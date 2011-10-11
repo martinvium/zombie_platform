@@ -21,5 +21,6 @@ public class Attack implements Action {
     @Override
     public void invoke() {
         sprite.setState(Sprite.State.ATTACKING);
+        sprite.setVelocityX(0);
     }
 }

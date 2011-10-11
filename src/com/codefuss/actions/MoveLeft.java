@@ -23,5 +23,6 @@ public class MoveLeft implements Action {
         float velocityX = 0;
         velocityX -= sprite.getMaxSpeed();
         sprite.setVelocityX(velocityX);
+        sprite.setState(Sprite.State.RUNNING);
     }
 }

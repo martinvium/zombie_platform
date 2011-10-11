@@ -15,7 +15,7 @@ import org.newdawn.slick.util.Log;
  */
 public class Sprite implements UpdateComponent, RenderComponent {
 
-    static final int ATTACK_TIME = 1000;
+    static final int ATTACK_TIME = 600;
 
     Animation leftAnimation;
     Animation rightAnimation;
@@ -42,7 +42,10 @@ public class Sprite implements UpdateComponent, RenderComponent {
     }
 
     public void setState(State state) {
-        this.state = state;
+        if (this.state != state) {
+            this.state = state;
+            stateTime = 0;
+        }
     }
 
     public void setVelocityX(float velocity) {
@@ -51,6 +54,14 @@ public class Sprite implements UpdateComponent, RenderComponent {
 
     public float getMaxSpeed() {
         return maxSpeed;
+    }
+
+    public float getX() {
+        return this.position.x;
+    }
+
+    public float getY() {
+        return this.position.y;
     }
 
     @Override
@@ -81,13 +92,14 @@ public class Sprite implements UpdateComponent, RenderComponent {
         if (state == State.ATTACKING && stateTime >= ATTACK_TIME) {
             Log.debug("stop attacking");
             setState(State.RUNNING);
+            currentAnimation = rightAnimation;
         }
 
         position.x += velocityX * delta;
     }
 
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        g.drawAnimation(currentAnimation, position.x, position.y, Color.white);
+    public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException {
+        g.drawAnimation(currentAnimation, position.x - offsetX, position.y, Color.white);
     }
 }

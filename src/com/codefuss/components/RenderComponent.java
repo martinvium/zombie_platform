@@ -14,5 +14,5 @@ import org.newdawn.slick.state.StateBasedGame;
  * @author Martin Vium <martin.vium@gmail.com>
  */
 public interface RenderComponent {
-    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException;
+    public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException;
 }

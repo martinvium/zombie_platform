@@ -49,11 +49,11 @@ public class SpriteFactory {
         };
     }
 
-    public Animation getPlayerWalkAnimation() {
+    public Animation getPlayerWalkAnimationRight() {
         return getAnimation(getPlayerImages());
     }
 
-    public Animation getPlayerWalkAnimationFlipped() {
+    public Animation getPlayerWalkAnimationLeft() {
         return getAnimation(getFlippedCopies(getPlayerImages()));
     }
 
@@ -79,23 +79,57 @@ public class SpriteFactory {
         };
     }
 
-    public Animation getZombieWalkAnimation() {
+    public Animation getZombieWalkAnimationLeft() {
         return getAnimation(getZombieWalkImages());
     }
 
-    public Animation getZombieWalkAnimationFlipped() {
+    public Animation getZombieWalkAnimationRight() {
         return getAnimation(getFlippedCopies(getZombieWalkImages()));
     }
 
     public Image[] getZombieWalkImages() {
         return new Image[] {
+            loadImage("zombie/walk/jared0133"),
+            loadImage("zombie/walk/jared0134"),
+            loadImage("zombie/walk/jared0135"),
+            loadImage("zombie/walk/jared0136"),
+            loadImage("zombie/walk/jared0137"),
+            loadImage("zombie/walk/jared0138"),
+            loadImage("zombie/walk/jared0139"),
+            loadImage("zombie/walk/jared0140"),
+            loadImage("zombie/walk/jared0141"),
+            loadImage("zombie/walk/jared0142"),
+            loadImage("zombie/walk/jared0143"),
             loadImage("zombie/walk/jared0144"),
             loadImage("zombie/walk/jared0145"),
             loadImage("zombie/walk/jared0146"),
             loadImage("zombie/walk/jared0147"),
             loadImage("zombie/walk/jared0148"),
             loadImage("zombie/walk/jared0149"),
-            loadImage("zombie/walk/jared0150")
+            loadImage("zombie/walk/jared0150"),
+            loadImage("zombie/walk/jared0151"),
+            loadImage("zombie/walk/jared0152"),
+            loadImage("zombie/walk/jared0153"),
+            loadImage("zombie/walk/jared0154"),
+            loadImage("zombie/walk/jared0155"),
+            loadImage("zombie/walk/jared0156"),
+            loadImage("zombie/walk/jared0157"),
+            loadImage("zombie/walk/jared0158"),
+            loadImage("zombie/walk/jared0159"),
+            loadImage("zombie/walk/jared0160"),
+            loadImage("zombie/walk/jared0161"),
+            loadImage("zombie/walk/jared0162"),
+            loadImage("zombie/walk/jared0163"),
+            loadImage("zombie/walk/jared0164"),
+            loadImage("zombie/walk/jared0165"),
+            loadImage("zombie/walk/jared0166"),
+            loadImage("zombie/walk/jared0167"),
+            loadImage("zombie/walk/jared0168"),
+            loadImage("zombie/walk/jared0169"),
+            loadImage("zombie/walk/jared0170"),
+            loadImage("zombie/walk/jared0171"),
+            loadImage("zombie/walk/jared0172"),
+            loadImage("zombie/walk/jared0173")
         };
     }
 

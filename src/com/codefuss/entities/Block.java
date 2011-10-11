@@ -17,13 +17,12 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Block implements Entity {
 
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
         //throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

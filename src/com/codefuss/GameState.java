@@ -15,6 +15,7 @@ import org.newdawn.slick.state.BasicGameState;
 import java.util.ArrayList;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.util.Log;
 
 /**
  *
@@ -27,6 +28,7 @@ public class GameState extends BasicGameState {
     GameFactory gameFactory;
     ArrayList<Entity> entities = new ArrayList<Entity>();
     Player player;
+    float offsetX = 0;
 
     @Override
     public int getID() {
@@ -60,13 +62,22 @@ public class GameState extends BasicGameState {
         for(Entity e : entities) {
             e.update(container, game, delta);
         }
+        
+        offsetX = player.getSprite().getX() - (container.getWidth() / 2) + 128;
+        if(offsetX < 0) {
+            offsetX = 0;
+        }
+
+        if(offsetX > gameFactory.getMap().getWidth() - gameFactory.getMap().getTiledMap().getTileWidth() - container.getWidth()) {
+            offsetX = gameFactory.getMap().getWidth() - gameFactory.getMap().getTiledMap().getTileWidth() - container.getWidth();
+        }
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        gameFactory.getMap().render();
+        gameFactory.getMap().render(-offsetX, 0);
         for(Entity e : entities) {
-            e.render(container, game, g);
+            e.render(container, game, g, offsetX);
         }
     }
 }

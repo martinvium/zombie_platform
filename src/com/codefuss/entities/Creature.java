@@ -33,7 +33,7 @@ abstract public class Creature implements Entity {
     }
 
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        sprite.render(container, game, g);
+    public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException {
+        sprite.render(container, game, g, offsetX);
     }
 }

@@ -56,8 +56,8 @@ public final class GameMap implements TileBasedMap {
         return tiledMap;
     }
 
-    public void render() {
-        tiledMap.render(0, 0);
+    public void render(float x, float y) {
+        tiledMap.render((int) x, (int) y);
     }
 
     @Override
@@ -68,6 +68,14 @@ public final class GameMap implements TileBasedMap {
     @Override
     public int getHeightInTiles() {
         return tiledMap.getHeight();
+    }
+
+    public int getWidth() {
+        return getWidthInTiles() * tiledMap.getTileWidth();
+    }
+
+    public int getHeight() {
+        return getHeightInTiles() * tiledMap.getTileHeight();
     }
 
     @Override

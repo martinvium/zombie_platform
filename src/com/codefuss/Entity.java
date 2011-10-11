@@ -16,5 +16,5 @@ import org.newdawn.slick.state.StateBasedGame;
 public interface Entity {
     public void update(GameContainer container, StateBasedGame game, int delta);
     
-    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException;
+    public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException;
 }

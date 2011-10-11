@@ -65,13 +65,7 @@ public class GameState extends BasicGameState {
         }
         
         offsetX = player.getSprite().getX() - (container.getWidth() / 2) + (player.getSprite().getWidth() / 2);
-        if(offsetX < 0) {
-            offsetX = 0;
-        }
-
-        if(offsetX > gameFactory.getMap().getWidth() - gameFactory.getMap().getTiledMap().getTileWidth() - container.getWidth()) {
-            offsetX = gameFactory.getMap().getWidth() - gameFactory.getMap().getTiledMap().getTileWidth() - container.getWidth();
-        }
+        offsetX = getNormalizedOffset(container, offsetX);
     }
 
     @Override
@@ -80,5 +74,17 @@ public class GameState extends BasicGameState {
         for(Entity e : entities) {
             e.render(container, game, g, offsetX);
         }
+    }
+
+    float getNormalizedOffset(GameContainer container, float offset) {
+        if(offset < 0) {
+            offset = 0;
+        }
+
+        if(offset > gameFactory.getMap().getWidth() - gameFactory.getMap().getTiledMap().getTileWidth() - container.getWidth()) {
+            offset = gameFactory.getMap().getWidth() - gameFactory.getMap().getTiledMap().getTileWidth() - container.getWidth();
+        }
+
+        return offset;
     }
 }

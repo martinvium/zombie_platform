@@ -32,6 +32,10 @@ public class Sprite implements UpdateComponent, RenderComponent {
         NORMAL, ATTACKING
     }
 
+    public void setMaxSpeed(float maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
     public Sprite(Animation left, Animation right, Animation attackLeft, Animation attackRight, Vector2f position) {
         this.leftAnimation = left;
         this.rightAnimation = right;

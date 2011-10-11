@@ -15,4 +15,9 @@ public class Zombie extends Creature {
     public Zombie(Sprite sprite) {
         super(sprite);
     }
+
+    @Override
+    public void init() {
+        this.sprite.setMaxSpeed(0.08f);
+    }
 }

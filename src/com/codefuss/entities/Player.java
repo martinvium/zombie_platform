@@ -11,4 +11,11 @@ final public class Player extends Creature {
     public Player(Sprite sprite) {
         super(sprite);
     }
+
+    @Override
+    public void init() {
+        this.sprite.setMaxSpeed(0.25f);
+    }
+
+
 }

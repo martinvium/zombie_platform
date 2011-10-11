@@ -14,6 +14,8 @@ import org.newdawn.slick.state.StateBasedGame;
  * @author Martin Vium <martin.vium@gmail.com>
  */
 public interface Entity {
+    public void init();
+
     public void update(GameContainer container, StateBasedGame game, int delta);
     
     public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException;

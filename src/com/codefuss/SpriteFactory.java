@@ -17,13 +17,13 @@ public class SpriteFactory {
     String spritesPath = "assets/sprites/";
 
     public Animation getPlayerShootAnimation() {
-        Animation ani = getAnimation(getPlayerShootImages());
+        Animation ani = getAnimation(getPlayerShootImages(), 70);
         ani.setLooping(false);
         return ani;
     }
 
     public Animation getPlayerShootAnimationFlipped() {
-        Animation ani = getAnimation(getFlippedCopies(getPlayerShootImages()));
+        Animation ani = getAnimation(getFlippedCopies(getPlayerShootImages()), 70);
         ani.setLooping(false);
         return ani;
     }
@@ -50,11 +50,11 @@ public class SpriteFactory {
     }
 
     public Animation getPlayerWalkAnimationRight() {
-        return getAnimation(getPlayerImages());
+        return getAnimation(getPlayerImages(), 70);
     }
 
     public Animation getPlayerWalkAnimationLeft() {
-        return getAnimation(getFlippedCopies(getPlayerImages()));
+        return getAnimation(getFlippedCopies(getPlayerImages()), 70);
     }
 
     public Image[] getPlayerImages() {
@@ -80,11 +80,11 @@ public class SpriteFactory {
     }
 
     public Animation getZombieWalkAnimationLeft() {
-        return getAnimation(getZombieWalkImages());
+        return getAnimation(getZombieWalkImages(), 70);
     }
 
     public Animation getZombieWalkAnimationRight() {
-        return getAnimation(getFlippedCopies(getZombieWalkImages()));
+        return getAnimation(getFlippedCopies(getZombieWalkImages()), 70);
     }
 
     public Image[] getZombieWalkImages() {
@@ -133,8 +133,7 @@ public class SpriteFactory {
         };
     }
 
-    Animation getAnimation(Image[] images) {
-        int defaultDuration = 70;
+    Animation getAnimation(Image[] images, int defaultDuration) {
         Animation ani = new Animation();
 
         for(Image image : images) {

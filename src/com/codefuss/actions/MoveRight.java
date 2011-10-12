@@ -26,7 +26,7 @@ public class MoveRight implements Action {
         float velocityX = 0;
         velocityX += sprite.getMaxSpeed();
         sprite.setVelocityX(velocityX);
-        sprite.setState(Sprite.State.NORMAL);
+        sprite.setState(Sprite.State.IDLE);
         return new ArrayList<Entity>();
     }
 }

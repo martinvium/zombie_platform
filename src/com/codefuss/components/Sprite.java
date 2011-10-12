@@ -1,5 +1,7 @@
 package com.codefuss.components;
 
+import com.codefuss.StateAnimation;
+import java.util.EnumMap;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -7,15 +9,12 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.Log;
 
 /**
  *
  * @author Martin Vium <martin.vium@gmail.com>
  */
 public class Sprite implements UpdateComponent, RenderComponent {
-
-    static final int ATTACK_TIME = 600;
 
     Animation leftAnimation;
     Animation rightAnimation;
@@ -25,24 +24,30 @@ public class Sprite implements UpdateComponent, RenderComponent {
     Vector2f position;
     float maxSpeed = 0.25f;
     float velocityX = 0f;
-    State state = State.NORMAL;
+    State state = State.IDLE;
     long stateTime;
+    Direction direction = Direction.RIGHT;
+
+    EnumMap<State, StateAnimation> stateAnimations = new EnumMap<State, StateAnimation>(State.class);
+
+    public enum Direction {
+        LEFT, RIGHT
+    }
 
     public enum State {
-        NORMAL, ATTACKING
+        IDLE, WALKING, ATTACKING, JUMPING
+    }
+
+    public Sprite(Vector2f position) {
+        this.position = position;
+    }
+
+    public void addStateAnimation(StateAnimation state) {
+        stateAnimations.put(state.getState(), state);
     }
 
     public void setMaxSpeed(float maxSpeed) {
         this.maxSpeed = maxSpeed;
-    }
-
-    public Sprite(Animation left, Animation right, Animation attackLeft, Animation attackRight, Vector2f position) {
-        this.leftAnimation = left;
-        this.rightAnimation = right;
-        this.attackLeftAnimation = attackLeft;
-        this.attackRightAnimation = attackRight;
-        this.currentAnimation = right;
-        this.position = position;
     }
 
     public void setState(State state) {
@@ -82,20 +87,14 @@ public class Sprite implements UpdateComponent, RenderComponent {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        Animation newAnimation = currentAnimation;
         if(velocityX < 0) {
-            newAnimation = leftAnimation;
+            direction = Direction.LEFT;
         } else if(velocityX > 0) {
-            newAnimation = rightAnimation;
+            direction = Direction.RIGHT;
         }
 
-        if(state == State.ATTACKING) {
-            if(currentAnimation == leftAnimation) {
-                newAnimation = attackLeftAnimation;
-            } else if(currentAnimation == rightAnimation) {
-                newAnimation = attackRightAnimation;
-            }
-        }
+        StateAnimation stateAnimation = stateAnimations.get(state);
+        Animation newAnimation = stateAnimation.getCurrent(direction);
 
         if(currentAnimation != newAnimation) {
             currentAnimation = newAnimation;
@@ -105,10 +104,8 @@ public class Sprite implements UpdateComponent, RenderComponent {
         }
 
         stateTime += delta;
-        if (state == State.ATTACKING && stateTime >= ATTACK_TIME) {
-            Log.debug("stop attacking");
-            setState(State.NORMAL);
-            currentAnimation = rightAnimation;
+        if(stateAnimation.expired(stateTime)) {
+            setState(State.IDLE);
         }
 
         position.x += velocityX * delta;
@@ -116,6 +113,8 @@ public class Sprite implements UpdateComponent, RenderComponent {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException {
-        g.drawAnimation(currentAnimation, position.x - offsetX, position.y, Color.white);
+        if(currentAnimation != null) {
+            g.drawAnimation(currentAnimation, position.x - offsetX, position.y, Color.white);
+        }
     }
 }

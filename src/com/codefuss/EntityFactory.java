@@ -19,9 +19,9 @@ import org.newdawn.slick.util.Log;
  */
 public class EntityFactory {
 
-    SpriteFactory spriteFactory;
+    AnimationFactory spriteFactory;
 
-    public EntityFactory(SpriteFactory spriteFactory) {
+    public EntityFactory(AnimationFactory spriteFactory) {
         this.spriteFactory = spriteFactory;
     }
 
@@ -31,12 +31,13 @@ public class EntityFactory {
 
     public Player getPlayer(Vector2f position) {
         Log.debug("add player at: " + position.toString());
-        Sprite sprite = new Sprite(
-                spriteFactory.getPlayerWalkAnimationLeft(),
-                spriteFactory.getPlayerWalkAnimationRight(),
-                spriteFactory.getPlayerShootAnimationFlipped(),
-                spriteFactory.getPlayerShootAnimation(),
-                position);
+        Sprite sprite = new Sprite(position);
+        sprite.addStateAnimation(new StateAnimation(spriteFactory.getPlayerWalkAnimationLeft(),
+                spriteFactory.getPlayerWalkAnimationRight(), Sprite.State.IDLE, 0));
+        sprite.addStateAnimation(new StateAnimation(spriteFactory.getPlayerWalkAnimationLeft(),
+                spriteFactory.getPlayerWalkAnimationRight(), Sprite.State.WALKING, 0));
+        sprite.addStateAnimation(new StateAnimation(spriteFactory.getPlayerShootAnimationFlipped(),
+                spriteFactory.getPlayerShootAnimation(), Sprite.State.ATTACKING, 600));
         Player player = new Player(this, sprite);
         player.init();
         return player;
@@ -44,15 +45,12 @@ public class EntityFactory {
 
     public Entity getEntity(String type, String name, Vector2f position) {
         if (type.equals("zombie")) {
-            Log.debug("add zombie at: " + position.toString());
-            //Animation left = spriteFactory.getZombieWalkAnimationLeft();
             position.y = 8;
-            Sprite sprite = new Sprite(
-                    spriteFactory.getZombieWalkAnimationLeft(),
-                    spriteFactory.getZombieWalkAnimationRight(),
-                    spriteFactory.getPlayerShootAnimationFlipped(),
-                    spriteFactory.getPlayerShootAnimation(),
-                    position);
+            Sprite sprite = new Sprite(position);
+            sprite.addStateAnimation(new StateAnimation(spriteFactory.getZombieWalkAnimationLeft(),
+                    spriteFactory.getZombieWalkAnimationRight(), Sprite.State.IDLE, 0));
+            sprite.addStateAnimation(new StateAnimation(spriteFactory.getZombieWalkAnimationLeft(),
+                    spriteFactory.getZombieWalkAnimationRight(), Sprite.State.WALKING, 0));
             Zombie zombie = new Zombie(this, sprite);
             zombie.init();
             new MoveLeft(sprite).invoke();

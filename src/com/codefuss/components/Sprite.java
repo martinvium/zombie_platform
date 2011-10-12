@@ -24,7 +24,7 @@ public class Sprite implements UpdateComponent, RenderComponent {
     Vector2f position;
     float maxSpeed = 0.25f;
     float velocityX = 0f;
-    State state = State.IDLE;
+    State state = State.NORMAL;
     long stateTime;
     Direction direction = Direction.RIGHT;
 
@@ -35,7 +35,7 @@ public class Sprite implements UpdateComponent, RenderComponent {
     }
 
     public enum State {
-        IDLE, WALKING, ATTACKING, JUMPING
+        NORMAL, WALKING, ATTACKING, JUMPING
     }
 
     public Sprite(Vector2f position) {
@@ -66,7 +66,7 @@ public class Sprite implements UpdateComponent, RenderComponent {
     }
 
     public Vector2f getPosition() {
-        return position;
+        return position.copy();
     }
 
     public float getX() {
@@ -105,7 +105,7 @@ public class Sprite implements UpdateComponent, RenderComponent {
 
         stateTime += delta;
         if(stateAnimation.expired(stateTime)) {
-            setState(State.IDLE);
+            setState(State.NORMAL);
         }
 
         position.x += velocityX * delta;

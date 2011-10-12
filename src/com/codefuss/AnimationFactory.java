@@ -14,7 +14,7 @@ public class AnimationFactory {
 
     public Animation getShotgunFireAnimation() {
         Animation ani = getAnimation(new Image[] { loadImage("hero/shotgun_fire")}, 300);
-        ani.setLooping(false);
+        ani.setLooping(true);
         return ani;
     }
 

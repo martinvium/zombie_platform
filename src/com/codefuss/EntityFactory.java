@@ -33,7 +33,7 @@ public class EntityFactory {
         Log.debug("add player at: " + position.toString());
         Sprite sprite = new Sprite(position);
         sprite.addStateAnimation(new StateAnimation(spriteFactory.getPlayerWalkAnimationLeft(),
-                spriteFactory.getPlayerWalkAnimationRight(), Sprite.State.IDLE, 0));
+                spriteFactory.getPlayerWalkAnimationRight(), Sprite.State.NORMAL, 0));
         sprite.addStateAnimation(new StateAnimation(spriteFactory.getPlayerWalkAnimationLeft(),
                 spriteFactory.getPlayerWalkAnimationRight(), Sprite.State.WALKING, 0));
         sprite.addStateAnimation(new StateAnimation(spriteFactory.getPlayerShootAnimationFlipped(),
@@ -48,7 +48,7 @@ public class EntityFactory {
             position.y = 8;
             Sprite sprite = new Sprite(position);
             sprite.addStateAnimation(new StateAnimation(spriteFactory.getZombieWalkAnimationLeft(),
-                    spriteFactory.getZombieWalkAnimationRight(), Sprite.State.IDLE, 0));
+                    spriteFactory.getZombieWalkAnimationRight(), Sprite.State.NORMAL, 0));
             sprite.addStateAnimation(new StateAnimation(spriteFactory.getZombieWalkAnimationLeft(),
                     spriteFactory.getZombieWalkAnimationRight(), Sprite.State.WALKING, 0));
             Zombie zombie = new Zombie(this, sprite);
@@ -61,7 +61,11 @@ public class EntityFactory {
         return null;
     }
 
-    public Entity getShotgunFire() {
-        return new ShotgunFire();
+    public Entity getShotgunFire(Vector2f position) {
+        Sprite sprite = new Sprite(position);
+        sprite.addStateAnimation(new StateAnimation(spriteFactory.getShotgunFireAnimation(), 
+                spriteFactory.getShotgunFireAnimation(), Sprite.State.NORMAL, 300));
+        sprite.setVelocityX(0.2f);
+        return new ShotgunFire(sprite);
     }
 }

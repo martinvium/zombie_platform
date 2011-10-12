@@ -5,6 +5,7 @@
 package com.codefuss.entities;
 
 import com.codefuss.Entity;
+import com.codefuss.components.Sprite;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -16,6 +17,12 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class ShotgunFire implements Entity {
 
+    Sprite sprite;
+
+    public ShotgunFire(Sprite sprite) {
+        this.sprite = sprite;
+    }
+
     @Override
     public void init() {
         
@@ -23,11 +30,11 @@ public class ShotgunFire implements Entity {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        //throw new UnsupportedOperationException("Not supported yet.");
+        sprite.update(container, game, delta);
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException {
-        //throw new UnsupportedOperationException("Not supported yet.");
+        sprite.render(container, game, g, offsetX);
     }
 }

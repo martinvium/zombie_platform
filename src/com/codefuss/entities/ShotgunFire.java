@@ -1,40 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.codefuss.entities;
 
-import com.codefuss.Entity;
-import com.codefuss.components.Sprite;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.geom.Vector2f;
 
 /**
  *
  * @author Martin Vium <martin.vium@gmail.com>
  */
-public class ShotgunFire implements Entity {
+public class ShotgunFire extends Sprite {
 
-    Sprite sprite;
-
-    public ShotgunFire(Sprite sprite) {
-        this.sprite = sprite;
+    public ShotgunFire(Vector2f position) {
+        super(position);
     }
 
     @Override
     public void init() {
-        
-    }
-
-    @Override
-    public void update(GameContainer container, StateBasedGame game, int delta) {
-        sprite.update(container, game, delta);
-    }
-
-    @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException {
-        sprite.render(container, game, g, offsetX);
+        setVelocityX(0.5f);
     }
 }

@@ -6,38 +6,19 @@ package com.codefuss.entities;
 
 import com.codefuss.Entity;
 import com.codefuss.EntityFactory;
-import com.codefuss.components.Sprite;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.geom.Vector2f;
 
 /**
  *
  * @author Martin Vium <martin.vium@gmail.com>
  */
-abstract public class Creature implements Entity {
+abstract public class Creature extends Sprite {
 
     EntityFactory entityFactory;
-    Sprite sprite;
 
-    public Creature(EntityFactory entityFactory, Sprite sprite) {
+    public Creature(Vector2f position, EntityFactory entityFactory) {
+        super(position);
         this.entityFactory = entityFactory;
-        this.sprite = sprite;
-    }
-
-    public Sprite getSprite() {
-        return sprite;
-    }
-
-    @Override
-    public void update(GameContainer container, StateBasedGame game, int delta) {
-        sprite.update(container, game, delta);
-    }
-
-    @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException {
-        sprite.render(container, game, g, offsetX);
     }
 
     abstract public Entity getMainAttack();

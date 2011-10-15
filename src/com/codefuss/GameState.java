@@ -50,10 +50,10 @@ public class GameState extends BasicGameState {
 
     void initPlayer() {
         player = gameFactory.getEntityFactory().getPlayer(new Vector2f(0, 0));
-        gameFactory.getInputManager().setDefaultAction(new StopAction(player.getSprite()));
+        gameFactory.getInputManager().setDefaultAction(new StopAction(player));
         gameFactory.getInputManager().mapToKey(new Attack(player), Input.KEY_SPACE);
-        gameFactory.getInputManager().mapToKey(new MoveLeft(player.getSprite()), Input.KEY_LEFT);
-        gameFactory.getInputManager().mapToKey(new MoveRight(player.getSprite()), Input.KEY_RIGHT);
+        gameFactory.getInputManager().mapToKey(new MoveLeft(player), Input.KEY_LEFT);
+        gameFactory.getInputManager().mapToKey(new MoveRight(player), Input.KEY_RIGHT);
         entities.add(player);
     }
 
@@ -70,7 +70,7 @@ public class GameState extends BasicGameState {
         }
 
         // calculate screen offset
-        offsetX = player.getSprite().getX() - (container.getWidth() / 2) + (player.getSprite().getWidth() / 2);
+        offsetX = player.getX() - (container.getWidth() / 2) + (player.getWidth() / 2);
         offsetX = getNormalizedOffset(container, offsetX);
     }
 

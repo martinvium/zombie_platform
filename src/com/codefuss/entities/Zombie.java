@@ -6,7 +6,7 @@ package com.codefuss.entities;
 
 import com.codefuss.Entity;
 import com.codefuss.EntityFactory;
-import com.codefuss.components.Sprite;
+import org.newdawn.slick.geom.Vector2f;
 
 /**
  *
@@ -14,13 +14,13 @@ import com.codefuss.components.Sprite;
  */
 public class Zombie extends Creature {
 
-    public Zombie(EntityFactory entityFactory, Sprite sprite) {
-        super(entityFactory, sprite);
+    public Zombie(Vector2f position, EntityFactory entityFactory) {
+        super(position, entityFactory);
     }
 
     @Override
     public void init() {
-        this.sprite.setMaxSpeed(0.08f);
+        setMaxSpeed(0.08f);
     }
 
     @Override

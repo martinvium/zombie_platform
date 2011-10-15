@@ -1,7 +1,9 @@
-package com.codefuss.components;
+package com.codefuss.entities;
+
+import com.codefuss.Entity;
 
 import com.codefuss.StateAnimation;
-import java.util.EnumMap;
+import java.util.HashMap;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -14,36 +16,37 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author Martin Vium <martin.vium@gmail.com>
  */
-public class Sprite implements UpdateComponent, RenderComponent {
+abstract public class Sprite implements Entity {
 
-    Animation leftAnimation;
-    Animation rightAnimation;
-    Animation attackLeftAnimation;
-    Animation attackRightAnimation;
+    public enum State {
+        NORMAL,
+        WALKING,
+        ATTACKING
+    }
+
     Animation currentAnimation;
     Vector2f position;
+
     float maxSpeed = 0.25f;
     float velocityX = 0f;
+    float velocityY = 0f;
+
     State state = State.NORMAL;
     long stateTime;
     Direction direction = Direction.RIGHT;
 
-    EnumMap<State, StateAnimation> stateAnimations = new EnumMap<State, StateAnimation>(State.class);
+    HashMap<State, StateAnimation> stateAnimations = new HashMap<State, StateAnimation>();
 
     public enum Direction {
         LEFT, RIGHT
-    }
-
-    public enum State {
-        NORMAL, WALKING, ATTACKING, JUMPING
     }
 
     public Sprite(Vector2f position) {
         this.position = position;
     }
 
-    public void addStateAnimation(StateAnimation state) {
-        stateAnimations.put(state.getState(), state);
+    public void addStateAnimation(StateAnimation stateAni) {
+        stateAnimations.put(stateAni.getState(), stateAni);
     }
 
     public void setMaxSpeed(float maxSpeed) {
@@ -59,6 +62,10 @@ public class Sprite implements UpdateComponent, RenderComponent {
 
     public void setVelocityX(float velocity) {
         velocityX = velocity;
+    }
+
+    public void setVelocityY(float velocity) {
+        velocityY = velocity;
     }
 
     public float getMaxSpeed() {
@@ -109,6 +116,7 @@ public class Sprite implements UpdateComponent, RenderComponent {
         }
 
         position.x += velocityX * delta;
+        position.y += velocityY * delta;
     }
 
     @Override

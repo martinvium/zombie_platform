@@ -5,7 +5,7 @@
 package com.codefuss.actions;
 
 import com.codefuss.Entity;
-import com.codefuss.components.Sprite;
+import com.codefuss.entities.Sprite;
 import java.util.ArrayList;
 import java.util.Collection;
 

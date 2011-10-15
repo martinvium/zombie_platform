@@ -13,7 +13,7 @@ import com.codefuss.entities.Player;
  * @author Martin Vium <martin.vium@gmail.com>
  */
 public class ActionFactory {
-    public Action getMoveRight(Player entity) {
-        return new MoveRight(entity.getSprite());
+    public Action getMoveRight(Player player) {
+        return new MoveRight(player);
     }
 }

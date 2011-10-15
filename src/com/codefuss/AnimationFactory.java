@@ -13,8 +13,15 @@ public class AnimationFactory {
     String spritesPath = "assets/sprites/";
 
     public Animation getShotgunFireAnimation() {
-        Animation ani = getAnimation(new Image[] { loadImage("hero/shotgun_fire")}, 300);
-        ani.setLooping(true);
+        Image orgImage = loadImage("hero/shotgun_fire");
+        Animation ani = getAnimation(new Image[] {
+            orgImage.getScaledCopy(.1f),
+            orgImage.getScaledCopy(.2f),
+            orgImage.getScaledCopy(.3f),
+            orgImage.getScaledCopy(.4f),
+            orgImage.getScaledCopy(.5f)
+        }, 50);
+        ani.setLooping(false);
         return ani;
     }
 

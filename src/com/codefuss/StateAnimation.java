@@ -4,8 +4,8 @@
  */
 package com.codefuss;
 
-import com.codefuss.components.Sprite;
-import com.codefuss.components.Sprite.State;
+import com.codefuss.entities.Sprite.Direction;
+import com.codefuss.entities.Sprite.State;
 import org.newdawn.slick.Animation;
 
 /**
@@ -15,7 +15,7 @@ import org.newdawn.slick.Animation;
 public class StateAnimation {
     Animation left;
     Animation right;
-    Sprite.State state;
+    State state;
     int timeout;
 
     public StateAnimation(Animation left, Animation right, State state, int timeout) {
@@ -25,10 +25,10 @@ public class StateAnimation {
         this.timeout = timeout;
     }
 
-    public Animation getCurrent(Sprite.Direction direction) {
-        if(direction == Sprite.Direction.LEFT) {
+    public Animation getCurrent(Direction direction) {
+        if(direction == Direction.LEFT) {
             return left;
-        } else if(direction == Sprite.Direction.RIGHT) {
+        } else if(direction == Direction.RIGHT) {
             return right;
         }
 

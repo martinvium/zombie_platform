@@ -23,12 +23,21 @@ public class GameFactory {
     GameMap gameMap;
     InputManager inputManager;
     AnimationFactory spriteFactory;
+    PhysicsFactory physicsFactory;
 
     Input input;
 
     public GameFactory(Properties properties, Input input) {
         this.properties = properties;
         this.input = input;
+    }
+
+    public PhysicsFactory getPhysicsFactory() {
+        if(physicsFactory == null) {
+            physicsFactory = new PhysicsFactory(0.0f, -10.0f);
+        }
+
+        return physicsFactory;
     }
 
     public AnimationFactory getSpriteFactory() {
@@ -47,7 +56,7 @@ public class GameFactory {
 
     public EntityFactory getEntityFactory() {
         if(entityFactory == null) {
-            entityFactory = new EntityFactory(getSpriteFactory());
+            entityFactory = new EntityFactory(getSpriteFactory(), getPhysicsFactory());
         }
         return entityFactory;
     }

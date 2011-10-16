@@ -13,9 +13,9 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.BasicGameState;
 
 import java.util.ArrayList;
+import org.jbox2d.dynamics.Body;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.util.Log;
 
 /**
  *
@@ -31,6 +31,8 @@ public class GameState extends BasicGameState {
     Player player;
     float offsetX = 0;
 
+    
+
     @Override
     public int getID() {
         return ID;
@@ -39,6 +41,7 @@ public class GameState extends BasicGameState {
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         gameFactory = new GameFactory(Game.getProperties(), container.getInput());
+
         gameFactory.getMap().initBlockEntities(entities);
         gameFactory.getMap().initCreatureEntities(entities);
 

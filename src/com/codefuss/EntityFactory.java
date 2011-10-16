@@ -10,6 +10,7 @@ import com.codefuss.entities.Block;
 import com.codefuss.entities.Player;
 import com.codefuss.entities.ShotgunFire;
 import com.codefuss.entities.Zombie;
+import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.Log;
@@ -21,9 +22,11 @@ import org.newdawn.slick.util.Log;
 public class EntityFactory {
 
     AnimationFactory spriteFactory;
+    PhysicsFactory physicsFactory;
 
-    public EntityFactory(AnimationFactory spriteFactory) {
+    public EntityFactory(AnimationFactory spriteFactory, PhysicsFactory physicsFactory) {
         this.spriteFactory = spriteFactory;
+        this.physicsFactory = physicsFactory;
     }
 
     public Block getBlocker(Vector2f position) {
@@ -31,6 +34,7 @@ public class EntityFactory {
     }
 
     public Player getPlayer(Vector2f position) {
+        physicsFactory.getBody(1, 1).setType(BodyType.DYNAMIC);
         Log.debug("add player at: " + position.toString());
         Player player = new Player(position, this);
         player.addStateAnimation(new StateAnimation(spriteFactory.getPlayerWalkAnimationLeft(),

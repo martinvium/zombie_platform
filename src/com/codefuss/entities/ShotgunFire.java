@@ -1,5 +1,6 @@
 package com.codefuss.entities;
 
+import com.codefuss.physics.Body;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
@@ -8,8 +9,8 @@ import org.newdawn.slick.geom.Vector2f;
  */
 public class ShotgunFire extends Sprite {
 
-    public ShotgunFire(Vector2f position) {
-        super(position);
+    public ShotgunFire(Vector2f position, Body body) {
+        super(position, body);
     }
 
     @Override

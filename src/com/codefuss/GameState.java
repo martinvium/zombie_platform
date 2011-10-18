@@ -6,6 +6,7 @@ import com.codefuss.actions.MoveLeft;
 import com.codefuss.actions.MoveRight;
 import com.codefuss.actions.StopAction;
 import com.codefuss.entities.Player;
+import com.codefuss.physics.Body;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Graphics;
@@ -13,7 +14,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.BasicGameState;
 
 import java.util.ArrayList;
-import org.jbox2d.dynamics.Body;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -30,8 +30,7 @@ public class GameState extends BasicGameState {
     ArrayList<Entity> entities = new ArrayList<Entity>();
     Player player;
     float offsetX = 0;
-
-    
+    Body ground;
 
     @Override
     public int getID() {
@@ -46,6 +45,7 @@ public class GameState extends BasicGameState {
         gameFactory.getMap().initCreatureEntities(entities);
 
         initPlayer();
+        initGround();
 
         container.setMaximumLogicUpdateInterval(100);
         container.setDefaultFont(gameFactory.getLabelFont());
@@ -60,6 +60,10 @@ public class GameState extends BasicGameState {
         entities.add(player);
     }
 
+    void initGround() {
+        ground = gameFactory.getPhysicsFactory().getStaticBox(0, 300, 640, 10);
+    }
+
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
         // run action and apply any resulting entities to stack
@@ -72,6 +76,8 @@ public class GameState extends BasicGameState {
             e.update(container, game, delta);
         }
 
+        gameFactory.getPhysicsFactory().getWorld().update(delta);
+
         // calculate screen offset
         offsetX = player.getX() - (container.getWidth() / 2) + (player.getWidth() / 2);
         offsetX = getNormalizedOffset(container, offsetX);
@@ -83,6 +89,8 @@ public class GameState extends BasicGameState {
         for(Entity e : entities) {
             e.render(container, game, g, offsetX);
         }
+
+        gameFactory.getPhysicsFactory().getWorld().render(g);
     }
 
     float getNormalizedOffset(GameContainer container, float offset) {

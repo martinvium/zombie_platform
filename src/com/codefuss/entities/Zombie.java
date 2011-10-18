@@ -6,6 +6,7 @@ package com.codefuss.entities;
 
 import com.codefuss.Entity;
 import com.codefuss.EntityFactory;
+import com.codefuss.physics.Body;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
@@ -14,8 +15,8 @@ import org.newdawn.slick.geom.Vector2f;
  */
 public class Zombie extends Creature {
 
-    public Zombie(Vector2f position, EntityFactory entityFactory) {
-        super(position, entityFactory);
+    public Zombie(EntityFactory entityFactory, Vector2f position, Body body) {
+        super(entityFactory, position, body);
     }
 
     @Override

@@ -1,32 +1,35 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.codefuss;
 
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.World;
+import com.codefuss.physics.Body;
+import com.codefuss.physics.DynamicBody;
+import com.codefuss.physics.StaticBody;
+import com.codefuss.physics.World;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Vector2f;
 
 /**
- *
  * @author Martin Vium <martin.vium@gmail.com>
  */
 public class PhysicsFactory {
     private World world;
 
-    public PhysicsFactory(float x, float y) {
-        this.world = world = new World(new Vec2(x, y), true);
+    public PhysicsFactory(Vector2f gravity) {
+        this.world = world = new World(gravity);
     }
 
     public World getWorld() {
         return world;
     }
 
-    public Body getBody(float x, float y) {
-        BodyDef def = new BodyDef();
-        def.position.set(x, y);
-        return world.createBody(def);
+    public Body getDynamicBox(float x, float y, float width, float height) {
+        Body body = new DynamicBody(new Rectangle(x, y, width, height));
+        world.add(body);
+        return body;
+    }
+
+    public Body getStaticBox(float x, float y, float width, float height) {
+        Body body = new StaticBody(new Rectangle(x, y, width, height));
+        world.add(body);
+        return body;
     }
 }

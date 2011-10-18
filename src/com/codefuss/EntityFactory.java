@@ -10,7 +10,7 @@ import com.codefuss.entities.Block;
 import com.codefuss.entities.Player;
 import com.codefuss.entities.ShotgunFire;
 import com.codefuss.entities.Zombie;
-import org.jbox2d.dynamics.BodyType;
+import com.codefuss.physics.Body;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.Log;
@@ -34,10 +34,12 @@ public class EntityFactory {
     }
 
     public Player getPlayer(Vector2f position) {
-        physicsFactory.getBody(1, 1).setType(BodyType.DYNAMIC);
+        Animation aniLeft = spriteFactory.getPlayerWalkAnimationLeft();
+        Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth(), aniLeft.getHeight());
+
         Log.debug("add player at: " + position.toString());
-        Player player = new Player(position, this);
-        player.addStateAnimation(new StateAnimation(spriteFactory.getPlayerWalkAnimationLeft(),
+        Player player = new Player(this, position, body);
+        player.addStateAnimation(new StateAnimation(aniLeft,
                 spriteFactory.getPlayerWalkAnimationRight(), Sprite.State.NORMAL, 0));
         player.addStateAnimation(new StateAnimation(spriteFactory.getPlayerWalkAnimationLeft(),
                 spriteFactory.getPlayerWalkAnimationRight(), Sprite.State.WALKING, 0));
@@ -50,9 +52,11 @@ public class EntityFactory {
     public Entity getEntity(String type, String name, Vector2f position) {
         if (type.equals("zombie")) {
             position.y = 8;
+            Animation aniLeft = spriteFactory.getZombieWalkAnimationLeft();
+            Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth(), aniLeft.getHeight());
             
-            Zombie zombie = new Zombie(position, this);
-            zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieWalkAnimationLeft(),
+            Zombie zombie = new Zombie(this, position, body);
+            zombie.addStateAnimation(new StateAnimation(aniLeft,
                     spriteFactory.getZombieWalkAnimationRight(), Sprite.State.NORMAL, 0));
             zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieWalkAnimationLeft(),
                     spriteFactory.getZombieWalkAnimationRight(), Sprite.State.WALKING, 0));
@@ -67,8 +71,9 @@ public class EntityFactory {
 
     public Entity getShotgunFire(Vector2f position) {
         Animation ani = spriteFactory.getShotgunFireAnimation();
+        Body body = physicsFactory.getDynamicBox(position.x, position.y, ani.getWidth(), ani.getHeight());
         
-        ShotgunFire fire = new ShotgunFire(position);
+        ShotgunFire fire = new ShotgunFire(position, body);
         fire.addStateAnimation(new StateAnimation(ani, ani, Sprite.State.NORMAL, 250));
         fire.init();
         return fire;

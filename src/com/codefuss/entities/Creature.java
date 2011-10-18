@@ -6,6 +6,7 @@ package com.codefuss.entities;
 
 import com.codefuss.Entity;
 import com.codefuss.EntityFactory;
+import com.codefuss.physics.Body;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
@@ -16,8 +17,8 @@ abstract public class Creature extends Sprite {
 
     EntityFactory entityFactory;
 
-    public Creature(Vector2f position, EntityFactory entityFactory) {
-        super(position);
+    public Creature(EntityFactory entityFactory, Vector2f position, Body body) {
+        super(position, body);
         this.entityFactory = entityFactory;
     }
 

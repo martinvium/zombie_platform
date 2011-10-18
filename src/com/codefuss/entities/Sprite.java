@@ -3,6 +3,7 @@ package com.codefuss.entities;
 import com.codefuss.Entity;
 
 import com.codefuss.StateAnimation;
+import com.codefuss.physics.Body;
 import java.util.HashMap;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -28,8 +29,7 @@ abstract public class Sprite implements Entity {
     Vector2f position;
 
     float maxSpeed = 0.25f;
-    float velocityX = 0f;
-    float velocityY = 0f;
+    Body body;
 
     State state = State.NORMAL;
     long stateTime;
@@ -41,8 +41,9 @@ abstract public class Sprite implements Entity {
         LEFT, RIGHT
     }
 
-    public Sprite(Vector2f position) {
+    public Sprite(Vector2f position, Body body) {
         this.position = position;
+        this.body = body;
     }
 
     public void addStateAnimation(StateAnimation stateAni) {
@@ -61,11 +62,11 @@ abstract public class Sprite implements Entity {
     }
 
     public void setVelocityX(float velocity) {
-        velocityX = velocity;
+        body.setVelocityX(velocity);
     }
 
     public void setVelocityY(float velocity) {
-        velocityY = velocity;
+        body.setVelocityY(velocity);
     }
 
     public float getMaxSpeed() {
@@ -73,15 +74,15 @@ abstract public class Sprite implements Entity {
     }
 
     public Vector2f getPosition() {
-        return position.copy();
+        return new Vector2f(body.getX(), body.getY());
     }
 
     public float getX() {
-        return position.x;
+        return body.getX();
     }
 
     public float getY() {
-        return position.y;
+        return body.getY();
     }
 
     public int getWidth() {
@@ -94,9 +95,9 @@ abstract public class Sprite implements Entity {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        if(velocityX < 0) {
+        if(body.getVelocityX() < 0) {
             direction = Direction.LEFT;
-        } else if(velocityX > 0) {
+        } else if(body.getVelocityX() > 0) {
             direction = Direction.RIGHT;
         }
 
@@ -115,14 +116,14 @@ abstract public class Sprite implements Entity {
             setState(State.NORMAL);
         }
 
-        position.x += velocityX * delta;
-        position.y += velocityY * delta;
+        /*position.x += velocityX * delta;
+        position.y += velocityY * delta;*/
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException {
         if(currentAnimation != null) {
-            g.drawAnimation(currentAnimation, position.x - offsetX, position.y, Color.white);
+            g.drawAnimation(currentAnimation, getX() - offsetX, getY(), Color.white);
         }
     }
 }

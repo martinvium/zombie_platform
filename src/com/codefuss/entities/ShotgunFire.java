@@ -16,7 +16,7 @@ public class ShotgunFire extends Sprite {
 
     @Override
     public void init() {
-        setVelocityX(0.5f);
+        setVelocityX(0.7f);
     }
 
     @Override

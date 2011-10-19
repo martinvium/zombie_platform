@@ -81,6 +81,7 @@ public class EntityFactory {
     public Entity getShotgunFire(Vector2f position) {
         Animation ani = spriteFactory.getShotgunFireAnimation();
         Body body = physicsFactory.getStaticBox(position.x, position.y, 10, 30);
+        body.setDensity(.9f);
         
         ShotgunFire fire = new ShotgunFire(position, body);
         fire.addStateAnimation(new StateAnimation(ani, ani, Sprite.State.NORMAL, 250));

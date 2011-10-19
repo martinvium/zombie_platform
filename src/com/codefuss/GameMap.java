@@ -1,5 +1,6 @@
 package com.codefuss;
 
+import com.codefuss.entities.Entity;
 import java.util.ArrayList;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;

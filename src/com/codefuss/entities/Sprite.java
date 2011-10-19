@@ -1,6 +1,5 @@
 package com.codefuss.entities;
 
-import com.codefuss.Entity;
 
 import com.codefuss.StateAnimation;
 import com.codefuss.physics.Body;

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.codefuss;
+package com.codefuss.entities;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

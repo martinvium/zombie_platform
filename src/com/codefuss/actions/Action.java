@@ -4,7 +4,7 @@
  */
 package com.codefuss.actions;
 
-import com.codefuss.Entity;
+import com.codefuss.entities.Entity;
 import java.util.Collection;
 import org.newdawn.slick.Input;
 

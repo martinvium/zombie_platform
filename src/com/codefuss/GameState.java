@@ -1,6 +1,7 @@
 package com.codefuss;
 
 
+import com.codefuss.entities.Entity;
 import com.codefuss.actions.Attack;
 import com.codefuss.actions.Jump;
 import com.codefuss.actions.MoveLeft;

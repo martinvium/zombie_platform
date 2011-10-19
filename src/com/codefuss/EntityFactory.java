@@ -4,6 +4,7 @@
  */
 package com.codefuss;
 
+import com.codefuss.entities.Entity;
 import com.codefuss.actions.MoveLeft;
 import com.codefuss.entities.Sprite;
 import com.codefuss.entities.Block;

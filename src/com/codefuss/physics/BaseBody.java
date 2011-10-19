@@ -1,6 +1,6 @@
 package com.codefuss.physics;
 
-import com.codefuss.Entity;
+import com.codefuss.entities.Entity;
 import org.newdawn.slick.geom.Shape;
 
 /**

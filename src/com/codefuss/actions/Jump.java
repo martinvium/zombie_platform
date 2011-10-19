@@ -13,11 +13,11 @@ import java.util.Collection;
  *
  * @author Martin Vium <martin.vium@gmail.com>
  */
-public class JumpAction implements Action {
+public class Jump implements Action {
 
     Sprite sprite;
 
-    public JumpAction(Sprite sprite) {
+    public Jump(Sprite sprite) {
         this.sprite = sprite;
     }
 

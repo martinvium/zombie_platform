@@ -13,13 +13,15 @@ public class DynamicBody extends StaticBody {
 
     @Override
     public void updateX(int delta, float gravity) {
+        setVelocityX(getVelocityX() + gravity * delta);
+        //setX(getX() + gravity * delta);
         super.updateX(delta, gravity);
-        shape.setX(getX() + gravity * delta);
     }
 
     @Override
     public void updateY(int delta, float gravity) {
+        setVelocityY(getVelocityY() + gravity * delta);
+        //setY(getY() + gravity * delta);
         super.updateY(delta, gravity);
-        shape.setY(getY() + gravity * delta);
     }
 }

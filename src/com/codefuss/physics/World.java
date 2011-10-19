@@ -27,14 +27,14 @@ public class World {
             float oldX = body.getX();
             float oldY = body.getY();
 
-            body.updateX(delta, -gravity.x);
+            body.updateX(delta, gravity.x);
             for(Body body2 : bodies) {
                 if(body != body2 && body.getShape().intersects(body2.getShape())) {
                     body.setX(oldX);
                 }
             }
             
-            body.updateY(delta, -gravity.y);
+            body.updateY(delta, gravity.y);
             for(Body body2 : bodies) {
                 if(body != body2 && body.getShape().intersects(body2.getShape())) {
                     body.setY(oldY);

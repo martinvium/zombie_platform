@@ -5,6 +5,7 @@ import com.codefuss.Entity;
 import com.codefuss.StateAnimation;
 import com.codefuss.physics.Body;
 import com.codefuss.physics.CollisionListener;
+import java.util.EnumMap;
 import java.util.HashMap;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -31,7 +32,7 @@ abstract public class Sprite implements Entity, CollisionListener {
     long stateTime;
     Direction direction = Direction.RIGHT;
 
-    HashMap<State, StateAnimation> stateAnimations = new HashMap<State, StateAnimation>();
+    EnumMap<State, StateAnimation> stateAnimations = new EnumMap<State, StateAnimation>(State.class);
 
     protected boolean removed = false;
 

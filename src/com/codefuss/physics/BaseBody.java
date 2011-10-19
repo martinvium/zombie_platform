@@ -13,7 +13,7 @@ abstract public class BaseBody implements Body {
     float velocityY = 0;
     CollisionListener listener;
     Entity entity;
-    float density = 1f;
+    float density = DENSITY_NORMAL;
 
     public BaseBody(Shape shape) {
         this.shape = shape;

@@ -37,8 +37,6 @@ public class EntityFactory {
         position.y = -20;
         Animation aniLeft = spriteFactory.getPlayerWalkAnimationLeft();
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
-        body.setDensity(.9f);
-
         Log.debug("add player at: " + position.toString());
         Player player = new Player(this, position, body);
         player.addStateAnimation(new StateAnimation(aniLeft,
@@ -64,8 +62,6 @@ public class EntityFactory {
         position.y = -20;
         Animation aniLeft = spriteFactory.getZombieWalkAnimationLeft();
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
-        body.setDensity(.9f);
-
         Zombie zombie = new Zombie(this, position, body);
         zombie.addStateAnimation(new StateAnimation(aniLeft,
                 spriteFactory.getZombieWalkAnimationRight(), Sprite.State.NORMAL, 0));
@@ -81,8 +77,6 @@ public class EntityFactory {
     public Entity getShotgunFire(Vector2f position) {
         Animation ani = spriteFactory.getShotgunFireAnimation();
         Body body = physicsFactory.getStaticBox(position.x, position.y, 10, 30);
-        body.setDensity(.9f);
-        
         ShotgunFire fire = new ShotgunFire(position, body);
         fire.addStateAnimation(new StateAnimation(ani, ani, Sprite.State.NORMAL, 250));
         fire.init();

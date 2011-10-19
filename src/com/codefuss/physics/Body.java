@@ -8,6 +8,10 @@ import org.newdawn.slick.geom.Shape;
  */
 public interface Body extends CollisionListener {
 
+    static public final float DENSITY_NONE = 0f;
+    static public final float DENSITY_NORMAL = 0.5f;
+    static public final float DENSITY_MASSIVE = 1f;
+
     public void setVelocityX(float x);
 
     public void setVelocityY(float y);

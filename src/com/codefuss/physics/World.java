@@ -57,7 +57,7 @@ public class World {
      */
     boolean isCollided(Body source, Body target) {
         return source != target &&
-                ((source.getDensity() == 1f || target.getDensity() == 1f) ||
+                ((source.getDensity() == Body.DENSITY_MASSIVE || target.getDensity() == Body.DENSITY_MASSIVE) ||
                     source.getDensity() <= target.getDensity()) &&
                 source.getShape().intersects(target.getShape());
     }

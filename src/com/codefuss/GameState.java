@@ -65,6 +65,7 @@ public class GameState extends BasicGameState {
 
     void initGround() {
         ground = gameFactory.getPhysicsFactory().getStaticBox(0, 250, gameFactory.getMap().getWidth(), 10);
+        ground.setDensity(Body.DENSITY_MASSIVE);
     }
 
     @Override

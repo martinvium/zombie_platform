@@ -85,12 +85,12 @@ abstract public class Sprite implements Entity {
         return body.getY();
     }
 
-    public int getWidth() {
-        return currentAnimation.getImage(0).getWidth();
+    public float getWidth() {
+        return body.getShape().getWidth();
     }
 
-    public int getHeight() {
-        return currentAnimation.getImage(0).getHeight();
+    public float getHeight() {
+        return body.getShape().getHeight();
     }
 
     @Override
@@ -123,7 +123,10 @@ abstract public class Sprite implements Entity {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException {
         if(currentAnimation != null) {
-            g.drawAnimation(currentAnimation, getX() - offsetX, getY(), Color.white);
+            g.drawAnimation(currentAnimation, 
+                    body.getShape().getCenterX() - currentAnimation.getWidth() / 2 - offsetX,
+                    body.getShape().getCenterY() - currentAnimation.getHeight() / 2,
+                    Color.white);
         }
     }
 }

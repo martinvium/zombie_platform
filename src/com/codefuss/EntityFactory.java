@@ -35,7 +35,7 @@ public class EntityFactory {
 
     public Player getPlayer(Vector2f position) {
         Animation aniLeft = spriteFactory.getPlayerWalkAnimationLeft();
-        Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth(), aniLeft.getHeight());
+        Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
 
         Log.debug("add player at: " + position.toString());
         Player player = new Player(this, position, body);
@@ -51,22 +51,26 @@ public class EntityFactory {
 
     public Entity getEntity(String type, String name, Vector2f position) {
         if (type.equals("zombie")) {
-            position.y = 8;
-            Animation aniLeft = spriteFactory.getZombieWalkAnimationLeft();
-            Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth(), aniLeft.getHeight());
-            
-            Zombie zombie = new Zombie(this, position, body);
-            zombie.addStateAnimation(new StateAnimation(aniLeft,
-                    spriteFactory.getZombieWalkAnimationRight(), Sprite.State.NORMAL, 0));
-            zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieWalkAnimationLeft(),
-                    spriteFactory.getZombieWalkAnimationRight(), Sprite.State.WALKING, 0));
-            zombie.init();
-            new MoveLeft(zombie).invoke();
-            return zombie;
+            return getZombie(position);
         }
 
         Log.debug("invalid entity type: " + type);
         return null;
+    }
+
+    public Entity getZombie(Vector2f position) {
+        position.y = 8;
+        Animation aniLeft = spriteFactory.getZombieWalkAnimationLeft();
+        Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
+
+        Zombie zombie = new Zombie(this, position, body);
+        zombie.addStateAnimation(new StateAnimation(aniLeft,
+                spriteFactory.getZombieWalkAnimationRight(), Sprite.State.NORMAL, 0));
+        zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieWalkAnimationLeft(),
+                spriteFactory.getZombieWalkAnimationRight(), Sprite.State.WALKING, 0));
+        zombie.init();
+        new MoveLeft(zombie).invoke();
+        return zombie;
     }
 
     public Entity getShotgunFire(Vector2f position) {

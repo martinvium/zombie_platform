@@ -5,6 +5,8 @@ import com.codefuss.entities.Creature;
 import com.codefuss.entities.Sprite;
 import java.util.ArrayList;
 import java.util.Collection;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.util.Log;
 
 /**
  *
@@ -18,11 +20,17 @@ public class Attack extends BaseAction {
 
     @Override
     public Collection<Entity> invoke() {
+        Log.debug("invoke attack");
         creature.setState(Sprite.State.ATTACKING);
         creature.setVelocityX(0);
 
         ArrayList<Entity> ret = new ArrayList<Entity>();
         ret.add(creature.getMainAttack());
         return ret;
+    }
+
+    @Override
+    public boolean test(Input input, int keyCode) {
+        return input.isKeyPressed(keyCode);
     }
 }

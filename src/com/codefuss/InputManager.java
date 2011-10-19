@@ -7,6 +7,7 @@ package com.codefuss;
 import com.codefuss.actions.Action;
 import java.util.HashMap;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.util.Log;
 
 /**
  *
@@ -33,7 +34,7 @@ public class InputManager {
     public Action getAction()
 	{
         for(int keyCode : keyActions.keySet()) {
-            if(input.isKeyDown(keyCode)) {
+            if(keyActions.get(keyCode).test(input, keyCode)) {
                 return keyActions.get(keyCode);
             }
         }

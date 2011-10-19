@@ -5,6 +5,7 @@
 package com.codefuss.actions;
 
 import com.codefuss.Entity;
+import com.codefuss.entities.Creature;
 import com.codefuss.entities.Sprite;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,20 +14,18 @@ import java.util.Collection;
  *
  * @author Martin Vium <martin.vium@gmail.com>
  */
-public class MoveRight implements Action {
+public class MoveRight extends BaseAction {
 
-    Sprite sprite;
-
-    public MoveRight(Sprite sprite) {
-        this.sprite = sprite;
+    public MoveRight(Creature creature) {
+        super(creature);
     }
 
     @Override
     public Collection<Entity> invoke() {
         float velocityX = 0;
-        velocityX += sprite.getMaxSpeed();
-        sprite.setVelocityX(velocityX);
-        sprite.setState(Sprite.State.NORMAL);
+        velocityX += creature.getMaxSpeed();
+        creature.setVelocityX(velocityX);
+        creature.setState(Sprite.State.NORMAL);
         return new ArrayList<Entity>();
     }
 }

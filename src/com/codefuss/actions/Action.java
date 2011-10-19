@@ -6,6 +6,7 @@ package com.codefuss.actions;
 
 import com.codefuss.Entity;
 import java.util.Collection;
+import org.newdawn.slick.Input;
 
 /**
  *
@@ -13,4 +14,6 @@ import java.util.Collection;
  */
 public interface Action {
     public Collection<Entity> invoke();
+
+    public boolean test(Input input, int keyCode);
 }

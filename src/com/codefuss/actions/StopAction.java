@@ -5,7 +5,7 @@
 package com.codefuss.actions;
 
 import com.codefuss.Entity;
-import com.codefuss.entities.Sprite;
+import com.codefuss.entities.Creature;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -13,17 +13,15 @@ import java.util.Collection;
  *
  * @author Martin Vium <martin.vium@gmail.com>
  */
-public class StopAction implements Action {
+public class StopAction extends BaseAction {
 
-    Sprite sprite;
-
-    public StopAction(Sprite sprite) {
-        this.sprite = sprite;
+    public StopAction(Creature creature) {
+        super(creature);
     }
 
     @Override
     public Collection<Entity> invoke() {
-        sprite.setVelocityX(0);
+        creature.setVelocityX(0);
         return new ArrayList<Entity>();
     }
 }

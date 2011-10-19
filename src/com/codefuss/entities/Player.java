@@ -23,7 +23,7 @@ final public class Player extends Creature {
     public Entity getMainAttack() {
         Vector2f barrelPosition = getPosition();
         barrelPosition.y += getHeight() / 4;
-        barrelPosition.x += getWidth() - 30;
+        barrelPosition.x += getWidth();
         return entityFactory.getShotgunFire(barrelPosition);
     }
 }

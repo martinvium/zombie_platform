@@ -22,10 +22,10 @@ public class Jump extends BaseAction {
 
     @Override
     public Collection<Entity> invoke() {
+        creature.setState(Sprite.State.NORMAL);
         float velocityY = 0;
         velocityY -= creature.getMaxSpeed();
         creature.setVelocityY(velocityY);
-        creature.setState(Sprite.State.NORMAL);
         return new ArrayList<Entity>();
     }
 }

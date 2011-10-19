@@ -4,8 +4,8 @@
  */
 package com.codefuss;
 
+import com.codefuss.Entity.State;
 import com.codefuss.entities.Sprite.Direction;
-import com.codefuss.entities.Sprite.State;
 import org.newdawn.slick.Animation;
 
 /**

@@ -22,6 +22,10 @@ public class World {
         bodies.add(body);
     }
 
+    public void remove(Body body) {
+        bodies.remove(body);
+    }
+
     public void update(int delta) {
         for(Body body : bodies) {
             float oldX = body.getX();
@@ -31,6 +35,7 @@ public class World {
             for(Body body2 : bodies) {
                 if(body != body2 && body.getShape().intersects(body2.getShape())) {
                     body.setX(oldX);
+                    body.collideHorizontal(body2);
                 }
             }
             
@@ -38,6 +43,7 @@ public class World {
             for(Body body2 : bodies) {
                 if(body != body2 && body.getShape().intersects(body2.getShape())) {
                     body.setY(oldY);
+                    body.collideVertical(body2);
                 }
             }
         }

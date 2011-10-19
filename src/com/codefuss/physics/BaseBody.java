@@ -1,5 +1,6 @@
 package com.codefuss.physics;
 
+import com.codefuss.Entity;
 import org.newdawn.slick.geom.Shape;
 
 /**
@@ -10,9 +11,20 @@ abstract public class BaseBody implements Body {
     Shape shape;
     float velocityX = 0;
     float velocityY = 0;
+    CollisionListener listener;
+    Entity entity;
 
     public BaseBody(Shape shape) {
         this.shape = shape;
+    }
+
+    public void setEntity(Entity entity) {
+        this.entity = entity;
+    }
+
+    @Override
+    public Entity getEntity() {
+        return this.entity;
     }
 
     @Override
@@ -58,5 +70,23 @@ abstract public class BaseBody implements Body {
     @Override
     public void setVelocityY(float y) {
         velocityY = y;
+    }
+
+    public void setCollisionListener(CollisionListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void collideHorizontal(Body collided) {
+        if(listener != null) {
+            listener.collideHorizontal(collided);
+        }
+    }
+
+    @Override
+    public void collideVertical(Body collided) {
+        if(listener != null) {
+            listener.collideVertical(collided);
+        }
     }
 }

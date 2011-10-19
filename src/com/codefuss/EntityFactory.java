@@ -68,6 +68,8 @@ public class EntityFactory {
                 spriteFactory.getZombieWalkAnimationRight(), Sprite.State.NORMAL, 0));
         zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieWalkAnimationLeft(),
                 spriteFactory.getZombieWalkAnimationRight(), Sprite.State.WALKING, 0));
+        zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieDeadAnimationLeft(),
+                spriteFactory.getZombieDeadAnimationRight(), Entity.State.DEAD, 0));
         zombie.init();
         new MoveLeft(zombie).invoke();
         return zombie;

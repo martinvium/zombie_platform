@@ -57,6 +57,56 @@ public class AnimationFactory {
             loadImage("hero/attack/jared0215")
         };
     }
+    
+    public Animation getZombieDeadAnimationLeft() {
+        Animation ani = getAnimation(getZombieDeadImages(), 70);
+        ani.setLooping(false);
+        return ani;
+    }
+
+    public Animation getZombieDeadAnimationRight() {
+        Animation ani = getAnimation(getFlippedCopies(getZombieDeadImages()), 70);
+        ani.setLooping(false);
+        return ani;
+    }
+
+    public Image[] getZombieDeadImages() {
+        return new Image[] {
+            loadImage("zombie/dead/jared0090"),
+            loadImage("zombie/dead/jared0091"),
+            loadImage("zombie/dead/jared0092"),
+            loadImage("zombie/dead/jared0093"),
+            loadImage("zombie/dead/jared0094"),
+            loadImage("zombie/dead/jared0095"),
+            loadImage("zombie/dead/jared0096"),
+            loadImage("zombie/dead/jared0097"),
+            loadImage("zombie/dead/jared0098"),
+            loadImage("zombie/dead/jared0099"),
+            loadImage("zombie/dead/jared0100"),
+            loadImage("zombie/dead/jared0101"),
+            loadImage("zombie/dead/jared0102"),
+            loadImage("zombie/dead/jared0103"),
+            loadImage("zombie/dead/jared0104"),
+            loadImage("zombie/dead/jared0105"),
+            loadImage("zombie/dead/jared0106"),
+            loadImage("zombie/dead/jared0107"),
+            loadImage("zombie/dead/jared0108"),
+            loadImage("zombie/dead/jared0109"),
+            loadImage("zombie/dead/jared0110"),
+            loadImage("zombie/dead/jared0111"),
+            loadImage("zombie/dead/jared0112"),
+            loadImage("zombie/dead/jared0113"),
+            loadImage("zombie/dead/jared0114"),
+            loadImage("zombie/dead/jared0115"),
+            loadImage("zombie/dead/jared0116"),
+            loadImage("zombie/dead/jared0117"),
+            loadImage("zombie/dead/jared0118"),
+            loadImage("zombie/dead/jared0119"),
+            loadImage("zombie/dead/jared0120"),
+            loadImage("zombie/dead/jared0121")
+
+        };
+    }
 
     public Animation getPlayerWalkAnimationRight() {
         return getAnimation(getPlayerImages(), 70);

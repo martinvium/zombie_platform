@@ -7,6 +7,7 @@ import com.codefuss.actions.MoveLeft;
 import com.codefuss.actions.MoveRight;
 import com.codefuss.actions.StopAction;
 import com.codefuss.entities.Player;
+import com.codefuss.entities.Sprite;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -74,8 +75,21 @@ public class GameState extends BasicGameState {
         }
 
         // update all entities
+        ArrayList<Entity> toBeRemoved = new ArrayList<Entity>();
         for(Entity e : entities) {
             e.update(container, game, delta);
+
+            if(e.isRemoved()) {
+                toBeRemoved.add(e);
+            }
+        }
+
+        for(Entity e : toBeRemoved) {
+            entities.remove(e);
+            if(e instanceof Sprite) {
+                Sprite sprite = (Sprite) e;
+                gameFactory.getPhysicsFactory().getWorld().remove(sprite.getBody());
+            }
         }
 
         gameFactory.getPhysicsFactory().getWorld().update(delta);

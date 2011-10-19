@@ -1,5 +1,6 @@
 package com.codefuss.entities;
 
+import com.codefuss.Entity;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -16,5 +17,12 @@ public class ShotgunFire extends Sprite {
     @Override
     public void init() {
         setVelocityX(0.5f);
+    }
+
+    @Override
+    public void collideHorizontal(Body collided) {
+        super.collideHorizontal(collided);
+        removed = true;
+        collided.getEntity().setState(Entity.State.DEAD);
     }
 }

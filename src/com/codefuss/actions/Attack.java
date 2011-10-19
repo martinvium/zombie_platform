@@ -22,8 +22,6 @@ public class Attack extends BaseAction {
     public Collection<Entity> invoke() {
         Log.debug("invoke attack");
         creature.setState(Sprite.State.ATTACKING);
-        creature.setVelocityX(0);
-
         ArrayList<Entity> ret = new ArrayList<Entity>();
         ret.add(creature.getMainAttack());
         return ret;

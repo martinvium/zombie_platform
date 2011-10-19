@@ -4,12 +4,14 @@ import com.codefuss.Entity;
 
 import com.codefuss.StateAnimation;
 import com.codefuss.physics.Body;
+import com.codefuss.physics.CollisionListener;
 import java.util.HashMap;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -17,13 +19,7 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author Martin Vium <martin.vium@gmail.com>
  */
-abstract public class Sprite implements Entity {
-
-    public enum State {
-        NORMAL,
-        WALKING,
-        ATTACKING
-    }
+abstract public class Sprite implements Entity, CollisionListener {
 
     Animation currentAnimation;
     Vector2f position;
@@ -37,6 +33,8 @@ abstract public class Sprite implements Entity {
 
     HashMap<State, StateAnimation> stateAnimations = new HashMap<State, StateAnimation>();
 
+    protected boolean removed = false;
+
     public enum Direction {
         LEFT, RIGHT
     }
@@ -44,6 +42,17 @@ abstract public class Sprite implements Entity {
     public Sprite(Vector2f position, Body body) {
         this.position = position;
         this.body = body;
+        this.body.setCollisionListener(this); // FIXME
+        this.body.setEntity(this); // FIXME
+    }
+
+    public Body getBody() {
+        return body;
+    }
+
+    @Override
+    public boolean isRemoved() {
+        return removed;
     }
 
     public void addStateAnimation(StateAnimation stateAni) {
@@ -54,10 +63,13 @@ abstract public class Sprite implements Entity {
         this.maxSpeed = maxSpeed;
     }
 
+    @Override
     public void setState(State state) {
         if (this.state != state) {
             this.state = state;
             stateTime = 0;
+            setVelocityX(0);
+            setVelocityY(0);
         }
     }
 
@@ -128,5 +140,15 @@ abstract public class Sprite implements Entity {
                     body.getShape().getCenterY() - currentAnimation.getHeight() / 2,
                     Color.white);
         }
+    }
+
+    @Override
+    public void collideHorizontal(Body collided) {
+        
+    }
+
+    @Override
+    public void collideVertical(Body collided) {
+
     }
 }

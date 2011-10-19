@@ -2,8 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.codefuss;
+package com.codefuss.factories;
 
+import com.codefuss.GameMap;
+import com.codefuss.InputManager;
 import java.awt.Color;
 import java.util.Properties;
 import org.newdawn.slick.Font;

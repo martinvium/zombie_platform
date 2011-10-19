@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.codefuss;
+package com.codefuss.factories;
 
+import com.codefuss.StateAnimation;
 import com.codefuss.entities.Entity;
 import com.codefuss.actions.MoveLeft;
 import com.codefuss.entities.Sprite;

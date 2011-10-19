@@ -4,7 +4,7 @@
  */
 package com.codefuss.entities;
 
-import com.codefuss.EntityFactory;
+import com.codefuss.factories.EntityFactory;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.geom.Vector2f;
 

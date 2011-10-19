@@ -1,4 +1,4 @@
-package com.codefuss;
+package com.codefuss.factories;
 
 import com.codefuss.physics.Body;
 import com.codefuss.physics.DynamicBody;

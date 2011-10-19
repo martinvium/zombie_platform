@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.codefuss;
+package com.codefuss.factories;
 
 import com.codefuss.actions.Action;
 import com.codefuss.actions.MoveRight;

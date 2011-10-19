@@ -1,5 +1,6 @@
 package com.codefuss;
 
+import com.codefuss.factories.EntityFactory;
 import com.codefuss.entities.Entity;
 import java.util.ArrayList;
 import org.newdawn.slick.SlickException;

@@ -1,4 +1,4 @@
-package com.codefuss;
+package com.codefuss.factories;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;

@@ -13,11 +13,13 @@ abstract public class BaseBody implements Body {
     float velocityY = 0;
     CollisionListener listener;
     Entity entity;
+    float density = 1f;
 
     public BaseBody(Shape shape) {
         this.shape = shape;
     }
 
+    @Override
     public void setEntity(Entity entity) {
         this.entity = entity;
     }
@@ -72,6 +74,7 @@ abstract public class BaseBody implements Body {
         velocityY = y;
     }
 
+    @Override
     public void setCollisionListener(CollisionListener listener) {
         this.listener = listener;
     }
@@ -88,5 +91,15 @@ abstract public class BaseBody implements Body {
         if(listener != null) {
             listener.collideVertical(collided);
         }
+    }
+
+    @Override
+    public void setDensity(float density) {
+        this.density = density;
+    }
+
+    @Override
+    public float getDensity() {
+        return density;
     }
 }

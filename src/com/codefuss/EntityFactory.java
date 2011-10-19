@@ -34,8 +34,10 @@ public class EntityFactory {
     }
 
     public Player getPlayer(Vector2f position) {
+        position.y = -20;
         Animation aniLeft = spriteFactory.getPlayerWalkAnimationLeft();
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
+        body.setDensity(.9f);
 
         Log.debug("add player at: " + position.toString());
         Player player = new Player(this, position, body);
@@ -59,9 +61,10 @@ public class EntityFactory {
     }
 
     public Entity getZombie(Vector2f position) {
-        position.y = 8;
+        position.y = -20;
         Animation aniLeft = spriteFactory.getZombieWalkAnimationLeft();
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
+        body.setDensity(.9f);
 
         Zombie zombie = new Zombie(this, position, body);
         zombie.addStateAnimation(new StateAnimation(aniLeft,

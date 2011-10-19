@@ -1,8 +1,8 @@
 package com.codefuss.entities;
 
-import com.codefuss.Entity;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.util.Log;
 
 /**
  *
@@ -23,6 +23,11 @@ public class ShotgunFire extends Sprite {
     public void collideHorizontal(Body collided) {
         super.collideHorizontal(collided);
         removed = true;
-        collided.getEntity().setState(Entity.State.DEAD);
+        if(collided.getEntity() instanceof Sprite) {
+            Sprite sprite = (Sprite)collided.getEntity();
+            sprite.kill();
+        } else {
+            Log.error("collided with something not a sprite");
+        }
     }
 }

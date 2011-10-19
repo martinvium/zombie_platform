@@ -35,4 +35,11 @@ public interface Body extends CollisionListener {
     public void setEntity(Entity entity);
 
     public Entity getEntity();
+
+    /**
+     * Value of 1.0f always collides, otherwise density must be larger than or equal to collide.
+     */
+    public void setDensity(float density);
+
+    public float getDensity();
 }

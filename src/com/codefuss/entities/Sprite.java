@@ -6,13 +6,11 @@ import com.codefuss.StateAnimation;
 import com.codefuss.physics.Body;
 import com.codefuss.physics.CollisionListener;
 import java.util.EnumMap;
-import java.util.HashMap;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -72,6 +70,11 @@ abstract public class Sprite implements Entity, CollisionListener {
             setVelocityX(0);
             setVelocityY(0);
         }
+    }
+
+    public void kill() {
+        setState(State.DEAD);
+        body.setDensity(.1f);
     }
 
     public void setVelocityX(float velocity) {

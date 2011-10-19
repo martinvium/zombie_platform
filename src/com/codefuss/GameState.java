@@ -64,7 +64,7 @@ public class GameState extends BasicGameState {
     }
 
     void initGround() {
-        ground = gameFactory.getPhysicsFactory().getStaticBox(0, 300, 640, 10);
+        ground = gameFactory.getPhysicsFactory().getStaticBox(0, 250, gameFactory.getMap().getWidth(), 10);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class GameState extends BasicGameState {
             e.render(container, game, g, offsetX);
         }
 
-        gameFactory.getPhysicsFactory().getWorld().render(g);
+        gameFactory.getPhysicsFactory().getWorld().render(g, offsetX);
     }
 
     float getNormalizedOffset(GameContainer container, float offset) {

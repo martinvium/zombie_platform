@@ -17,8 +17,8 @@
   </data>
  </layer>
  <objectgroup name="objects" width="100" height="30">
-  <object name="zombie01" type="zombie" x="734" y="40" width="27" height="12"/>
-  <object name="zombie01" type="zombie" x="920" y="39" width="27" height="12"/>
-  <object name="zombie01" type="zombie" x="493" y="34" width="27" height="12"/>
+  <object name="zombie01" type="zombie" x="721" y="63" width="27" height="12"/>
+  <object name="zombie01" type="zombie" x="1519" y="62" width="27" height="12"/>
+  <object name="zombie01" type="zombie" x="415" y="62" width="27" height="12"/>
  </objectgroup>
 </map>

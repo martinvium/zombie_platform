@@ -38,7 +38,7 @@ public class GameFactory {
 
     public PhysicsFactory getPhysicsFactory() {
         if(physicsFactory == null) {
-            physicsFactory = new PhysicsFactory(new Vector2f(0.0f, 0.001f));
+            physicsFactory = new PhysicsFactory(new Vector2f(0.0f, 0.003f));
         }
 
         return physicsFactory;

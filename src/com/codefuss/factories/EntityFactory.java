@@ -23,7 +23,7 @@ import org.newdawn.slick.util.Log;
  */
 public class EntityFactory {
 
-    final static float DEFAULT_JUMP_SPEED = 0.4f;
+    final static float DEFAULT_JUMP_SPEED = 0.8f;
 
     AnimationFactory spriteFactory;
     PhysicsFactory physicsFactory;

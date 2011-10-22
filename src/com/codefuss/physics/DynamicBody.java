@@ -14,8 +14,8 @@ public class DynamicBody extends StaticBody {
 
     @Override
     public void updateX(int delta, float gravity) {
-        float actualFriction = getFriction();
-        float actualGravity = gravity;
+        float actualFriction = getFriction() * delta;
+        float actualGravity = gravity * delta;
 
         // do not reverse the body because of friction
         if(getVelocityX() != 0) {
@@ -48,4 +48,12 @@ public class DynamicBody extends StaticBody {
         setVelocityY(getVelocityY() + actualGravity);
         super.updateY(delta, gravity);
     }
+
+    @Override
+    public void collideVertical(Body collided) {
+        super.collideVertical(collided);
+        setVelocityY(0);
+    }
+
+
 }

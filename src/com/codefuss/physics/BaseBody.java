@@ -13,7 +13,7 @@ abstract public class BaseBody implements Body {
     float velocityY = 0;
     Entity entity;
     float density = DENSITY_NORMAL;
-    float friction = 0.02f;
+    float friction = 0.001f;
     
     CollisionListener collisionListener;
     FrictionListener frictionListener;

@@ -41,9 +41,23 @@ public interface Body extends CollisionListener {
     public Entity getEntity();
 
     /**
-     * Value of 1.0f always collides, otherwise density must be larger than or equal to collide.
+     * A bodies ability to move through another body.
+     *
+     * - 1.0f always collide
+     * - otherwise density must be larger than or equal to collide.
      */
     public void setDensity(float density);
 
     public float getDensity();
+
+    /**
+     * The rate of which an objects slows down moving through air.
+     *
+     * - 1.0f instant halt
+     * - 0.0f never stop (space) has some implications when combined with gravity :)
+     * - initially only affects the X axis?
+     */
+    public void setFriction(float friction);
+
+    public float getFriction();
 }

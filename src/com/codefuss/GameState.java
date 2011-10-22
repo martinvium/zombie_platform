@@ -60,7 +60,6 @@ public class GameState extends BasicGameState {
 
     void initPlayer() {
         player = gameFactory.getEntityFactory().getPlayer(new Vector2f(0, 0));
-        gameFactory.getInputManager().setDefaultAction(new StopAction(player));
         gameFactory.getInputManager().mapToKey(new Attack(player), Input.KEY_SPACE);
         gameFactory.getInputManager().mapToKey(new MoveLeft(player), Input.KEY_LEFT);
         gameFactory.getInputManager().mapToKey(new MoveRight(player), Input.KEY_RIGHT);

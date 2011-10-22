@@ -9,6 +9,9 @@ import org.newdawn.slick.util.Log;
 
 /**
  * @author Martin Vium <martin.vium@gmail.com>
+ * - max gravity fall speed
+ * - friction along the x axis
+ * - default action is a null action
  */
 public class World {
     Vector2f gravity;

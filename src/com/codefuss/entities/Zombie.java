@@ -20,7 +20,7 @@ public class Zombie extends Creature {
 
     @Override
     public void init() {
-        setMaxSpeed(0.08f);
+        
     }
 
     @Override

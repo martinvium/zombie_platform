@@ -6,6 +6,7 @@ package com.codefuss.factories;
 
 import com.codefuss.GameMap;
 import com.codefuss.InputManager;
+import com.codefuss.actions.NullAction;
 import java.awt.Color;
 import java.util.Properties;
 import org.newdawn.slick.Font;
@@ -53,6 +54,7 @@ public class GameFactory {
     public InputManager getInputManager() {
         if(inputManager == null) {
             inputManager = new InputManager(input);
+            inputManager.setDefaultAction(new NullAction());
         }
         return inputManager;
     }

@@ -22,7 +22,8 @@ abstract public class Sprite implements Entity, CollisionListener {
     Animation currentAnimation;
     Vector2f position;
 
-    float maxSpeed = 0.25f;
+    float speedX = 0.25f;
+    float speedY;
     Body body;
 
     State state = State.NORMAL;
@@ -57,8 +58,20 @@ abstract public class Sprite implements Entity, CollisionListener {
         stateAnimations.put(stateAni.getState(), stateAni);
     }
 
-    public void setMaxSpeed(float maxSpeed) {
-        this.maxSpeed = maxSpeed;
+    public void setSpeedX(float speed) {
+        speedX = speed;
+    }
+
+    public float getSpeedX() {
+        return speedX;
+    }
+
+    public void setSpeedY(float speed) {
+        speedY = speed;
+    }
+
+    public float getSpeedY() {
+        return speedY;
     }
 
     @Override
@@ -67,7 +80,6 @@ abstract public class Sprite implements Entity, CollisionListener {
             this.state = state;
             stateTime = 0;
             setVelocityX(0);
-            setVelocityY(0);
         }
     }
 
@@ -80,12 +92,16 @@ abstract public class Sprite implements Entity, CollisionListener {
         body.setVelocityX(velocity);
     }
 
+    public float getVelocityX() {
+        return body.getVelocityX();
+    }
+
     public void setVelocityY(float velocity) {
         body.setVelocityY(velocity);
     }
 
-    public float getMaxSpeed() {
-        return maxSpeed;
+    public float getVelocityY() {
+        return body.getVelocityY();
     }
 
     public Vector2f getPosition() {

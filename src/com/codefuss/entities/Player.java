@@ -15,7 +15,7 @@ final public class Player extends Creature {
 
     @Override
     public void init() {
-        setMaxSpeed(0.25f);
+        
     }
 
     @Override

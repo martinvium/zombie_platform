@@ -23,6 +23,8 @@ import org.newdawn.slick.util.Log;
  */
 public class EntityFactory {
 
+    final static float DEFAULT_JUMP_SPEED = 0.4f;
+
     AnimationFactory spriteFactory;
     PhysicsFactory physicsFactory;
 
@@ -41,6 +43,8 @@ public class EntityFactory {
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
         Log.debug("add player at: " + position.toString());
         Player player = new Player(this, position, body);
+        player.setSpeedX(0.25f);
+        player.setSpeedY(DEFAULT_JUMP_SPEED);
         player.addStateAnimation(new StateAnimation(spriteFactory.getPlayerIdleAnimationLeft(),
                 spriteFactory.getPlayerIdleAnimationRight(), Sprite.State.NORMAL, 0));
         player.addStateAnimation(new StateAnimation(aniLeft,
@@ -65,6 +69,8 @@ public class EntityFactory {
         Animation aniLeft = spriteFactory.getZombieWalkAnimationLeft();
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
         Zombie zombie = new Zombie(this, position, body);
+        zombie.setSpeedX(0.08f);
+        zombie.setSpeedY(DEFAULT_JUMP_SPEED);
         zombie.addStateAnimation(new StateAnimation(aniLeft,
                 spriteFactory.getZombieWalkAnimationRight(), Sprite.State.NORMAL, 0));
         zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieWalkAnimationLeft(),

@@ -6,24 +6,23 @@ package com.codefuss.actions;
 
 import com.codefuss.entities.Entity;
 import com.codefuss.entities.Creature;
-import com.codefuss.entities.Sprite;
 import java.util.ArrayList;
 import java.util.Collection;
+import org.newdawn.slick.Input;
 
 /**
  *
  * @author Martin Vium <martin.vium@gmail.com>
  */
-public class MoveLeft extends BaseAction {
+public class NullAction implements Action {
 
-    public MoveLeft(Creature creature) {
-        super(creature);
+    @Override
+    public boolean test(Input input, int keyCode) {
+        throw new UnsupportedOperationException("Null action is untestable");
     }
 
     @Override
     public Collection<Entity> invoke() {
-        creature.setState(Sprite.State.WALKING);
-        creature.setVelocityX(-creature.getSpeedX());
         return new ArrayList<Entity>();
     }
 }

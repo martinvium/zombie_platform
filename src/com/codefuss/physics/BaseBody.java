@@ -14,9 +14,20 @@ abstract public class BaseBody implements Body {
     CollisionListener listener;
     Entity entity;
     float density = DENSITY_NORMAL;
+    float friction = 0.001f;
 
     public BaseBody(Shape shape) {
         this.shape = shape;
+    }
+
+    @Override
+    public float getFriction() {
+        return friction;
+    }
+
+    @Override
+    public void setFriction(float friction) {
+        this.friction = friction;
     }
 
     @Override

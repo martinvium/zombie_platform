@@ -23,7 +23,7 @@ public class MoveRight extends BaseAction {
     @Override
     public Collection<Entity> invoke() {
         creature.setState(Sprite.State.WALKING);
-        creature.setVelocityX(creature.getMaxSpeed());
+        creature.setVelocityX(creature.getSpeedX());
         return new ArrayList<Entity>();
     }
 }

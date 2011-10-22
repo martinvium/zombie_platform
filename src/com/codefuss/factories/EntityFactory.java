@@ -41,12 +41,12 @@ public class EntityFactory {
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
         Log.debug("add player at: " + position.toString());
         Player player = new Player(this, position, body);
+        player.addStateAnimation(new StateAnimation(spriteFactory.getPlayerIdleAnimationLeft(),
+                spriteFactory.getPlayerIdleAnimationRight(), Sprite.State.NORMAL, 0));
         player.addStateAnimation(new StateAnimation(aniLeft,
-                spriteFactory.getPlayerWalkAnimationRight(), Sprite.State.NORMAL, 0));
-        player.addStateAnimation(new StateAnimation(spriteFactory.getPlayerWalkAnimationLeft(),
                 spriteFactory.getPlayerWalkAnimationRight(), Sprite.State.WALKING, 0));
-        player.addStateAnimation(new StateAnimation(spriteFactory.getPlayerShootAnimationFlipped(),
-                spriteFactory.getPlayerShootAnimation(), Sprite.State.ATTACKING, 600));
+        player.addStateAnimation(new StateAnimation(spriteFactory.getPlayerShootAnimationLeft(),
+                spriteFactory.getPlayerShootAnimationRight(), Sprite.State.ATTACKING, 600));
         player.init();
         return player;
     }

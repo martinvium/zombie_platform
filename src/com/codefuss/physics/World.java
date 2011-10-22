@@ -65,12 +65,28 @@ public class World {
      * 4) Collision if source box intersects target box
      */
     boolean isCollided(Body source, Body target) {
-        return source != target &&
-                ((source.getDensity() == Body.DENSITY_MASSIVE || target.getDensity() == Body.DENSITY_MASSIVE) ||
-                    source.getDensity() <= target.getDensity()) &&
-                source.getShape().intersects(target.getShape());
+        boolean impenetrable = ((source.getDensity() == Body.DENSITY_MASSIVE || target.getDensity() == Body.DENSITY_MASSIVE) ||
+                    source.getDensity() <= target.getDensity());
+        
+        return source != target && impenetrable && source.getShape().intersects(target.getShape());
     }
 
+    public void render(Graphics g, float offsetX) {
+        if(debugDraw == false) {
+            return;
+        }
+
+        for(Body body : bodies) {
+            Shape shape = body.getShape();
+            if(shape instanceof Rectangle) {
+                g.drawRect(shape.getX() - offsetX, shape.getY(), shape.getWidth(), shape.getHeight());
+            } else {
+                throw new RuntimeException("unknown shape: " + shape.getClass());
+            }
+        }
+    }
+
+    @Deprecated
     public void update2(int delta) {
         for(Body body : bodies) {
             Shape shape = body.getShape();
@@ -111,21 +127,6 @@ public class World {
                         body.setY(shape2.getMaxY());
                     }
                 }
-            }
-        }
-    }
-
-    public void render(Graphics g, float offsetX) {
-        if(debugDraw == false) {
-            return;
-        }
-
-        for(Body body : bodies) {
-            Shape shape = body.getShape();
-            if(shape instanceof Rectangle) {
-                g.drawRect(shape.getX() - offsetX, shape.getY(), shape.getWidth(), shape.getHeight());
-            } else {
-                throw new RuntimeException("unknown shape: " + shape.getClass());
             }
         }
     }

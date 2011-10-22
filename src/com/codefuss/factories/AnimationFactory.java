@@ -25,13 +25,31 @@ public class AnimationFactory {
         return ani;
     }
 
-    public Animation getPlayerShootAnimation() {
+    public Animation getPlayerIdleAnimationRight() {
+        Animation ani = getAnimation(getPlayerIdleImages(), 70);
+        ani.setLooping(false);
+        return ani;
+    }
+
+    public Animation getPlayerIdleAnimationLeft() {
+        Animation ani = getAnimation(getFlippedCopies(getPlayerIdleImages()), 70);
+        ani.setLooping(false);
+        return ani;
+    }
+
+    public Image[] getPlayerIdleImages() {
+        return new Image[] {
+            loadImage("hero/attack/jared0200")
+        };
+    }
+
+    public Animation getPlayerShootAnimationRight() {
         Animation ani = getAnimation(getPlayerShootImages(), 70);
         ani.setLooping(false);
         return ani;
     }
 
-    public Animation getPlayerShootAnimationFlipped() {
+    public Animation getPlayerShootAnimationLeft() {
         Animation ani = getAnimation(getFlippedCopies(getPlayerShootImages()), 70);
         ani.setLooping(false);
         return ani;
@@ -109,11 +127,13 @@ public class AnimationFactory {
     }
 
     public Animation getPlayerWalkAnimationRight() {
-        return getAnimation(getPlayerImages(), 70);
+        Animation ani = getAnimation(getPlayerImages(), 70);
+        return ani;
     }
 
     public Animation getPlayerWalkAnimationLeft() {
-        return getAnimation(getFlippedCopies(getPlayerImages()), 70);
+        Animation ani = getAnimation(getFlippedCopies(getPlayerImages()), 70);
+        return ani;
     }
 
     public Image[] getPlayerImages() {

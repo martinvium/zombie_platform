@@ -22,10 +22,8 @@ public class MoveLeft extends BaseAction {
 
     @Override
     public Collection<Entity> invoke() {
-        creature.setState(Sprite.State.NORMAL);
-        float velocityX = 0;
-        velocityX -= creature.getMaxSpeed();
-        creature.setVelocityX(velocityX);
+        creature.setState(Sprite.State.WALKING);
+        creature.setVelocityX(-creature.getMaxSpeed());
         return new ArrayList<Entity>();
     }
 }

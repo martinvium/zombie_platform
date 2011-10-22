@@ -130,9 +130,6 @@ abstract public class Sprite implements Entity, CollisionListener {
         if(stateAnimation.expired(stateTime)) {
             setState(State.NORMAL);
         }
-
-        /*position.x += velocityX * delta;
-        position.y += velocityY * delta;*/
     }
 
     @Override

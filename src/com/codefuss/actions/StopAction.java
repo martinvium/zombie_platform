@@ -22,6 +22,7 @@ public class StopAction extends BaseAction {
     @Override
     public Collection<Entity> invoke() {
         creature.setVelocityX(0);
+        creature.setState(Entity.State.NORMAL);
         return new ArrayList<Entity>();
     }
 }

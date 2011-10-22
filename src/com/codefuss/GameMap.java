@@ -34,7 +34,7 @@ public final class GameMap implements TileBasedMap {
                 int tileId = tiledMap.getTileId(x, y, layerIndex);
                 if (tileId > 0) {
                     Vector2f position = new Vector2f(x * tiledMap.getTileWidth(), y * tiledMap.getTileHeight());
-                    Entity entity = entityFactory.getBlocker(position);
+                    Entity entity = entityFactory.getBlocker(position, tiledMap.getTileWidth(), tiledMap.getTileHeight());
                     entities.add(entity);
                 }
             }

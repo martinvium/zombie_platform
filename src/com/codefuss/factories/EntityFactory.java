@@ -33,8 +33,10 @@ public class EntityFactory {
         this.physicsFactory = physicsFactory;
     }
 
-    public Block getBlocker(Vector2f position) {
-        return new Block();
+    public Block getBlocker(Vector2f position, int width, int height) {
+        Body body = physicsFactory.getStaticBox(position.x, position.y, width, height);
+        body.setDensity(Body.DENSITY_MASSIVE);
+        return new Block(body);
     }
 
     public Player getPlayer(Vector2f position) {

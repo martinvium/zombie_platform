@@ -50,7 +50,6 @@ public class GameState extends BasicGameState {
         gameFactory.getMap().initCreatureEntities(entities);
 
         initPlayer();
-        initGround();
 
         gameFactory.getInputManager().mapToKey(new ShowPhysicShapes(gameFactory.getPhysicsFactory().getWorld()), Input.KEY_P);
 
@@ -65,11 +64,6 @@ public class GameState extends BasicGameState {
         gameFactory.getInputManager().mapToKey(new MoveRight(player), Input.KEY_RIGHT);
         gameFactory.getInputManager().mapToKey(new Jump(player), Input.KEY_UP);
         entities.add(player);
-    }
-
-    void initGround() {
-        ground = gameFactory.getPhysicsFactory().getStaticBox(0, 350, gameFactory.getMap().getWidth(), 10);
-        ground.setDensity(Body.DENSITY_MASSIVE);
     }
 
     @Override

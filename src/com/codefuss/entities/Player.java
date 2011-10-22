@@ -15,9 +15,15 @@ final public class Player extends Creature {
 
     @Override
     public Entity getMainAttack() {
-        Vector2f barrelPosition = getPosition();
-        barrelPosition.y += getHeight() / 4;
-        barrelPosition.x += getWidth();
-        return entityFactory.getShotgunFire(barrelPosition);
+        float x;
+        if(direction == Direction.LEFT) {
+            x = getPosition().x - 10;
+        } else {
+            x = getPosition().x + getWidth() + 10;
+        }
+        
+        float y = getPosition().y + getHeight() / 4;
+
+        return entityFactory.getShotgunFire(x, y, direction);
     }
 }

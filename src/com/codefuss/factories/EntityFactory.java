@@ -82,12 +82,17 @@ public class EntityFactory {
         return zombie;
     }
 
-    public Entity getShotgunFire(Vector2f position) {
+    public Entity getShotgunFire(float x, float y, Sprite.Direction dir) {
         Animation ani = spriteFactory.getShotgunFireAnimation();
-        Body body = physicsFactory.getStaticBox(position.x, position.y, 10, 30);
-        ShotgunFire fire = new ShotgunFire(position, body);
+        Body body = physicsFactory.getStaticBox(x, y, 10, 30);
+        ShotgunFire fire = new ShotgunFire(new Vector2f(x, y), body);
         fire.addStateAnimation(new StateAnimation(ani, ani, Sprite.State.NORMAL, 250));
-        fire.setVelocityX(0.7f);
+
+        if(dir == Sprite.Direction.LEFT) {
+            fire.setVelocityX(-0.7f);
+        } else {
+            fire.setVelocityX(0.7f);
+        }
         return fire;
     }
 }

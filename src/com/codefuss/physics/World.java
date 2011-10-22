@@ -13,9 +13,18 @@ import org.newdawn.slick.util.Log;
 public class World {
     Vector2f gravity;
     ArrayList<Body> bodies = new ArrayList<Body>();
+    boolean debugDraw = false;
 
     public World(Vector2f gravity) {
         this.gravity = gravity;
+    }
+
+    public void toggleDebugDraw() {
+        if(debugDraw) {
+            debugDraw = false;
+        } else {
+            debugDraw = true;
+        }
     }
 
     public void add(Body body) {
@@ -107,6 +116,10 @@ public class World {
     }
 
     public void render(Graphics g, float offsetX) {
+        if(debugDraw == false) {
+            return;
+        }
+
         for(Body body : bodies) {
             Shape shape = body.getShape();
             if(shape instanceof Rectangle) {

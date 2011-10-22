@@ -7,6 +7,7 @@ import com.codefuss.actions.Attack;
 import com.codefuss.actions.Jump;
 import com.codefuss.actions.MoveLeft;
 import com.codefuss.actions.MoveRight;
+import com.codefuss.actions.ShowPhysicShapes;
 import com.codefuss.actions.StopAction;
 import com.codefuss.entities.Player;
 import com.codefuss.entities.Sprite;
@@ -50,6 +51,8 @@ public class GameState extends BasicGameState {
 
         initPlayer();
         initGround();
+
+        gameFactory.getInputManager().mapToKey(new ShowPhysicShapes(gameFactory.getPhysicsFactory().getWorld()), Input.KEY_P);
 
         container.setMaximumLogicUpdateInterval(100);
         container.setDefaultFont(gameFactory.getLabelFont());

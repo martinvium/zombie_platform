@@ -51,7 +51,6 @@ public class EntityFactory {
                 spriteFactory.getPlayerWalkAnimationRight(), Sprite.State.WALKING, 0));
         player.addStateAnimation(new StateAnimation(spriteFactory.getPlayerShootAnimationLeft(),
                 spriteFactory.getPlayerShootAnimationRight(), Sprite.State.ATTACKING, 600));
-        player.init();
         return player;
     }
 
@@ -77,7 +76,6 @@ public class EntityFactory {
                 spriteFactory.getZombieWalkAnimationRight(), Sprite.State.WALKING, 0));
         zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieDeadAnimationLeft(),
                 spriteFactory.getZombieDeadAnimationRight(), Entity.State.DEAD, 0));
-        zombie.init();
         new MoveLeft(zombie).invoke();
         return zombie;
     }
@@ -87,7 +85,7 @@ public class EntityFactory {
         Body body = physicsFactory.getStaticBox(position.x, position.y, 10, 30);
         ShotgunFire fire = new ShotgunFire(position, body);
         fire.addStateAnimation(new StateAnimation(ani, ani, Sprite.State.NORMAL, 250));
-        fire.init();
+        fire.setVelocityX(0.7f);
         return fire;
     }
 }

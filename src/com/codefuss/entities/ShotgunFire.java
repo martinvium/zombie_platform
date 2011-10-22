@@ -15,11 +15,6 @@ public class ShotgunFire extends Sprite {
     }
 
     @Override
-    public void init() {
-        setVelocityX(0.7f);
-    }
-
-    @Override
     public void collideHorizontal(Body collided) {
         super.collideHorizontal(collided);
         removed = true;

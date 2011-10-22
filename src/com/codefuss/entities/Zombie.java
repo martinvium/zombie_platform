@@ -19,11 +19,6 @@ public class Zombie extends Creature {
     }
 
     @Override
-    public void init() {
-        
-    }
-
-    @Override
     public Entity getMainAttack() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

@@ -22,8 +22,6 @@ public interface Entity {
         DEAD
     }
     
-    public void init();
-
     public void update(GameContainer container, StateBasedGame game, int delta);
     
     public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException;

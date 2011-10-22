@@ -14,11 +14,6 @@ final public class Player extends Creature {
     }
 
     @Override
-    public void init() {
-        
-    }
-
-    @Override
     public Entity getMainAttack() {
         Vector2f barrelPosition = getPosition();
         barrelPosition.y += getHeight() / 4;

@@ -60,4 +60,6 @@ public interface Body extends CollisionListener {
     public void setFriction(float friction);
 
     public float getFriction();
+
+    public void setFrictionListener(FrictionListener listener);
 }

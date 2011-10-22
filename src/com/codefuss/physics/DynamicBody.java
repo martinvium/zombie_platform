@@ -1,6 +1,7 @@
 package com.codefuss.physics;
 
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.util.Log;
 
 /**
  * @author Martin Vium <martin.vium@gmail.com>
@@ -13,22 +14,22 @@ public class DynamicBody extends StaticBody {
 
     @Override
     public void updateX(int delta, float gravity) {
-        float actualFriction = getFriction() * delta;
-        float actualGravity = gravity * delta;
+        float actualFriction = getFriction();
+        float actualGravity = gravity;
 
         // do not reverse the body because of friction
-        if(actualFriction > Math.abs(getVelocityX())) {
-            actualFriction = Math.abs(getVelocityX());
+        if(getVelocityX() != 0) {
+            if(actualFriction > Math.abs(getVelocityX())) {
+                actualFriction = Math.abs(getVelocityX());
+                frictionListener.frictionStop();
+            }
+        } else {
+            actualFriction = 0;
         }
 
         // negate friction factory if we are moving forward
         if(getVelocityX() > 0) {
             actualFriction = -actualFriction;
-        }
-
-        // gravity does not apply to bodies moving faster than a given factor
-        if(gravity * World.MAX_GRAVITY_FACTOR < getVelocityX()) {
-            actualGravity = 0;
         }
 
         setVelocityX(getVelocityX() + actualGravity + actualFriction);

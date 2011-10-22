@@ -11,10 +11,12 @@ abstract public class BaseBody implements Body {
     Shape shape;
     float velocityX = 0;
     float velocityY = 0;
-    CollisionListener listener;
     Entity entity;
     float density = DENSITY_NORMAL;
-    float friction = 0.001f;
+    float friction = 0.02f;
+    
+    CollisionListener collisionListener;
+    FrictionListener frictionListener;
 
     public BaseBody(Shape shape) {
         this.shape = shape;
@@ -87,20 +89,20 @@ abstract public class BaseBody implements Body {
 
     @Override
     public void setCollisionListener(CollisionListener listener) {
-        this.listener = listener;
+        this.collisionListener = listener;
     }
 
     @Override
     public void collideHorizontal(Body collided) {
-        if(listener != null) {
-            listener.collideHorizontal(collided);
+        if(collisionListener != null) {
+            collisionListener.collideHorizontal(collided);
         }
     }
 
     @Override
     public void collideVertical(Body collided) {
-        if(listener != null) {
-            listener.collideVertical(collided);
+        if(collisionListener != null) {
+            collisionListener.collideVertical(collided);
         }
     }
 
@@ -112,5 +114,10 @@ abstract public class BaseBody implements Body {
     @Override
     public float getDensity() {
         return density;
+    }
+
+    @Override
+    public void setFrictionListener(FrictionListener listener) {
+        frictionListener = listener;
     }
 }

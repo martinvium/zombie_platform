@@ -43,7 +43,7 @@ public class EntityFactory {
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
         Log.debug("add player at: " + position.toString());
         Player player = new Player(this, position, body);
-        player.setSpeedX(0.25f);
+        player.setSpeedX(0.35f);
         player.setSpeedY(DEFAULT_JUMP_SPEED);
         player.addStateAnimation(new StateAnimation(spriteFactory.getPlayerIdleAnimationLeft(),
                 spriteFactory.getPlayerIdleAnimationRight(), Sprite.State.NORMAL, 0));

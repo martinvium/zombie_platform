@@ -4,6 +4,7 @@ package com.codefuss.entities;
 import com.codefuss.StateAnimation;
 import com.codefuss.physics.Body;
 import com.codefuss.physics.CollisionListener;
+import com.codefuss.physics.FrictionListener;
 import java.util.EnumMap;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -12,12 +13,13 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.Log;
 
 /**
  *
  * @author Martin Vium <martin.vium@gmail.com>
  */
-abstract public class Sprite implements Entity, CollisionListener {
+abstract public class Sprite implements Entity, CollisionListener, FrictionListener {
 
     Animation currentAnimation;
     Vector2f position;
@@ -42,6 +44,7 @@ abstract public class Sprite implements Entity, CollisionListener {
         this.position = position;
         this.body = body;
         this.body.setCollisionListener(this); // FIXME
+        this.body.setFrictionListener(this); // FIXME
         this.body.setEntity(this); // FIXME
     }
 
@@ -79,7 +82,6 @@ abstract public class Sprite implements Entity, CollisionListener {
         if (this.state != state) {
             this.state = state;
             stateTime = 0;
-            setVelocityX(0);
         }
     }
 
@@ -166,5 +168,10 @@ abstract public class Sprite implements Entity, CollisionListener {
     @Override
     public void collideVertical(Body collided) {
 
+    }
+
+    @Override
+    public void frictionStop() {
+        setState(Entity.State.NORMAL);
     }
 }

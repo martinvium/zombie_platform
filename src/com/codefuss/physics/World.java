@@ -17,6 +17,7 @@ public class World {
     Vector2f gravity;
     ArrayList<Body> bodies = new ArrayList<Body>();
     boolean debugDraw = false;
+    static public final int MAX_GRAVITY_FACTOR = 100;
 
     public World(Vector2f gravity) {
         this.gravity = gravity;

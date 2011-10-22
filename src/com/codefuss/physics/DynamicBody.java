@@ -14,6 +14,7 @@ public class DynamicBody extends StaticBody {
     @Override
     public void updateX(int delta, float gravity) {
         float actualFriction = getFriction() * delta;
+        float actualGravity = gravity * delta;
 
         // do not reverse the body because of friction
         if(actualFriction > Math.abs(getVelocityX())) {
@@ -25,13 +26,25 @@ public class DynamicBody extends StaticBody {
             actualFriction = -actualFriction;
         }
 
-        setVelocityX(getVelocityX() + gravity * delta + actualFriction);
+        // gravity does not apply to bodies moving faster than a given factor
+        if(gravity * World.MAX_GRAVITY_FACTOR < getVelocityX()) {
+            actualGravity = 0;
+        }
+
+        setVelocityX(getVelocityX() + actualGravity + actualFriction);
         super.updateX(delta, gravity);
     }
 
     @Override
     public void updateY(int delta, float gravity) {
-        setVelocityY(getVelocityY() + gravity * delta);
+        float actualGravity = gravity * delta;
+
+        // gravity does not apply to bodies moving faster than a given factor
+        if(gravity * World.MAX_GRAVITY_FACTOR < getVelocityY()) {
+            actualGravity = 0;
+        }
+
+        setVelocityY(getVelocityY() + actualGravity);
         super.updateY(delta, gravity);
     }
 }

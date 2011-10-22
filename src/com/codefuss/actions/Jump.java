@@ -24,7 +24,6 @@ public class Jump extends BaseAction {
 
     @Override
     public Collection<Entity> invoke() {
-        Log.debug("y: " + creature.getVelocityY());
         if(creature.getVelocityY() == 0f) {
             creature.setState(Sprite.State.NORMAL);
             creature.setVelocityY(-creature.getSpeedY());
@@ -32,12 +31,4 @@ public class Jump extends BaseAction {
         
         return new ArrayList<Entity>();
     }
-
-    @Override
-    public boolean test(Input input, int keyCode) {
-        return super.test(input, keyCode);
-        //return input.isKeyPressed(keyCode);
-    }
-
-
 }

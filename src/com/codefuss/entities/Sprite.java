@@ -172,6 +172,8 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
 
     @Override
     public void frictionStop() {
-        setState(Entity.State.NORMAL);
+        if(state != Entity.State.DEAD) {
+            setState(Entity.State.NORMAL);
+        }
     }
 }

@@ -12,6 +12,22 @@ public class AnimationFactory {
 
     String spritesPath = "assets/sprites/";
 
+    public Animation getBoxAnimation() {
+        Animation ani = getAnimation(new Image[] {
+            loadImage("env/box")
+        }, 70);
+        ani.setLooping(false);
+        return ani;
+    }
+
+    public Animation getBoxAnimationBroken() {
+        Animation ani = getAnimation(new Image[] {
+            loadImage("env/box_broken")
+        }, 70);
+        ani.setLooping(false);
+        return ani;
+    }
+
     public Animation getShotgunFireAnimation() {
         Image orgImage = loadImage("hero/shotgun_fire");
         Animation ani = getAnimation(new Image[] {
@@ -234,6 +250,16 @@ public class AnimationFactory {
         Image image;
         try {
             image = new Image(spritesPath + name + ".png");
+            return image;
+        } catch(SlickException ex) {
+            return null;
+        }
+    }
+
+    Image loadImageRaw(String name) {
+        Image image;
+        try {
+            image = new Image(name + ".png");
             return image;
         } catch(SlickException ex) {
             return null;

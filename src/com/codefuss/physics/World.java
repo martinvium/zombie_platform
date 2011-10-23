@@ -49,6 +49,7 @@ public class World {
                 if(isCollided(body, body2)) {
                     body.setX(oldX);
                     body.collideHorizontal(body2);
+                    body2.collideHorizontal(body);
                 }
             }
             
@@ -57,6 +58,7 @@ public class World {
                 if(isCollided(body, body2)) {
                     body.setY(oldY);
                     body.collideVertical(body2);
+                    body2.collideVertical(body);
                 }
             }
         }
@@ -70,7 +72,7 @@ public class World {
      */
     boolean isCollided(Body source, Body target) {
         boolean impenetrable = ((source.getDensity() == Body.DENSITY_MASSIVE || target.getDensity() == Body.DENSITY_MASSIVE) ||
-                    source.getDensity() <= target.getDensity());
+                    source.getDensity() == target.getDensity());
         
         return source != target && impenetrable && source.getShape().intersects(target.getShape());
     }

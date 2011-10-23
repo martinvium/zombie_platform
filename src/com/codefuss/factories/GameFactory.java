@@ -72,7 +72,7 @@ public class GameFactory {
             try {
                 gameMap = new GameMap(getEntityFactory(), ref);
             } catch(SlickException ex) {
-                throw new RuntimeException("failed to load map: " + ref);
+                throw new RuntimeException("failed to load map: " + ref + ", msg: " + ex.getMessage());
             }
         }
         return gameMap;

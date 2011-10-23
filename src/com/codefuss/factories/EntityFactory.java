@@ -9,6 +9,7 @@ import com.codefuss.entities.Entity;
 import com.codefuss.actions.MoveLeft;
 import com.codefuss.entities.Sprite;
 import com.codefuss.entities.Block;
+import com.codefuss.entities.Box;
 import com.codefuss.entities.Player;
 import com.codefuss.entities.ShotgunFire;
 import com.codefuss.entities.Zombie;
@@ -39,6 +40,15 @@ public class EntityFactory {
         return new Block(body);
     }
 
+    public Box getBox(Vector2f position) {
+        Animation ani = spriteFactory.getBoxAnimation();
+        Body body = physicsFactory.getDynamicBox(position.x, position.y, ani.getWidth(), ani.getHeight());
+        Box box = new Box(this, position, body);
+        box.addStateAnimation(new StateAnimation(ani, ani, Entity.State.NORMAL, 0));
+        box.addStateAnimation(new StateAnimation(spriteFactory.getBoxAnimationBroken(), spriteFactory.getBoxAnimationBroken(), Entity.State.DEAD, 0));
+        return box;
+    }
+
     public Player getPlayer(Vector2f position) {
         position.y = -20;
         Animation aniLeft = spriteFactory.getPlayerWalkAnimationLeft();
@@ -59,6 +69,8 @@ public class EntityFactory {
     public Entity getEntity(String type, String name, Vector2f position) {
         if (type.equals("zombie")) {
             return getZombie(position);
+        } else if(type.equals("box")) {
+            return getBox(position);
         }
 
         Log.debug("invalid entity type: " + type);
@@ -84,7 +96,7 @@ public class EntityFactory {
 
     public Entity getShotgunFire(float x, float y, Sprite.Direction dir) {
         Animation ani = spriteFactory.getShotgunFireAnimation();
-        Body body = physicsFactory.getStaticBox(x, y, 10, 30);
+        Body body = physicsFactory.getStaticBox(x, y, 10, 100);
         ShotgunFire fire = new ShotgunFire(new Vector2f(x, y), body);
         fire.addStateAnimation(new StateAnimation(ani, ani, Sprite.State.NORMAL, 250));
 

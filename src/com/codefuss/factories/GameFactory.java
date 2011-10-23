@@ -28,6 +28,7 @@ public class GameFactory {
     InputManager inputManager;
     AnimationFactory spriteFactory;
     PhysicsFactory physicsFactory;
+    BehaviourFactory behaviourFactory;
 
     Input input;
 
@@ -61,7 +62,7 @@ public class GameFactory {
 
     public EntityFactory getEntityFactory() {
         if(entityFactory == null) {
-            entityFactory = new EntityFactory(getSpriteFactory(), getPhysicsFactory());
+            entityFactory = new EntityFactory(getSpriteFactory(), getPhysicsFactory(), getBehaviourFactory());
         }
         return entityFactory;
     }
@@ -91,5 +92,13 @@ public class GameFactory {
         }
 
         return labelFont;
+    }
+
+    public BehaviourFactory getBehaviourFactory() {
+        if(behaviourFactory == null) {
+            behaviourFactory = new BehaviourFactory();
+        }
+
+        return behaviourFactory;
     }
 }

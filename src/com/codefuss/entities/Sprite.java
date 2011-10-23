@@ -2,6 +2,9 @@ package com.codefuss.entities;
 
 
 import com.codefuss.StateAnimation;
+import com.codefuss.actions.Action;
+import com.codefuss.ai.Behaviour;
+import com.codefuss.ai.NullBehaviour;
 import com.codefuss.physics.Body;
 import com.codefuss.physics.CollisionListener;
 import com.codefuss.physics.FrictionListener;
@@ -13,7 +16,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.Log;
 
 /**
  *
@@ -36,6 +38,8 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
 
     protected boolean removed = false;
 
+    protected Behaviour behaviour;
+
     public enum Direction {
         LEFT, RIGHT
     }
@@ -46,6 +50,11 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
         this.body.setCollisionListener(this); // FIXME
         this.body.setFrictionListener(this); // FIXME
         this.body.setEntity(this); // FIXME
+        behaviour = new NullBehaviour();
+    }
+
+    public void setBehaviour(Behaviour behaviour) {
+        this.behaviour = behaviour;
     }
 
     public Body getBody() {
@@ -55,6 +64,10 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
     @Override
     public boolean isRemoved() {
         return removed;
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 
     public void addStateAnimation(StateAnimation stateAni) {
@@ -148,6 +161,14 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
         if(stateAnimation.expired(stateTime)) {
             setState(State.NORMAL);
         }
+
+        if(state != State.DEAD) {
+            behaviour.update(container, game, delta);
+            Action nextAction = behaviour.nextAction();
+            if(nextAction != null) {
+                nextAction.invoke();
+            }
+        }
     }
 
     @Override
@@ -162,12 +183,12 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
 
     @Override
     public void collideHorizontal(Body collided) {
-        
+        behaviour.collideHorizontal(collided);
     }
 
     @Override
     public void collideVertical(Body collided) {
-
+        behaviour.collideVertical(collided);
     }
 
     @Override

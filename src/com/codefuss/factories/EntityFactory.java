@@ -28,10 +28,12 @@ public class EntityFactory {
 
     AnimationFactory spriteFactory;
     PhysicsFactory physicsFactory;
+    BehaviourFactory behaviourFactory;
 
-    public EntityFactory(AnimationFactory spriteFactory, PhysicsFactory physicsFactory) {
+    public EntityFactory(AnimationFactory spriteFactory, PhysicsFactory physicsFactory, BehaviourFactory behaviourFactory) {
         this.spriteFactory = spriteFactory;
         this.physicsFactory = physicsFactory;
+        this.behaviourFactory = behaviourFactory;
     }
 
     public Block getBlocker(Vector2f position, int width, int height) {
@@ -81,16 +83,19 @@ public class EntityFactory {
         position.y = -20;
         Animation aniLeft = spriteFactory.getZombieWalkAnimationLeft();
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
+        
         Zombie zombie = new Zombie(this, position, body);
         zombie.setSpeedX(0.08f);
         zombie.setSpeedY(DEFAULT_JUMP_SPEED);
+        zombie.setBehaviour(behaviourFactory.getZombieBehavour(zombie));
+
         zombie.addStateAnimation(new StateAnimation(aniLeft,
                 spriteFactory.getZombieWalkAnimationRight(), Sprite.State.NORMAL, 0));
         zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieWalkAnimationLeft(),
                 spriteFactory.getZombieWalkAnimationRight(), Sprite.State.WALKING, 0));
         zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieDeadAnimationLeft(),
                 spriteFactory.getZombieDeadAnimationRight(), Entity.State.DEAD, 0));
-        new MoveLeft(zombie).invoke();
+        
         return zombie;
     }
 

@@ -148,6 +148,11 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
         }
 
         StateAnimation stateAnimation = stateAnimations.get(state);
+        if(state == State.DEAD && stateAnimation == null) {
+            removed = true;
+            return;
+        }
+
         Animation newAnimation = stateAnimation.getCurrent(direction);
 
         if(currentAnimation != newAnimation) {

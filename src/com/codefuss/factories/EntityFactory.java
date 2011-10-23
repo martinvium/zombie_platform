@@ -101,14 +101,15 @@ public class EntityFactory {
 
     public Entity getShotgunFire(float x, float y, Sprite.Direction dir) {
         Animation ani = spriteFactory.getShotgunFireAnimation();
-        Body body = physicsFactory.getStaticBox(x, y, 10, 100);
+        Body body = physicsFactory.getDynamicBox(x, y, 16, 16);
+        body.setFriction(0.0015f);
         ShotgunFire fire = new ShotgunFire(new Vector2f(x, y), body);
         fire.addStateAnimation(new StateAnimation(ani, ani, Sprite.State.NORMAL, 250));
 
         if(dir == Sprite.Direction.LEFT) {
-            fire.setVelocityX(-0.7f);
+            fire.setVelocityX(-1.0f);
         } else {
-            fire.setVelocityX(0.7f);
+            fire.setVelocityX(1.0f);
         }
         return fire;
     }

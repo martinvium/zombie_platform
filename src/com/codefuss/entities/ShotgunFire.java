@@ -15,14 +15,22 @@ public class ShotgunFire extends Sprite {
     }
 
     @Override
-    public void collideHorizontal(Body collided) {
+    public void collideVertical(Body collided) {
         super.collideHorizontal(collided);
-        removed = true;
         if(collided.getEntity() instanceof Sprite) {
+            removed = true;
             Sprite sprite = (Sprite)collided.getEntity();
             sprite.kill();
-        } else {
-            Log.error("collided with something not a sprite");
+        }
+    }
+
+    @Override
+    public void collideHorizontal(Body collided) {
+        super.collideHorizontal(collided);
+        if(collided.getEntity() instanceof Sprite) {
+            removed = true;
+            Sprite sprite = (Sprite)collided.getEntity();
+            sprite.kill();
         }
     }
 }

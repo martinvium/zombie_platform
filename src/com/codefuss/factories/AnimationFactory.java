@@ -29,13 +29,8 @@ public class AnimationFactory {
     }
 
     public Animation getShotgunFireAnimation() {
-        Image orgImage = loadImage("hero/shotgun_fire");
         Animation ani = getAnimation(new Image[] {
-            orgImage.getScaledCopy(.1f),
-            orgImage.getScaledCopy(.2f),
-            orgImage.getScaledCopy(.3f),
-            orgImage.getScaledCopy(.4f),
-            orgImage.getScaledCopy(.5f)
+            loadImage("ammo/ball_red")
         }, 50);
         ani.setLooping(false);
         return ani;

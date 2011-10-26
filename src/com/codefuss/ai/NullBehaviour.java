@@ -5,6 +5,7 @@
 package com.codefuss.ai;
 
 import com.codefuss.actions.Action;
+import com.codefuss.entities.Creature;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.state.StateBasedGame;
@@ -26,7 +27,7 @@ public class NullBehaviour implements Behaviour {
     }
 
     @Override
-    public Action nextAction() {
+    public Action nextAction(Creature player) {
         return null;
     }
 

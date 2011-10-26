@@ -14,6 +14,10 @@ import com.codefuss.entities.Creature;
  * @author Martin Vium <martin.vium@gmail.com>
  */
 public class BehaviourFactory {
+
+    public BehaviourFactory() {
+    }
+
     public Behaviour getZombieBehavour(Creature creature) {
         SimpleBehaviour b = new SimpleBehaviour(creature);
         b.init();

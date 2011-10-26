@@ -4,6 +4,7 @@
  */
 package com.codefuss.entities;
 
+import com.codefuss.factories.AmmoFactory;
 import com.codefuss.factories.EntityFactory;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.geom.Vector2f;
@@ -14,9 +15,9 @@ import org.newdawn.slick.geom.Vector2f;
  */
 abstract public class Creature extends Sprite {
 
-    EntityFactory entityFactory;
+    AmmoFactory entityFactory;
 
-    public Creature(EntityFactory entityFactory, Vector2f position, Body body) {
+    public Creature(AmmoFactory entityFactory, Vector2f position, Body body) {
         super(position, body);
         this.entityFactory = entityFactory;
     }

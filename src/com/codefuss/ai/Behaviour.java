@@ -1,6 +1,7 @@
 package com.codefuss.ai;
 
 import com.codefuss.actions.Action;
+import com.codefuss.entities.Creature;
 import com.codefuss.physics.CollisionListener;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.state.StateBasedGame;
@@ -14,5 +15,5 @@ public interface Behaviour extends CollisionListener {
 
     public void update(GameContainer container, StateBasedGame game, int delta);
 
-    public Action nextAction();
+    public Action nextAction(Creature player);
 }

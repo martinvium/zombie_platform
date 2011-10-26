@@ -29,6 +29,7 @@ public class GameFactory {
     AnimationFactory spriteFactory;
     PhysicsFactory physicsFactory;
     BehaviourFactory behaviourFactory;
+    AmmoFactory ammoFactory;
 
     Input input;
 
@@ -62,9 +63,16 @@ public class GameFactory {
 
     public EntityFactory getEntityFactory() {
         if(entityFactory == null) {
-            entityFactory = new EntityFactory(getSpriteFactory(), getPhysicsFactory(), getBehaviourFactory());
+            entityFactory = new EntityFactory(getSpriteFactory(), getPhysicsFactory(), getBehaviourFactory(), getAmmoFactory());
         }
         return entityFactory;
+    }
+
+    public AmmoFactory getAmmoFactory() {
+        if(ammoFactory == null) {
+            ammoFactory = new AmmoFactory(getSpriteFactory(), getPhysicsFactory());
+        }
+        return ammoFactory;
     }
 
     public GameMap getMap() {

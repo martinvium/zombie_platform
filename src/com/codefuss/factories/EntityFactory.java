@@ -7,6 +7,7 @@ package com.codefuss.factories;
 import com.codefuss.StateAnimation;
 import com.codefuss.entities.Entity;
 import com.codefuss.actions.MoveLeft;
+import com.codefuss.entities.Ammo;
 import com.codefuss.entities.Sprite;
 import com.codefuss.entities.Block;
 import com.codefuss.entities.Box;
@@ -29,11 +30,14 @@ public class EntityFactory {
     AnimationFactory spriteFactory;
     PhysicsFactory physicsFactory;
     BehaviourFactory behaviourFactory;
+    AmmoFactory ammoFactory;
 
-    public EntityFactory(AnimationFactory spriteFactory, PhysicsFactory physicsFactory, BehaviourFactory behaviourFactory) {
+    public EntityFactory(AnimationFactory spriteFactory, PhysicsFactory physicsFactory, 
+            BehaviourFactory behaviourFactory, AmmoFactory ammoFactory) {
         this.spriteFactory = spriteFactory;
         this.physicsFactory = physicsFactory;
         this.behaviourFactory = behaviourFactory;
+        this.ammoFactory = ammoFactory;
     }
 
     public Block getBlocker(Vector2f position, int width, int height) {
@@ -56,7 +60,7 @@ public class EntityFactory {
         Animation aniLeft = spriteFactory.getPlayerWalkAnimationLeft();
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
         Log.debug("add player at: " + position.toString());
-        Player player = new Player(this, position, body);
+        Player player = new Player(ammoFactory, position, body);
         player.setSpeedX(0.35f);
         player.setSpeedY(DEFAULT_JUMP_SPEED);
         player.addStateAnimation(new StateAnimation(spriteFactory.getPlayerIdleAnimationLeft(),
@@ -84,7 +88,7 @@ public class EntityFactory {
         Animation aniLeft = spriteFactory.getZombieWalkAnimationLeft();
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
         
-        Zombie zombie = new Zombie(this, position, body);
+        Zombie zombie = new Zombie(ammoFactory, position, body);
         zombie.setSpeedX(0.08f);
         zombie.setSpeedY(DEFAULT_JUMP_SPEED);
         zombie.setBehaviour(behaviourFactory.getZombieBehavour(zombie));
@@ -95,22 +99,9 @@ public class EntityFactory {
                 spriteFactory.getZombieWalkAnimationRight(), Sprite.State.WALKING, 0));
         zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieDeadAnimationLeft(),
                 spriteFactory.getZombieDeadAnimationRight(), Entity.State.DEAD, 0));
+        zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieAttackAnimationLeft(),
+                spriteFactory.getZombieAttackAnimationRight(), Entity.State.ATTACKING, 500));
         
         return zombie;
-    }
-
-    public Entity getShotgunFire(float x, float y, Sprite.Direction dir) {
-        Animation ani = spriteFactory.getShotgunFireAnimation();
-        Body body = physicsFactory.getDynamicBox(x, y, 16, 16);
-        body.setFriction(0.0015f);
-        ShotgunFire fire = new ShotgunFire(new Vector2f(x, y), body);
-        fire.addStateAnimation(new StateAnimation(ani, ani, Sprite.State.NORMAL, 250));
-
-        if(dir == Sprite.Direction.LEFT) {
-            fire.setVelocityX(-1.0f);
-        } else {
-            fire.setVelocityX(1.0f);
-        }
-        return fire;
     }
 }

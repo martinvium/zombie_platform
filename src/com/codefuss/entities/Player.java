@@ -1,5 +1,6 @@
 package com.codefuss.entities;
 
+import com.codefuss.factories.AmmoFactory;
 import com.codefuss.factories.EntityFactory;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.geom.Vector2f;
@@ -9,7 +10,7 @@ import org.newdawn.slick.geom.Vector2f;
  */
 final public class Player extends Creature {
 
-    public Player(EntityFactory entityFactory, Vector2f position, Body body) {
+    public Player(AmmoFactory entityFactory, Vector2f position, Body body) {
         super(entityFactory, position, body);
     }
 
@@ -24,6 +25,6 @@ final public class Player extends Creature {
         
         float y = getPosition().y + getHeight() / 4;
 
-        return entityFactory.getShotgunFire(x, y, direction);
+        return entityFactory.getShotgunAmmo(x, y, direction);
     }
 }

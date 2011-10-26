@@ -86,6 +86,48 @@ public class AnimationFactory {
             loadImage("hero/attack/jared0215")
         };
     }
+
+    public Animation getZombieAttackAnimationLeft() {
+        Animation ani = getAnimation(getZombieAttackImages(), 70);
+        ani.setLooping(false);
+        return ani;
+    }
+
+    public Animation getZombieAttackAnimationRight() {
+        Animation ani = getAnimation(getFlippedCopies(getZombieAttackImages()), 70);
+        ani.setLooping(false);
+        return ani;
+    }
+
+    public Image[] getZombieAttackImages() {
+        return new Image[] {
+            loadImage("zombie/attack/jared0174"),
+            loadImage("zombie/attack/jared0175"),
+            loadImage("zombie/attack/jared0176"),
+            loadImage("zombie/attack/jared0177"),
+            loadImage("zombie/attack/jared0178"),
+            loadImage("zombie/attack/jared0179"),
+            loadImage("zombie/attack/jared0180"),
+            loadImage("zombie/attack/jared0181"),
+            loadImage("zombie/attack/jared0182"),
+            loadImage("zombie/attack/jared0183"),
+            loadImage("zombie/attack/jared0184"),
+            loadImage("zombie/attack/jared0185"),
+            loadImage("zombie/attack/jared0186"),
+            loadImage("zombie/attack/jared0187"),
+            loadImage("zombie/attack/jared0188"),
+            loadImage("zombie/attack/jared0189"),
+            loadImage("zombie/attack/jared0190"),
+            loadImage("zombie/attack/jared0191"),
+            loadImage("zombie/attack/jared0192"),
+            loadImage("zombie/attack/jared0193"),
+            loadImage("zombie/attack/jared0194"),
+            loadImage("zombie/attack/jared0195"),
+            loadImage("zombie/attack/jared0196"),
+            loadImage("zombie/attack/jared0197"),
+            loadImage("zombie/attack/jared0198")
+        };
+    }
     
     public Animation getZombieDeadAnimationLeft() {
         Animation ani = getAnimation(getZombieDeadImages(), 70);

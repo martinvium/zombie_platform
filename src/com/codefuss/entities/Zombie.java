@@ -4,6 +4,7 @@
  */
 package com.codefuss.entities;
 
+import com.codefuss.factories.AmmoFactory;
 import com.codefuss.factories.EntityFactory;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.geom.Vector2f;
@@ -14,12 +15,21 @@ import org.newdawn.slick.geom.Vector2f;
  */
 public class Zombie extends Creature {
 
-    public Zombie(EntityFactory entityFactory, Vector2f position, Body body) {
+    public Zombie(AmmoFactory entityFactory, Vector2f position, Body body) {
         super(entityFactory, position, body);
     }
 
     @Override
     public Entity getMainAttack() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        float x;
+        if(direction == Direction.LEFT) {
+            x = getPosition().x - 10;
+        } else {
+            x = getPosition().x + getWidth() + 10;
+        }
+
+        float y = getPosition().y + getHeight() / 4;
+
+        return entityFactory.getClaw(x, y, direction);
     }
 }

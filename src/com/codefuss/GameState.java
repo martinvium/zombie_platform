@@ -1,6 +1,7 @@
 package com.codefuss;
 
 
+import com.codefuss.actions.Action;
 import com.codefuss.factories.GameFactory;
 import com.codefuss.entities.Entity;
 import com.codefuss.actions.Attack;
@@ -8,7 +9,7 @@ import com.codefuss.actions.Jump;
 import com.codefuss.actions.MoveLeft;
 import com.codefuss.actions.MoveRight;
 import com.codefuss.actions.ShowPhysicShapes;
-import com.codefuss.actions.StopAction;
+import com.codefuss.entities.Creature;
 import com.codefuss.entities.Player;
 import com.codefuss.entities.Sprite;
 import com.codefuss.physics.Body;
@@ -42,6 +43,10 @@ public class GameState extends BasicGameState {
         return ID;
     }
 
+    public Creature getPlayer() {
+        return player;
+    }
+
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         gameFactory = new GameFactory(Game.getProperties(), container.getInput());
@@ -69,19 +74,29 @@ public class GameState extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
         // run action and apply any resulting entities to stack
-        for(Entity e : gameFactory.getInputManager().getAction().invoke()) {
-            entities.add(e);
-        }
+        entities.addAll(gameFactory.getInputManager().getAction().invoke());
 
         // update all entities
+        ArrayList<Entity> newEntities = new ArrayList<Entity>();
         ArrayList<Entity> toBeRemoved = new ArrayList<Entity>();
         for(Entity e : entities) {
             e.update(container, game, delta);
+
+            if(e instanceof Sprite) {
+                Sprite sprite = (Sprite) e;
+                Action nextAction = sprite.getNextAction(player);
+                if(nextAction != null) {
+                    newEntities.addAll(nextAction.invoke());
+                }
+            }
+
 
             if(e.isRemoved()) {
                 toBeRemoved.add(e);
             }
         }
+
+        entities.addAll(newEntities);
 
         for(Entity e : toBeRemoved) {
             entities.remove(e);

@@ -16,6 +16,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.Log;
 
 /**
  *
@@ -98,6 +99,10 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
         }
     }
 
+    public State getState() {
+        return state;
+    }
+
     public void kill() {
         setState(State.DEAD);
         body.setDensity(.1f);
@@ -150,6 +155,7 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
         StateAnimation stateAnimation = stateAnimations.get(state);
         if(state == State.DEAD && stateAnimation == null) {
             removed = true;
+            Log.debug("entity died");
             return;
         }
 
@@ -167,13 +173,15 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
             setState(State.NORMAL);
         }
 
+        behaviour.update(container, game, delta);
+    }
+
+    public Action getNextAction(Creature player) {
         if(state != State.DEAD) {
-            behaviour.update(container, game, delta);
-            Action nextAction = behaviour.nextAction();
-            if(nextAction != null) {
-                nextAction.invoke();
-            }
+            return behaviour.nextAction(player);
         }
+        
+        return null;
     }
 
     @Override

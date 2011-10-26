@@ -26,7 +26,24 @@ public class AmmoFactory {
         this.physicsFactory = physicsFactory;
     }
 
-    public Ammo getShotgunAmmo(float x, float y, Sprite.Direction dir) {
+    public Ammo getClaw(float x, float y, Sprite.Direction dir) {
+        Animation ani = new Animation();
+        Body body = physicsFactory.getDynamicBox(x, y, 16, 16);
+        body.setFriction(0.0015f);
+        Ammo fire = new Ammo(new Vector2f(x, y), body);
+        fire.addStateAnimation(new StateAnimation(ani, ani, Sprite.State.NORMAL, 250));
+        return fire;
+    }
+
+    public Ammo getRedBall(float x, float y, Sprite.Direction dir) {
+        return getBaseBall(x, y, dir);
+    }
+
+    public Ammo getBlueBall(float x, float y, Sprite.Direction dir) {
+        return getBaseBall(x, y, dir);
+    }
+
+    Ammo getBaseBall(float x, float y, Sprite.Direction dir) {
         Animation ani = spriteFactory.getShotgunFireAnimation();
         Body body = physicsFactory.getDynamicBox(x, y, 16, 16);
         body.setFriction(0.0015f);
@@ -38,15 +55,6 @@ public class AmmoFactory {
         } else {
             fire.setVelocityX(1.0f);
         }
-        return fire;
-    }
-
-    public Ammo getClaw(float x, float y, Sprite.Direction dir) {
-        Animation ani = new Animation();
-        Body body = physicsFactory.getDynamicBox(x, y, 16, 16);
-        body.setFriction(0.0015f);
-        Ammo fire = new Ammo(new Vector2f(x, y), body);
-        fire.addStateAnimation(new StateAnimation(ani, ani, Sprite.State.NORMAL, 250));
         return fire;
     }
 }

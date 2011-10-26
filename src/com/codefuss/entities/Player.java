@@ -25,6 +25,6 @@ final public class Player extends Creature {
         
         float y = getPosition().y + getHeight() / 4;
 
-        return entityFactory.getShotgunAmmo(x, y, direction);
+        return entityFactory.getRedBall(x, y, direction);
     }
 }

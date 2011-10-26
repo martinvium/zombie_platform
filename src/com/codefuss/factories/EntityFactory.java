@@ -6,13 +6,10 @@ package com.codefuss.factories;
 
 import com.codefuss.StateAnimation;
 import com.codefuss.entities.Entity;
-import com.codefuss.actions.MoveLeft;
-import com.codefuss.entities.Ammo;
 import com.codefuss.entities.Sprite;
 import com.codefuss.entities.Block;
 import com.codefuss.entities.Box;
 import com.codefuss.entities.Player;
-import com.codefuss.entities.ShotgunFire;
 import com.codefuss.entities.Zombie;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.Animation;

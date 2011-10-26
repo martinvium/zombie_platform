@@ -6,7 +6,6 @@ package com.codefuss.factories;
 
 import com.codefuss.StateAnimation;
 import com.codefuss.entities.Ammo;
-import com.codefuss.entities.ShotgunFire;
 import com.codefuss.entities.Sprite;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.Animation;
@@ -47,7 +46,7 @@ public class AmmoFactory {
         Animation ani = spriteFactory.getShotgunFireAnimation();
         Body body = physicsFactory.getDynamicBox(x, y, 16, 16);
         body.setFriction(0.0015f);
-        ShotgunFire fire = new ShotgunFire(new Vector2f(x, y), body);
+        Ammo fire = new Ammo(new Vector2f(x, y), body);
         fire.addStateAnimation(new StateAnimation(ani, ani, Sprite.State.NORMAL, 250));
 
         if(dir == Sprite.Direction.LEFT) {

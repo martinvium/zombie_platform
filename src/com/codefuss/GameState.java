@@ -74,7 +74,9 @@ public class GameState extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
         // run action and apply any resulting entities to stack
-        entities.addAll(gameFactory.getInputManager().getAction().invoke());
+        for(Action action : gameFactory.getInputManager().getActions(delta)) {
+            entities.addAll(action.invoke());
+        }
 
         // update all entities
         ArrayList<Entity> newEntities = new ArrayList<Entity>();

@@ -5,9 +5,10 @@
 package com.codefuss;
 
 import com.codefuss.actions.Action;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.util.Log;
 
 /**
  *
@@ -31,14 +32,19 @@ public class InputManager {
         keyActions.put(keyCode, action);
     }
 
-    public Action getAction()
+    public Collection<Action> getActions(int delta)
 	{
+        ArrayList<Action> foundActions = new ArrayList<Action>();
         for(int keyCode : keyActions.keySet()) {
             if(keyActions.get(keyCode).test(input, keyCode)) {
-                return keyActions.get(keyCode);
+                foundActions.add(keyActions.get(keyCode));
             }
         }
 
-        return defaultAction;
+        if(foundActions.isEmpty()) {
+            foundActions.add(defaultAction);
+        }
+
+        return foundActions;
 	}
 }

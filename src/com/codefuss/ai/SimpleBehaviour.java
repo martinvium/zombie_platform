@@ -31,7 +31,7 @@ public class SimpleBehaviour implements Behaviour {
     Creature entity;
 
     Action nextMove;
-    Action lastAction;
+    Action nextAttack;
 
     ArrayList<Action> actions = new ArrayList<Action>();
 
@@ -91,8 +91,12 @@ public class SimpleBehaviour implements Behaviour {
 
         if(state == State.BATTLE_ATTACK) {
             timeSinceLastAttack -= attackTimeout;
-            throw new RuntimeException("bla");
-            
+            if(timeSinceLastAttack > attackTimeout) {
+                timeSinceLastAttack = 0;
+                nextAttack = attack;
+            } else {
+                nextAttack = null;
+            }
         } else if(state == State.DECISION_READY) {
             timeSinceDecision = 0;
             if(canSee(gameState.getPlayer())) {
@@ -110,12 +114,7 @@ public class SimpleBehaviour implements Behaviour {
     @Override
     public Action nextAction(Creature player) {
         if(state == State.BATTLE_ATTACK) {
-            if(timeSinceLastAttack > attackTimeout) {
-                timeSinceLastAttack = 0;
-                return attack;
-            } else {
-                return null;
-            }
+            return nextAttack;
         } else if(state == State.NORMAL_CHASE) {
             nextMove = (entity.getX() > player.getX() ? left : right);
             return nextMove;

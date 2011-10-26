@@ -49,7 +49,8 @@ public class AmmoFactory {
         Ammo fire = new Ammo(new Vector2f(x, y), body);
         fire.addStateAnimation(new StateAnimation(ani, ani, Sprite.State.NORMAL, 250));
 
-        float velocity = timeKeyPressed * 0.003f;
+        float velocity = timeKeyPressed * 0.005f;
+        velocity = Math.max(velocity, 0.7f);
         if(dir == Sprite.Direction.LEFT) {
             fire.setVelocityX(-velocity);
         } else {

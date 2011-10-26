@@ -14,6 +14,8 @@ import org.newdawn.slick.util.Log;
  */
 public class Attack extends BaseAction {
 
+    int timeKeyPressed = 0;
+
     public Attack(Creature creature) {
         super(creature);
     }
@@ -23,12 +25,21 @@ public class Attack extends BaseAction {
         Log.debug("invoke attack");
         creature.setState(Sprite.State.ATTACKING);
         ArrayList<Entity> ret = new ArrayList<Entity>();
-        ret.add(creature.getMainAttack());
+        ret.add(creature.getMainAttack(timeKeyPressed));
+        timeKeyPressed = 0;
         return ret;
     }
 
     @Override
-    public boolean test(Input input, int keyCode) {
-        return input.isKeyPressed(keyCode);
+    public boolean test(Input input, int keyCode, int delta) {
+        if(input.isKeyDown(keyCode)) {
+            timeKeyPressed += delta;
+            return false;
+        } else if(timeKeyPressed > 0) {
+            return true;
+        } else {
+            timeKeyPressed = 0;
+            return false;
+        }
     }
 }

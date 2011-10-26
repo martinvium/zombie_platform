@@ -5,7 +5,6 @@
 package com.codefuss.entities;
 
 import com.codefuss.factories.AmmoFactory;
-import com.codefuss.factories.EntityFactory;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -22,5 +21,5 @@ abstract public class Creature extends Sprite {
         this.entityFactory = entityFactory;
     }
 
-    abstract public Entity getMainAttack();
+    abstract public Entity getMainAttack(int timeKeyPressed);
 }

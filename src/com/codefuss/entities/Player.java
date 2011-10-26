@@ -1,7 +1,6 @@
 package com.codefuss.entities;
 
 import com.codefuss.factories.AmmoFactory;
-import com.codefuss.factories.EntityFactory;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -15,7 +14,7 @@ final public class Player extends Creature {
     }
 
     @Override
-    public Entity getMainAttack() {
+    public Entity getMainAttack(int timeKeyPressed) {
         float x;
         if(direction == Direction.LEFT) {
             x = getPosition().x - 10;
@@ -25,6 +24,6 @@ final public class Player extends Creature {
         
         float y = getPosition().y + getHeight() / 4;
 
-        return entityFactory.getRedBall(x, y, direction);
+        return entityFactory.getRedBall(x, y, direction, timeKeyPressed);
     }
 }

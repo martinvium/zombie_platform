@@ -17,7 +17,7 @@ import org.newdawn.slick.Input;
 public class NullAction implements Action {
 
     @Override
-    public boolean test(Input input, int keyCode) {
+    public boolean test(Input input, int keyCode, int delta) {
         throw new UnsupportedOperationException("Null action is untestable");
     }
 

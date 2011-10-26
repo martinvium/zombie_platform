@@ -15,5 +15,5 @@ import org.newdawn.slick.Input;
 public interface Action {
     public Collection<Entity> invoke();
 
-    public boolean test(Input input, int keyCode);
+    public boolean test(Input input, int keyCode, int delta);
 }

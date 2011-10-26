@@ -34,25 +34,26 @@ public class AmmoFactory {
         return fire;
     }
 
-    public Ammo getRedBall(float x, float y, Sprite.Direction dir) {
-        return getBaseBall(x, y, dir);
+    public Ammo getRedBall(float x, float y, Sprite.Direction dir, int timeKeyPressed) {
+        return getBaseBall(x, y, dir, timeKeyPressed);
     }
 
-    public Ammo getBlueBall(float x, float y, Sprite.Direction dir) {
-        return getBaseBall(x, y, dir);
+    public Ammo getBlueBall(float x, float y, Sprite.Direction dir, int timeKeyPressed) {
+        return getBaseBall(x, y, dir, timeKeyPressed);
     }
 
-    Ammo getBaseBall(float x, float y, Sprite.Direction dir) {
+    Ammo getBaseBall(float x, float y, Sprite.Direction dir, int timeKeyPressed) {
         Animation ani = spriteFactory.getShotgunFireAnimation();
         Body body = physicsFactory.getDynamicBox(x, y, 16, 16);
         body.setFriction(0.0015f);
         Ammo fire = new Ammo(new Vector2f(x, y), body);
         fire.addStateAnimation(new StateAnimation(ani, ani, Sprite.State.NORMAL, 250));
 
+        float velocity = timeKeyPressed * 0.003f;
         if(dir == Sprite.Direction.LEFT) {
-            fire.setVelocityX(-1.0f);
+            fire.setVelocityX(-velocity);
         } else {
-            fire.setVelocityX(1.0f);
+            fire.setVelocityX(velocity);
         }
         return fire;
     }

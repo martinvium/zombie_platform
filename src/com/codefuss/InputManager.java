@@ -36,7 +36,7 @@ public class InputManager {
 	{
         ArrayList<Action> foundActions = new ArrayList<Action>();
         for(int keyCode : keyActions.keySet()) {
-            if(keyActions.get(keyCode).test(input, keyCode)) {
+            if(keyActions.get(keyCode).test(input, keyCode, delta)) {
                 foundActions.add(keyActions.get(keyCode));
             }
         }

@@ -30,7 +30,7 @@ public class ShowPhysicShapes implements Action {
     }
 
     @Override
-    public boolean test(Input input, int keyCode) {
+    public boolean test(Input input, int keyCode, int delta) {
         return input.isKeyPressed(keyCode);
     }
 }

@@ -5,7 +5,6 @@
 package com.codefuss.entities;
 
 import com.codefuss.factories.AmmoFactory;
-import com.codefuss.factories.EntityFactory;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -20,7 +19,7 @@ public class Zombie extends Creature {
     }
 
     @Override
-    public Entity getMainAttack() {
+    public Entity getMainAttack(int timeKeyPressed) {
         float x;
         if(direction == Direction.LEFT) {
             x = getPosition().x - 10;

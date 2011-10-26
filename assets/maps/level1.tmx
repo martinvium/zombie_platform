@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="100" height="30" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="environment" tilewidth="32" tileheight="32">
-  <image source="../tilesets/env.png" width="128" height="32"/>
+  <image source="../tilesets/env.png" width="256" height="32"/>
  </tileset>
- <tileset firstgid="5" name="collision" tilewidth="32" tileheight="32">
+ <tileset firstgid="9" name="collision" tilewidth="32" tileheight="32">
   <image source="../tilesets/collision.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="6" name="items" tilewidth="64" tileheight="64">
+ <tileset firstgid="10" name="items" tilewidth="64" tileheight="64">
   <image source="../tilesets/items.png" width="64" height="64"/>
  </tileset>
  <layer name="collision" width="100" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3XMQoAIAwEMJf+/8uuIogKQhUT6NTj6NpSeE0s7GeZNjfKxkJmR993ovPEDRl3AAAAcLfR/2hyBgAAAAAAAPhHBbf0C7bgLgAA
+   H4sIAAAAAAAAC+3ZoQ0AQAgEQSz9N4x+9Q4ImUm2gpMXAQAAAAB7pVr77QAAAAAAAHDN9D+jtwI3LXxg4C4AAA==
   </data>
  </layer>
- <layer name="base" width="100" height="30" visible="0">
+ <layer name="base" width="100" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3XMQoAIQxFwej9D21rI0YQVJyBV+1H0m6NiKqnKonvs02/G21LYrN69+43d9xw4g5JkiRJ0t2N/h91JgAAAAAAAOAfDb64vlzgLgAA
+   H4sIAAAAAAAAC+3ZMQ6AMAwDwBRR+P+Pu1KpCDGlUm64Kdm82S0iGts42coBAABASdn9QCXXSwb98ZPdD1SzyuP+uAMAAAAAAP9kbzTMsvcZZgNFoH2d4C4AAA==
   </data>
  </layer>
  <objectgroup name="objects" width="100" height="30">
-  <object name="zombie01" type="zombie" x="721" y="63" width="27" height="12"/>
-  <object name="zombie01" type="zombie" x="1519" y="62" width="27" height="12"/>
-  <object name="zombie01" type="zombie" x="415" y="62" width="27" height="12"/>
+  <object name="zombie01" type="zombie" x="865" y="91" width="27" height="12"/>
+  <object name="zombie01" type="zombie" x="1589" y="108" width="27" height="12"/>
+  <object name="zombie01" type="zombie" x="414" y="95" width="27" height="12"/>
   <object type="box" x="2580" y="251" width="96" height="96"/>
   <object type="box" x="2687" y="143" width="96" height="96"/>
   <object type="box" x="2688" y="251" width="96" height="96"/>

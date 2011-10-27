@@ -119,15 +119,14 @@ public class GameState extends BasicGameState {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        float cameraX = gameFactory.getCamera().getX();
-        float cameraY = gameFactory.getCamera().getY();
+        Camera camera = gameFactory.getCamera();
 
-        gameFactory.getMap().render(-cameraX, -cameraY);
+        gameFactory.getMap().render(-camera.getX(), -camera.getY());
         for(Entity e : entities) {
-            e.render(container, game, g, gameFactory.getCamera());
+            e.render(container, game, g, camera);
         }
 
-        gameFactory.getPhysicsFactory().getWorld().render(g, gameFactory.getCamera());
+        gameFactory.getPhysicsFactory().getWorld().render(g, camera);
     }
 
     float getNormalizedOffset(GameContainer container, float offset) {

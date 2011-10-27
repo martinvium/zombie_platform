@@ -1,6 +1,7 @@
 package com.codefuss.entities;
 
 
+import com.codefuss.Camera;
 import com.codefuss.StateAnimation;
 import com.codefuss.actions.Action;
 import com.codefuss.ai.Behaviour;
@@ -185,11 +186,11 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
     }
 
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException {
+    public void render(GameContainer container, StateBasedGame game, Graphics g, Camera camera) throws SlickException {
         if(currentAnimation != null) {
             g.drawAnimation(currentAnimation, 
-                    body.getShape().getCenterX() - currentAnimation.getWidth() / 2 - offsetX,
-                    body.getShape().getCenterY() - currentAnimation.getHeight() / 2,
+                    body.getShape().getCenterX() - currentAnimation.getWidth() / 2 - camera.getX(),
+                    body.getShape().getCenterY() - currentAnimation.getHeight() / 2 - camera.getY(),
                     Color.white);
         }
     }

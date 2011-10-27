@@ -4,6 +4,7 @@
  */
 package com.codefuss.entities;
 
+import com.codefuss.Camera;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -24,7 +25,7 @@ public interface Entity {
     
     public void update(GameContainer container, StateBasedGame game, int delta);
     
-    public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException;
+    public void render(GameContainer container, StateBasedGame game, Graphics g, Camera camera) throws SlickException;
 
     public void setState(State state);
 

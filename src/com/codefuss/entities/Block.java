@@ -4,6 +4,7 @@
  */
 package com.codefuss.entities;
 
+import com.codefuss.Camera;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -28,7 +29,7 @@ public class Block implements Entity {
     }
 
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g, float offsetX) throws SlickException {
+    public void render(GameContainer container, StateBasedGame game, Graphics g, Camera camera) throws SlickException {
         
     }
 

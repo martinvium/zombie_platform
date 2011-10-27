@@ -35,7 +35,6 @@ public class GameState extends BasicGameState {
     GameFactory gameFactory;
     ArrayList<Entity> entities = new ArrayList<Entity>();
     Player player;
-    float offsetX = 0;
     Body ground;
 
     @Override
@@ -55,6 +54,7 @@ public class GameState extends BasicGameState {
         gameFactory.getMap().initCreatureEntities(entities);
 
         initPlayer();
+        gameFactory.getCamera().lookAt(player);
 
         gameFactory.getInputManager().mapToKey(new ShowPhysicShapes(gameFactory.getPhysicsFactory().getWorld()), Input.KEY_P);
 
@@ -110,19 +110,24 @@ public class GameState extends BasicGameState {
 
         gameFactory.getPhysicsFactory().getWorld().update(delta);
 
+        gameFactory.getCamera().update(container);
+
         // calculate screen offset
-        offsetX = player.getX() - (container.getWidth() / 2) + (player.getWidth() / 2);
-        offsetX = getNormalizedOffset(container, offsetX);
+        //offsetX = player.getX() - (container.getWidth() / 2) + (player.getWidth() / 2);
+        //offsetX = getNormalized(container, offsetX);
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        gameFactory.getMap().render(-offsetX, 0);
+        float cameraX = gameFactory.getCamera().getX();
+        float cameraY = gameFactory.getCamera().getY();
+
+        gameFactory.getMap().render(-cameraX, -cameraY);
         for(Entity e : entities) {
-            e.render(container, game, g, offsetX);
+            e.render(container, game, g, gameFactory.getCamera());
         }
 
-        gameFactory.getPhysicsFactory().getWorld().render(g, offsetX);
+        gameFactory.getPhysicsFactory().getWorld().render(g, gameFactory.getCamera());
     }
 
     float getNormalizedOffset(GameContainer container, float offset) {

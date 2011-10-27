@@ -4,6 +4,7 @@
  */
 package com.codefuss.factories;
 
+import com.codefuss.Camera;
 import com.codefuss.GameMap;
 import com.codefuss.InputManager;
 import com.codefuss.actions.NullAction;
@@ -30,6 +31,7 @@ public class GameFactory {
     PhysicsFactory physicsFactory;
     BehaviourFactory behaviourFactory;
     AmmoFactory ammoFactory;
+    Camera camera;
 
     Input input;
 
@@ -108,5 +110,13 @@ public class GameFactory {
         }
 
         return behaviourFactory;
+    }
+
+    public Camera getCamera() {
+        if(camera == null) {
+            camera = new Camera(getMap());
+        }
+
+        return camera;
     }
 }

@@ -1,5 +1,6 @@
 package com.codefuss.physics;
 
+import com.codefuss.Camera;
 import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
@@ -77,7 +78,7 @@ public class World {
         return source != target && impenetrable && source.getShape().intersects(target.getShape());
     }
 
-    public void render(Graphics g, float offsetX) {
+    public void render(Graphics g, Camera camera) {
         if(debugDraw == false) {
             return;
         }
@@ -85,7 +86,7 @@ public class World {
         for(Body body : bodies) {
             Shape shape = body.getShape();
             if(shape instanceof Rectangle) {
-                g.drawRect(shape.getX() - offsetX, shape.getY(), shape.getWidth(), shape.getHeight());
+                g.drawRect(shape.getX() - camera.getX(), shape.getY() - camera.getY(), shape.getWidth(), shape.getHeight());
             } else {
                 throw new RuntimeException("unknown shape: " + shape.getClass());
             }

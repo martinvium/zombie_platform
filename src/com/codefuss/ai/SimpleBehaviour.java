@@ -15,6 +15,7 @@ import com.codefuss.entities.Sprite.Direction;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.Log;
 
 /**
  *
@@ -35,7 +36,7 @@ public class SimpleBehaviour implements Behaviour {
     float timeSinceLastAttack = 0;
     float decisionTime = 500;
     float normalStateTimeout = 500;
-    float attackTimeout = 3000;
+    float attackTimeout = 1500;
     int aggresionDistance = 400;
 
     public enum State {
@@ -52,6 +53,7 @@ public class SimpleBehaviour implements Behaviour {
 
     public void setState(State state) {
         if(state != this.state) {
+            Log.debug("ai state: " + state);
             this.state = state;
             timeInState = 0;
         }
@@ -91,9 +93,9 @@ public class SimpleBehaviour implements Behaviour {
         }
 
         if(state == State.BATTLE_ATTACK) {
-            timeSinceLastAttack -= attackTimeout;
             if(timeSinceLastAttack > attackTimeout) {
-                timeSinceLastAttack = 0;
+                Log.debug("attack!");
+                timeSinceLastAttack -= attackTimeout;
                 nextAction = attack;
             }
         } else if(state == State.NORMAL_CHASE) {

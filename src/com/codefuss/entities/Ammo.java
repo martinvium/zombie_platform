@@ -35,7 +35,7 @@ public class Ammo extends Sprite {
     }
     
     private void applyCollisionDamage(Body collided) {
-        if(collided.getEntity() instanceof Sprite && removed == false) {
+        if(collided.getEntity() instanceof Sprite && ! isRemoved()) {
             remove();
             Sprite sprite = (Sprite)collided.getEntity();
             sprite.applyHealth(-(int) (minDamage + Math.random() * (maxDamage - minDamage)));

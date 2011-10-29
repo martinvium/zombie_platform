@@ -20,6 +20,8 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 abstract public class Creature extends Sprite {
 
+    final static int AMMO_OFFSET = 17; // todo, should be supplied by ammo?
+
     protected AmmoFactory entityFactory;
     private HealthBar healthBar;
 
@@ -48,7 +50,16 @@ abstract public class Creature extends Sprite {
         }
     }
 
+    public Entity getMainAttack(int timeKeyPressed) {
+        float x;
+        if(direction == Direction.LEFT) {
+            x = getPosition().x - AMMO_OFFSET;
+        } else {
+            x = getPosition().x + getWidth() + 1;
+        }
 
+        float y = getPosition().y + getHeight() / 4;
 
-    abstract public Entity getMainAttack(int timeKeyPressed);
+        return entityFactory.getRedBall(x, y, direction, timeKeyPressed);
+    }
 }

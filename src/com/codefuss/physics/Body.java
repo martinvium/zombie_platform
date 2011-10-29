@@ -62,4 +62,8 @@ public interface Body extends CollisionListener {
     public float getFriction();
 
     public void setFrictionListener(FrictionListener listener);
+
+    public void remove();
+
+    public boolean isRemoved();
 }

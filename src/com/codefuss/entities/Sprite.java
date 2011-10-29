@@ -86,6 +86,11 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
         return body;
     }
 
+    protected void remove() {
+        removed = true;
+        getBody().remove();
+    }
+
     @Override
     public boolean isRemoved() {
         return removed;

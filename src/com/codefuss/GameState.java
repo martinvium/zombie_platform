@@ -20,6 +20,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.BasicGameState;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -73,15 +74,21 @@ public class GameState extends BasicGameState {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        // run action and apply any resulting entities to stack
+        // get user input and apply actions accordingly
         for(Action action : gameFactory.getInputManager().getActions(delta)) {
             entities.addAll(action.invoke());
         }
 
         // update all entities
         ArrayList<Entity> newEntities = new ArrayList<Entity>();
-        ArrayList<Entity> toBeRemoved = new ArrayList<Entity>();
-        for(Entity e : entities) {
+        Iterator<Entity> itr = entities.iterator();
+        while(itr.hasNext()) {
+            Entity e = itr.next();
+            if(e.isRemoved()) {
+                itr.remove();
+                continue;
+            }
+
             e.update(container, game, delta);
 
             if(e instanceof Sprite) {
@@ -91,30 +98,11 @@ public class GameState extends BasicGameState {
                     newEntities.addAll(nextAction.invoke());
                 }
             }
-
-
-            if(e.isRemoved()) {
-                toBeRemoved.add(e);
-            }
         }
-
         entities.addAll(newEntities);
 
-        for(Entity e : toBeRemoved) {
-            entities.remove(e);
-            if(e instanceof Sprite) {
-                Sprite sprite = (Sprite) e;
-                gameFactory.getPhysicsFactory().getWorld().remove(sprite.getBody());
-            }
-        }
-
         gameFactory.getPhysicsFactory().getWorld().update(delta);
-
         gameFactory.getCamera().update(container);
-
-        // calculate screen offset
-        //offsetX = player.getX() - (container.getWidth() / 2) + (player.getWidth() / 2);
-        //offsetX = getNormalized(container, offsetX);
     }
 
     @Override

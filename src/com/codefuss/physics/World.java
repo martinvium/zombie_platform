@@ -2,6 +2,7 @@ package com.codefuss.physics;
 
 import com.codefuss.Camera;
 import java.util.ArrayList;
+import java.util.Iterator;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -41,7 +42,15 @@ public class World {
     }
 
     public void update(int delta) {
-        for(Body body : bodies) {
+
+        Iterator<Body> it = bodies.iterator();
+        while(it.hasNext()) {
+            Body body = it.next();
+            if(body.isRemoved()) {
+                it.remove();
+                continue;
+            }
+
             float oldX = body.getX();
             float oldY = body.getY();
 

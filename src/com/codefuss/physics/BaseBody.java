@@ -14,6 +14,7 @@ abstract public class BaseBody implements Body {
     Entity entity;
     float density = DENSITY_NORMAL;
     float friction = 0.001f;
+    private boolean removed = false;
     
     CollisionListener collisionListener;
     FrictionListener frictionListener;
@@ -119,5 +120,15 @@ abstract public class BaseBody implements Body {
     @Override
     public void setFrictionListener(FrictionListener listener) {
         frictionListener = listener;
+    }
+
+    @Override
+    public void remove() {
+        removed = true;
+    }
+
+    @Override
+    public boolean isRemoved() {
+        return removed;
     }
 }

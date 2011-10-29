@@ -13,10 +13,8 @@ import com.codefuss.entities.Creature;
 import com.codefuss.entities.Player;
 import com.codefuss.entities.Sprite.Direction;
 import com.codefuss.physics.Body;
-import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.Log;
 
 /**
  *
@@ -29,12 +27,7 @@ public class SimpleBehaviour implements Behaviour {
     Attack attack;
 
     Creature entity;
-
-    Action nextMove;
-    Action nextAttack;
-
-    ArrayList<Action> actions = new ArrayList<Action>();
-
+    Action nextAction;
     State state = State.NORMAL_IDLE;
 
     float timeSinceDecision = 0;
@@ -69,7 +62,6 @@ public class SimpleBehaviour implements Behaviour {
         left = new MoveLeft(entity);
         right = new MoveRight(entity);
         attack = new Attack(entity);
-        nextMove = left;
     }
 
     @Override
@@ -89,15 +81,7 @@ public class SimpleBehaviour implements Behaviour {
             setState(State.DECISION_READY);
         }
 
-        if(state == State.BATTLE_ATTACK) {
-            timeSinceLastAttack -= attackTimeout;
-            if(timeSinceLastAttack > attackTimeout) {
-                timeSinceLastAttack = 0;
-                nextAttack = attack;
-            } else {
-                nextAttack = null;
-            }
-        } else if(state == State.DECISION_READY) {
+        if(state == State.DECISION_READY) {
             timeSinceDecision = 0;
             if(canSee(gameState.getPlayer())) {
                 setState(State.NORMAL_CHASE);
@@ -105,6 +89,22 @@ public class SimpleBehaviour implements Behaviour {
                 setState(State.NORMAL_IDLE); // todo randomly patrol
             }
         }
+
+        if(state == State.BATTLE_ATTACK) {
+            timeSinceLastAttack -= attackTimeout;
+            if(timeSinceLastAttack > attackTimeout) {
+                timeSinceLastAttack = 0;
+                nextAction = attack;
+            }
+        } else if(state == State.NORMAL_CHASE) {
+            nextAction = (entity.getX() > gameState.getPlayer().getX() ? left : right);
+        } else if(state == State.NORMAL_PATROL) {
+            nextAction = getDirectionMoveAction();
+        }
+    }
+
+    private Action getDirectionMoveAction() {
+        return (entity.getDirection() == Direction.LEFT ? left : right);
     }
 
     private boolean canSee(Creature player) {
@@ -113,34 +113,17 @@ public class SimpleBehaviour implements Behaviour {
 
     @Override
     public Action nextAction(Creature player) {
-        if(state == State.BATTLE_ATTACK) {
-            return nextAttack;
-        } else if(state == State.NORMAL_CHASE) {
-            nextMove = (entity.getX() > player.getX() ? left : right);
-            return nextMove;
-        }
-        
-        if(state == State.NORMAL_PATROL) {
-            return nextMove;
-        } else if(state == State.NORMAL_IDLE) {
-            return null;
-        }
-
-        throw new RuntimeException("unhandled state: " + state);
+        Action ret = nextAction;
+        nextAction = null;
+        return ret;
     }
 
     @Override
     public void collideHorizontal(Body collided) {
-        if(state == State.NORMAL_PATROL) {
-            if(entity.getDirection() == Direction.LEFT) {
-                nextMove = right;
-            } else {
-                nextMove = left;
-            }
-        }
-
         if(collided.getEntity() instanceof Player) {
             setState(State.BATTLE_ATTACK);
+        } else if(state == State.NORMAL_PATROL) {
+            entity.reverseDirection();
         }
     }
 

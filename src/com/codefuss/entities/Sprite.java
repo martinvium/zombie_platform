@@ -95,6 +95,14 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
         return direction;
     }
 
+    public void reverseDirection() {
+        if(direction == Direction.LEFT) {
+            direction = Direction.RIGHT;
+        } else {
+            direction = Direction.LEFT;
+        }
+    }
+
     public void addStateAnimation(StateAnimation stateAni) {
         stateAnimations.put(stateAni.getState(), stateAni);
     }

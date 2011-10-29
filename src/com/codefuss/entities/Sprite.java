@@ -106,6 +106,8 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
         } else {
             direction = Direction.LEFT;
         }
+
+        Log.debug("reverse direction: " + direction);
     }
 
     public void addStateAnimation(StateAnimation stateAni) {
@@ -131,6 +133,7 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
     @Override
     public void setState(State state) {
         if (this.state != state) {
+            Log.debug("state: " + state);
             this.state = state;
             stateTime = 0;
         }

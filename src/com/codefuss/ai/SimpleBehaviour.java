@@ -36,7 +36,7 @@ public class SimpleBehaviour implements Behaviour {
     float decisionTime = 500;
     float normalStateTimeout = 500;
     float attackTimeout = 3000;
-    int viewingDistance = 400;
+    int aggresionDistance = 400;
 
     public enum State {
         DECISION_READY,
@@ -108,7 +108,7 @@ public class SimpleBehaviour implements Behaviour {
     }
 
     private boolean canSee(Creature player) {
-        return (Math.abs(entity.getX() - player.getX()) < viewingDistance);
+        return (Math.abs(entity.getX() - player.getX()) < aggresionDistance);
     }
 
     @Override

@@ -1,8 +1,10 @@
 package com.codefuss.factories;
 
+import java.util.HashMap;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.util.Log;
 
 /**
  *
@@ -11,6 +13,8 @@ import org.newdawn.slick.SlickException;
 public class AnimationFactory {
 
     String spritesPath = "assets/sprites/";
+    private HashMap<String, Image> imageMap = new HashMap<String, Image>();
+    private HashMap<String, Image> flippedImageMap = new HashMap<String, Image>();
 
     public Animation getBoxAnimation() {
         Animation ani = getAnimation(new Image[] {
@@ -87,15 +91,36 @@ public class AnimationFactory {
         };
     }
 
+    public Animation getZombieIdleAnimationLeft() {
+        Animation ani = getAnimation(getZombieIdleImages(), 200);
+        return ani;
+    }
+
+    public Animation getZombieIdleAnimationRight() {
+        Animation ani = getAnimation(getFlippedCopies(getZombieIdleImages()), 200);
+        return ani;
+    }
+
+    public Image[] getZombieIdleImages() {
+        return new Image[] {
+            loadImage("zombie/attack/jared0174"),
+            loadImage("zombie/attack/jared0175"),
+            loadImage("zombie/attack/jared0176"),
+            loadImage("zombie/attack/jared0177"),
+            loadImage("zombie/attack/jared0178"),
+            loadImage("zombie/attack/jared0177"),
+            loadImage("zombie/attack/jared0176"),
+            loadImage("zombie/attack/jared0175")
+        };
+    }
+
     public Animation getZombieAttackAnimationLeft() {
         Animation ani = getAnimation(getZombieAttackImages(), 70);
-        ani.setLooping(false);
         return ani;
     }
 
     public Animation getZombieAttackAnimationRight() {
         Animation ani = getAnimation(getFlippedCopies(getZombieAttackImages()), 70);
-        ani.setLooping(false);
         return ani;
     }
 
@@ -278,26 +303,42 @@ public class AnimationFactory {
     public Image[] getFlippedCopies(Image[] images) {
         Image[] flippedImages = new Image[images.length];
         for(int i = 0; i < images.length; i++) {
-            flippedImages[i] = images[i].getFlippedCopy(true, false);
+            Image flippedImage;
+            boolean isCachable = images[i].getResourceReference() != null;
+            if(isCachable && flippedImageMap.containsKey(images[i].getResourceReference())) {
+                flippedImage = flippedImageMap.get(images[i].getResourceReference());
+            } else {
+                flippedImage = images[i].getFlippedCopy(true, false);
+                if(isCachable) {
+                    flippedImageMap.put(images[i].getResourceReference(), flippedImage);
+                }
+            }
+
+            flippedImages[i] = flippedImage;
         }
         return flippedImages;
     }
 
     Image loadImage(String name) {
+        String path = spritesPath + name + ".png";
+        if(imageMap.containsKey(path)) {
+            return imageMap.get(path);
+        }
+
         Image image;
         try {
-            image = new Image(spritesPath + name + ".png");
+            image = new Image(path);
+            imageMap.put(path, image);
             return image;
         } catch(SlickException ex) {
-            return null;
+            Log.error("failed to load image: " + path);
+            return loadErrorFallbackImage();
         }
     }
 
-    Image loadImageRaw(String name) {
-        Image image;
+    private Image loadErrorFallbackImage() {
         try {
-            image = new Image(name + ".png");
-            return image;
+            return new Image(0, 0);
         } catch(SlickException ex) {
             return null;
         }

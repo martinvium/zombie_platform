@@ -10,27 +10,35 @@ import org.newdawn.slick.util.Log;
  */
 public class Ammo extends Sprite {
 
+    private int minDamage = 0;
+    private int maxDamage = 0;
+
     public Ammo(Vector2f position, Body body) {
         super(position, body);
+    }
+
+    public void setDamageRange(int min, int max) {
+        this.minDamage = min;
+        this.maxDamage = max;
     }
 
     @Override
     public void collideVertical(Body collided) {
         super.collideHorizontal(collided);
-        if(collided.getEntity() instanceof Sprite) {
-            removed = true;
-            Sprite sprite = (Sprite)collided.getEntity();
-            sprite.kill();
-        }
+        applyCollisionDamage(collided);
     }
 
     @Override
     public void collideHorizontal(Body collided) {
         super.collideHorizontal(collided);
+        applyCollisionDamage(collided);
+    }
+    
+    private void applyCollisionDamage(Body collided) {
         if(collided.getEntity() instanceof Sprite) {
             removed = true;
             Sprite sprite = (Sprite)collided.getEntity();
-            sprite.kill();
+            sprite.applyHealth(-(int) (minDamage + Math.random() * (maxDamage - minDamage)));
         }
     }
 }

@@ -25,21 +25,19 @@ import org.newdawn.slick.util.Log;
  */
 abstract public class Sprite implements Entity, CollisionListener, FrictionListener {
 
-    Animation currentAnimation;
-    Vector2f position;
+    private Animation currentAnimation;
+    private Vector2f position;
+    private float speedX = 0.25f;
+    private float speedY;
+    private Body body;
+    private State state = State.NORMAL;
+    private long stateTime;
+    private EnumMap<State, StateAnimation> stateAnimations = new EnumMap<State, StateAnimation>(State.class);
+    private int maxHealth = 1;
+    private int health = 1;
 
-    float speedX = 0.25f;
-    float speedY;
-    Body body;
-
-    State state = State.NORMAL;
-    long stateTime;
-    Direction direction = Direction.RIGHT;
-
-    EnumMap<State, StateAnimation> stateAnimations = new EnumMap<State, StateAnimation>(State.class);
-
+    protected Direction direction = Direction.RIGHT;
     protected boolean removed = false;
-
     protected Behaviour behaviour;
 
     public enum Direction {
@@ -53,6 +51,25 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
         this.body.setFrictionListener(this); // FIXME
         this.body.setEntity(this); // FIXME
         behaviour = new NullBehaviour();
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void applyHealth(int health) {
+        this.health += health;
+
+        if(this.health > maxHealth) {
+            this.health = maxHealth;
+        }
+
+        Log.debug("applied health: " + health + " => " + this.health);
+    }
+
+    public void setMaxHealth(int health) {
+        maxHealth = health;
+        this.health = health;
     }
 
     public void setBehaviour(Behaviour behaviour) {
@@ -147,6 +164,10 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
+        if(health <= 0) {
+            kill();
+        }
+
         if(body.getVelocityX() < 0) {
             direction = Direction.LEFT;
         } else if(body.getVelocityX() > 0) {

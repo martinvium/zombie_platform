@@ -24,12 +24,10 @@ public class Box extends Sprite {
     @Override
     public void collideHorizontal(Body collided) {
         super.collideHorizontal(collided);
-        if(body.getX() > getX()) {
+        if(getBody().getX() > getX()) {
             setVelocityX(-0.1f);
         } else {
             setVelocityX(0.1f);
         }
     }
-
-
 }

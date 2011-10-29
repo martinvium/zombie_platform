@@ -58,6 +58,7 @@ public class EntityFactory {
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
         Log.debug("add player at: " + position.toString());
         Player player = new Player(ammoFactory, position, body);
+        player.setMaxHealth(50);
         player.setSpeedX(0.35f);
         player.setSpeedY(DEFAULT_JUMP_SPEED);
         player.addStateAnimation(new StateAnimation(spriteFactory.getPlayerIdleAnimationLeft(),
@@ -86,6 +87,7 @@ public class EntityFactory {
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
         
         Zombie zombie = new Zombie(ammoFactory, position, body);
+        zombie.setMaxHealth(10);
         zombie.setSpeedX(0.08f);
         zombie.setSpeedY(DEFAULT_JUMP_SPEED);
         zombie.setBehaviour(behaviourFactory.getZombieBehavour(zombie));

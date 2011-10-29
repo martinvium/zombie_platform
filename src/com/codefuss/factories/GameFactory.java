@@ -32,6 +32,7 @@ public class GameFactory {
     BehaviourFactory behaviourFactory;
     AmmoFactory ammoFactory;
     Camera camera;
+    ComponentFactory componentFactory;
 
     Input input;
 
@@ -65,7 +66,7 @@ public class GameFactory {
 
     public EntityFactory getEntityFactory() {
         if(entityFactory == null) {
-            entityFactory = new EntityFactory(getSpriteFactory(), getPhysicsFactory(), getBehaviourFactory(), getAmmoFactory());
+            entityFactory = new EntityFactory(getSpriteFactory(), getPhysicsFactory(), getBehaviourFactory(), getAmmoFactory(), getComponentFactory());
         }
         return entityFactory;
     }
@@ -118,5 +119,13 @@ public class GameFactory {
         }
 
         return camera;
+    }
+
+    public ComponentFactory getComponentFactory() {
+        if(componentFactory == null) {
+            componentFactory = new ComponentFactory();
+        }
+
+        return componentFactory;
     }
 }

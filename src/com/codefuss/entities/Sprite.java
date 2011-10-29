@@ -62,6 +62,8 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
 
         if(this.health > maxHealth) {
             this.health = maxHealth;
+        } else if(this.health < 0) {
+            this.health = 0;
         }
 
         Log.debug("applied health: " + health + " => " + this.health);
@@ -70,6 +72,10 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
     public void setMaxHealth(int health) {
         maxHealth = health;
         this.health = health;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
     }
 
     public void setBehaviour(Behaviour behaviour) {
@@ -148,6 +154,10 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
 
     public float getX() {
         return body.getX();
+    }
+
+    public float getCenterX() {
+        return body.getShape().getCenterX();
     }
 
     public float getY() {

@@ -28,13 +28,15 @@ public class EntityFactory {
     PhysicsFactory physicsFactory;
     BehaviourFactory behaviourFactory;
     AmmoFactory ammoFactory;
+    ComponentFactory componentFactory;
 
     public EntityFactory(AnimationFactory spriteFactory, PhysicsFactory physicsFactory, 
-            BehaviourFactory behaviourFactory, AmmoFactory ammoFactory) {
+            BehaviourFactory behaviourFactory, AmmoFactory ammoFactory, ComponentFactory componentFactory) {
         this.spriteFactory = spriteFactory;
         this.physicsFactory = physicsFactory;
         this.behaviourFactory = behaviourFactory;
         this.ammoFactory = ammoFactory;
+        this.componentFactory = componentFactory;
     }
 
     public Block getBlocker(Vector2f position, int width, int height) {
@@ -56,17 +58,20 @@ public class EntityFactory {
         position.y = -20;
         Animation aniLeft = spriteFactory.getPlayerWalkAnimationLeft();
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
-        Log.debug("add player at: " + position.toString());
+
         Player player = new Player(ammoFactory, position, body);
         player.setMaxHealth(50);
         player.setSpeedX(0.35f);
         player.setSpeedY(DEFAULT_JUMP_SPEED);
+        player.setHealthBar(componentFactory.getHealthBar());
+
         player.addStateAnimation(new StateAnimation(spriteFactory.getPlayerIdleAnimationLeft(),
                 spriteFactory.getPlayerIdleAnimationRight(), Sprite.State.NORMAL, 0));
         player.addStateAnimation(new StateAnimation(aniLeft,
                 spriteFactory.getPlayerWalkAnimationRight(), Sprite.State.WALKING, 0));
         player.addStateAnimation(new StateAnimation(spriteFactory.getPlayerShootAnimationLeft(),
                 spriteFactory.getPlayerShootAnimationRight(), Sprite.State.ATTACKING, 600));
+
         return player;
     }
 
@@ -91,6 +96,7 @@ public class EntityFactory {
         zombie.setSpeedX(0.08f);
         zombie.setSpeedY(DEFAULT_JUMP_SPEED);
         zombie.setBehaviour(behaviourFactory.getZombieBehavour(zombie));
+        zombie.setHealthBar(componentFactory.getHealthBar());
 
         zombie.addStateAnimation(new StateAnimation(aniLeft,
                 spriteFactory.getZombieWalkAnimationRight(), Sprite.State.NORMAL, 0));

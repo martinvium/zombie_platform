@@ -25,7 +25,6 @@ public class Jump extends BaseAction {
     @Override
     public Collection<Entity> invoke() {
         if(creature.getVelocityY() == 0f) {
-            creature.setState(Sprite.State.NORMAL);
             creature.setVelocityY(-creature.getSpeedY());
         }
         

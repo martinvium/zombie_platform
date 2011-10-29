@@ -10,10 +10,11 @@ import com.codefuss.actions.Attack;
 import com.codefuss.actions.MoveLeft;
 import com.codefuss.actions.MoveRight;
 import com.codefuss.entities.Creature;
-import com.codefuss.entities.Player;
 import com.codefuss.entities.Sprite.Direction;
 import com.codefuss.physics.Body;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.Log;
 
@@ -34,10 +35,11 @@ public class SimpleBehaviour implements Behaviour {
     float timeSinceDecision = 0;
     float timeInState = 0;
     float timeSinceLastAttack = 0;
-    float decisionTime = 500;
+    float decisionTime = 3000;
     float normalStateTimeout = 500;
-    float attackTimeout = 1500;
-    int aggresionDistance = 400;
+    float attackTimeout = 2000;
+    int aggresionDistance = 300;
+    int touchDistance = 50;
 
     public enum State {
         DECISION_READY,
@@ -53,7 +55,6 @@ public class SimpleBehaviour implements Behaviour {
 
     public void setState(State state) {
         if(state != this.state) {
-            Log.debug("ai state: " + state);
             this.state = state;
             timeInState = 0;
         }
@@ -71,7 +72,7 @@ public class SimpleBehaviour implements Behaviour {
         timeSinceDecision += delta;
         timeInState += delta;
         timeSinceLastAttack += delta;
-
+        
         GameState gameState = (GameState) game.getCurrentState();
 
         boolean isNormal = (state == State.NORMAL_IDLE || state == State.NORMAL_PATROL);
@@ -79,23 +80,31 @@ public class SimpleBehaviour implements Behaviour {
             setState(State.DECISION_READY);
         } else if(timeSinceDecision >= decisionTime) {
             setState(State.DECISION_READY);
-        } else if(entity.getVelocityX() == 0) {
-            setState(State.DECISION_READY);
         }
 
         if(state == State.DECISION_READY) {
             timeSinceDecision = 0;
-            if(canSee(gameState.getPlayer())) {
+            if(canTouch(gameState.getPlayer())) {
+                setState(State.BATTLE_ATTACK);
+            } else if(canSee(gameState.getPlayer())) {
                 setState(State.NORMAL_CHASE);
             } else {
-                setState(State.NORMAL_IDLE); // todo randomly patrol
+                if(Math.random() > 0.9f) {
+                    setState(State.NORMAL_IDLE);
+                } else {
+                    if(Math.random() > 0.8f) {
+                        entity.reverseDirection();
+                    }
+
+                    setState(State.NORMAL_PATROL);
+                }
             }
         }
 
         if(state == State.BATTLE_ATTACK) {
             if(timeSinceLastAttack > attackTimeout) {
                 Log.debug("attack!");
-                timeSinceLastAttack -= attackTimeout;
+                timeSinceLastAttack = 0;
                 nextAction = attack;
             }
         } else if(state == State.NORMAL_CHASE) {
@@ -105,12 +114,32 @@ public class SimpleBehaviour implements Behaviour {
         }
     }
 
+    private boolean canTouch(Creature player) {
+        if(player.isAlive()) {
+            return testDistance(player, touchDistance);
+        } else {
+            return false;
+        }
+    }
+
+    private boolean canSee(Creature player) {
+        if(player.isAlive()) {
+            return testDistance(player, aggresionDistance);
+        } else {
+            return false;
+        }
+    }
+
     private Action getDirectionMoveAction() {
         return (entity.getDirection() == Direction.LEFT ? left : right);
     }
 
-    private boolean canSee(Creature player) {
-        return (Math.abs(entity.getX() - player.getX()) < aggresionDistance);
+    private boolean testDistance(Creature player, int distance) {
+        if(player.getX() < entity.getX()) {
+            return entity.getX() - (player.getX() + player.getWidth()) < distance;
+        } else {
+            return player.getX() - (entity.getX() + entity.getWidth()) < distance;
+        }
     }
 
     @Override
@@ -122,9 +151,7 @@ public class SimpleBehaviour implements Behaviour {
 
     @Override
     public void collideHorizontal(Body collided) {
-        if(collided.getEntity() instanceof Player) {
-            setState(State.BATTLE_ATTACK);
-        } else if(state == State.NORMAL_PATROL) {
+        if(state == State.NORMAL_PATROL) {
             entity.reverseDirection();
         }
     }

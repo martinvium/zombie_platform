@@ -116,11 +116,13 @@ public class AnimationFactory {
 
     public Animation getZombieAttackAnimationLeft() {
         Animation ani = getAnimation(getZombieAttackImages(), 70);
+        ani.setLooping(false);
         return ani;
     }
 
     public Animation getZombieAttackAnimationRight() {
         Animation ani = getAnimation(getFlippedCopies(getZombieAttackImages()), 70);
+        ani.setLooping(false);
         return ani;
     }
 

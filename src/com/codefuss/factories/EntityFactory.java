@@ -88,7 +88,7 @@ public class EntityFactory {
 
     public Entity getZombie(Vector2f position) {
         position.y = -20;
-        Animation aniLeft = spriteFactory.getZombieWalkAnimationLeft();
+        Animation aniLeft = spriteFactory.getZombieIdleAnimationLeft();
         Body body = physicsFactory.getDynamicBox(position.x, position.y, aniLeft.getWidth() / 2, aniLeft.getHeight());
         
         Zombie zombie = new Zombie(ammoFactory, position, body);
@@ -99,13 +99,13 @@ public class EntityFactory {
         zombie.setHealthBar(componentFactory.getHealthBar());
 
         zombie.addStateAnimation(new StateAnimation(aniLeft,
-                spriteFactory.getZombieWalkAnimationRight(), Sprite.State.NORMAL, 0));
+                spriteFactory.getZombieIdleAnimationRight(), Sprite.State.NORMAL, 0));
         zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieWalkAnimationLeft(),
                 spriteFactory.getZombieWalkAnimationRight(), Sprite.State.WALKING, 0));
         zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieDeadAnimationLeft(),
                 spriteFactory.getZombieDeadAnimationRight(), Entity.State.DEAD, 0));
         zombie.addStateAnimation(new StateAnimation(spriteFactory.getZombieAttackAnimationLeft(),
-                spriteFactory.getZombieAttackAnimationRight(), Entity.State.ATTACKING, 500));
+                spriteFactory.getZombieAttackAnimationRight(), Entity.State.ATTACKING, 1000));
         
         return zombie;
     }

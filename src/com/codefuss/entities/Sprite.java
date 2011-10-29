@@ -69,6 +69,10 @@ abstract public class Sprite implements Entity, CollisionListener, FrictionListe
         Log.debug("applied health: " + health + " => " + this.health);
     }
 
+    public boolean isAlive() {
+        return getHealth() > 0;
+    }
+
     public void setMaxHealth(int health) {
         maxHealth = health;
         this.health = health;
